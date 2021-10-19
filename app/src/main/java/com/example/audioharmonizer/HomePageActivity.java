@@ -44,7 +44,7 @@ public class HomePageActivity extends AppCompatActivity {
                 // to the Android system defining the components you are targeting.
                 // Intent to start an activity called ThirdActivity with the following code:
 
-                Intent intent = new Intent(HomePageActivity.this, ModeOfOperationActivity.class);
+                Intent intent = new Intent(HomePageActivity.this, InitialInputActivity.class);
 //
 //                // start the activity connect to the specified class
                 startActivity(intent);

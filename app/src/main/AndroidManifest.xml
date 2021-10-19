@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AudioHarmonizer">
         <activity
+            android:name=".InitialInputActivity"
+            android:exported="true" />
+        <activity
             android:name=".ManualActivity"
             android:exported="true" />
         <activity
