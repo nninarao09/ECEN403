@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">AudioHarmonizer</string>
+    
+    <string-array name="chord_progressions">
+        <item textColor="@color/white">A</item>
+        <item>B</item>
+        <item>C</item>
+        <item>D</item>
+    </string-array>
+
+    <string-array name="number_of_harmonies">
+        <item>D</item>
+        <item>E</item>
+        <item>C</item>
+        <item>D</item>
+    </string-array>
 </resources>
