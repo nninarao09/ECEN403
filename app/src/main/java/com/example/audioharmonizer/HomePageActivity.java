@@ -23,15 +23,11 @@ public class HomePageActivity extends AppCompatActivity {
         // by ID we can use each component which id is assign in xml file
         // use findViewById() to get the both Button and textview
 
-        next_button = (Button)findViewById(R.id.second_activity_next_button);
-        question2 = (TextView)findViewById(R.id.question2_id);
+        next_button = (Button)findViewById(R.id.get_started);
+
 
         // In question1 get the TextView use by findViewById()
         // In TextView set question Answer for message
-
-        question2.setText("Welcome to the Audio Harmonizer Homepage\n" +
-                          "Please click next to continue to the next page"
-                         );
 
         // Add_button add clicklistener
         next_button.setOnClickListener(new View.OnClickListener() {
