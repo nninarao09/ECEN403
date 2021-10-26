@@ -14,4 +14,18 @@
         <item>C</item>
         <item>D</item>
     </string-array>
+
+    <string-array name="notes">
+        <item>D</item>
+        <item>E</item>
+        <item>C</item>
+        <item>D</item>
+    </string-array>
+
+    <string-array name="length">
+        <item>D</item>
+        <item>E</item>
+        <item>C</item>
+        <item>D</item>
+    </string-array>
 </resources>

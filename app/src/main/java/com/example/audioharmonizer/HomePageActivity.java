@@ -24,7 +24,6 @@ public class HomePageActivity extends AppCompatActivity {
         // use findViewById() to get the both Button and textview
 
         next_button = (Button)findViewById(R.id.second_activity_next_button);
-        previous_button = (Button)findViewById(R.id.second_activity_previous_button);
         question2 = (TextView)findViewById(R.id.question2_id);
 
         // In question1 get the TextView use by findViewById()
@@ -52,21 +51,7 @@ public class HomePageActivity extends AppCompatActivity {
         });
 
         // Add_button add clicklistener
-        previous_button.setOnClickListener(new View.OnClickListener() {
 
-            public void onClick(View v)
-            {
-
-                // Intents are objects of the android.content.Intent type. Your code can send them
-                // to the Android system defining the components you are targeting.
-                // Intent to start an activity called oneActivity with the following code:
-
-                Intent intent = new Intent(HomePageActivity.this, BluetoothActivity.class);
-
-                // start the activity connect to the specified class
-                startActivity(intent);
-            }
-        });
     }
 }
 
