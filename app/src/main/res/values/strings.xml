@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">AudioHarmonizer</string>
-    
+    <!--to toggle the open close button
+           of the navigation drawer-->
+    <string name="nav_open">Open</string>
+    <string name="nav_close">Close</string>
+
     <string-array name="chord_progressions">
         <item textColor="@color/white">A</item>
         <item>B</item>

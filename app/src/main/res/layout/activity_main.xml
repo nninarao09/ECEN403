@@ -1,14 +1,16 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
     android:background="#090909"
     tools:context=".BluetoothActivity"
     tools:layout_editor_absoluteY="81dp">
 
     <TextView
-        android:id="@+id/question1_id"
+        android:id="@+id/statusBluetoothTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
@@ -17,18 +19,63 @@
         android:textColor="@android:color/background_dark"
         android:textStyle="bold" />
 
+    <ImageView
+        android:id="@+id/bluetoothIv"
+        android:layout_width="100dp"
+        android:layout_height="100dp" />
+
+    <!-- ON Button -->
+    <Button
+        android:id="@+id/onBtn"
+        android:minWidth="200dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TURN ON"/>
+
+    <!-- off Button -->
+    <Button
+        android:id="@+id/offBtn"
+        android:minWidth="200dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TURN off"/>
+
+    <!-- discoverable Button -->
+    <Button
+        android:id="@+id/discoverableBtn"
+        android:minWidth="200dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Discoverable"/>
+
+    <!-- Get list of paired devices Button -->
+    <Button
+        android:id="@+id/pairedBtn"
+        android:minWidth="200dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Paired Devices"/>
+
+
+    <!-- Show paired devices Button -->
+    <TextView
+        android:id="@+id/pairedTv"
+        android:minWidth="200dp"
+        android:text=""
+        android:textColor="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <!-- add button after click this we can goto another activity-->
     <Button
         android:id="@+id/first_activity_button"
-        android:layout_width="280dp"
+        android:minWidth="200dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_marginLeft="90dp"
-        android:layout_marginTop="200dp"
         android:backgroundTint="#1A74E2"
         android:text="Connect to a Device"
         android:textColor="@color/white"
         android:textSize="15sp"
         android:textStyle="bold" />
 
-</RelativeLayout>
+</LinearLayout>
