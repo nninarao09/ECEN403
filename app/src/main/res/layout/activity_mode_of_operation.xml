@@ -1,17 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#121111"
+    android:id="@+id/my_drawer_layout_modes_of_operation"
     tools:context=".ModeOfOperationActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/text1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="132dp"
+            android:text="Please select between the 2 Modes of Operation"
+            android:textColor="#EDE7E7"
+            app:layout_constraintBottom_toTopOf="@+id/automatic_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.263" />
 
     <Button
         android:id="@+id/manual_button"
         android:layout_width="188dp"
         android:layout_height="83dp"
-        android:layout_marginBottom="208dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
         android:backgroundTint="#1A74E2"
         android:text="Manual"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -31,16 +53,13 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/text1"
+    </LinearLayout>
+
+    <com.google.android.material.navigation.NavigationView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="132dp"
-        android:text="Please select between the 2 Modes of Operation"
-        android:textColor="#EDE7E7"
-        app:layout_constraintBottom_toTopOf="@+id/automatic_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.263" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:menu="@menu/navigation_menu" />
+
+
+</androidx.drawerlayout.widget.DrawerLayout>

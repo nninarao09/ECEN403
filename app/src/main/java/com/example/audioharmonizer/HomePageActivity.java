@@ -4,7 +4,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
 
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -26,8 +32,8 @@ public class HomePageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_message);
 
-        //**********************NavBar stuff**********************************
-        drawerLayout = findViewById(R.id.my_drawer_layout);
+        //**********************NavBar Functionality**********************************
+        drawerLayout = findViewById(R.id.my_drawer_layout_home_page);
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.nav_open, R.string.nav_close);
 
         // pass the Open and Close toggle for the drawer layout listener
@@ -68,5 +74,13 @@ public class HomePageActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        NavController navController = Navigation.findNavController(this, R.id.nav_home);
+//        return NavigationUI.onNavDestinationSelected(item, navController)
+//                || super.onOptionsItemSelected(item);
+//    }
+
 }
 

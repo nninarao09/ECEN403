@@ -1,62 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#0C0C0C"
+    android:id="@+id/my_drawer_layout_initial_inputs"
     tools:context=".InitialInputActivity">
 
-    <EditText
-        android:id="@+id/name_of_song"
-        android:layout_width="271dp"
-        android:layout_height="58dp"
-        android:layout_marginBottom="276dp"
-        android:backgroundTint="#E4E1E1"
-        android:hint="Name of Song"
-        android:textColor="#F4F1F1"
-        android:textColorHint="#F4F0F0"
-        app:layout_constraintBottom_toTopOf="@+id/start_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
 
-    <EditText
-        android:id="@+id/beats_per_measure"
-        android:layout_width="271dp"
-        android:layout_height="58dp"
-        android:layout_marginBottom="88dp"
-        android:backgroundTint="#E4E1E1"
-        android:hint="Beats Per Measure"
-        android:textColor="#F4F1F1"
-        android:textColorHint="#F4F0F0"
-        app:layout_constraintBottom_toTopOf="@+id/start_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="83dp"
+            android:text="Please fill out the initial inputs"
+            android:textColor="#F3EFEF" />
 
-    <EditText
-        android:id="@+id/beats_per_minute"
-        android:layout_width="271dp"
-        android:layout_height="58dp"
-        android:layout_marginBottom="180dp"
-        android:backgroundTint="#D8CFCF"
-        android:hint="Beats Per Minute"
-        android:textColor="#F4F3F3"
-        android:textColorHint="#F4ECEC"
-        app:layout_constraintBottom_toTopOf="@+id/start_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        <EditText
+            android:id="@+id/name_of_song"
+            android:layout_width="match_parent"
+            android:layout_height="67dp"
+            android:backgroundTint="#E4E1E1"
+            android:hint="Name of Song"
+            android:textColor="#F4F1F1"
+            android:textColorHint="#F4F0F0"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/start_button"
-        android:layout_width="160dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="156dp"
-        android:backgroundTint="#1A74E2"
-        android:text="Start"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <EditText
+            android:id="@+id/beats_per_measure"
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:backgroundTint="#E4E1E1"
+            android:hint="Beats Per Measure"
+            android:textColor="#F4F1F1"
+            android:textColorHint="#F4F0F0" />
+
+        <EditText
+            android:id="@+id/beats_per_minute"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:backgroundTint="#D8CFCF"
+            android:hint="Beats Per Minute"
+            android:textColor="#F4F3F3"
+            android:textColorHint="#F4ECEC"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/start_button"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#1A74E2"
+            android:baselineAligned="false"
+            android:text="Start"
+            app:layout_constraintBottom_toBottomOf="@id/beats_per_minute"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+
+    </LinearLayout>
+
+    <com.google.android.material.navigation.NavigationView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:menu="@menu/navigation_menu" />
+
+</androidx.drawerlayout.widget.DrawerLayout>

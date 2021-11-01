@@ -5,7 +5,11 @@
 
     <item
         android:id="@+id/nav_home"
-        android:title="Home" />
+        android:title="Home"
+        android:name="com.example.android.audioharmonizer.HomePageActivity" />/>
+    <item
+        android:id="@+id/nav_initial_inputs"
+        android:title="Initial Inputs" />
     <item
         android:id="@+id/nav_automatic"
         android:title="Automatic Mode" />
