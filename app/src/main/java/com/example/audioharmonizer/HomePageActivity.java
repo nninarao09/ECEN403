@@ -26,6 +26,7 @@ public class HomePageActivity extends AppCompatActivity {
     public DrawerLayout drawerLayout;
     public ActionBarDrawerToggle actionBarDrawerToggle;
 
+    
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {

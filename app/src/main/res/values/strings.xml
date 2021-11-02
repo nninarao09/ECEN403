@@ -5,6 +5,13 @@
     <string name="nav_open">Open</string>
     <string name="nav_close">Close</string>
 
+    <string name="nav_home">Home</string>
+    <string name="nav_initial_inputs">Initial Inputs</string>
+    <string name="nav_automatic_mode">Automatic Mode</string>
+    <string name="nav_manual_mode">Manual Mode</string>
+
+
+
     <string-array name="chord_progressions">
         <item textColor="@color/white">A</item>
         <item>B</item>

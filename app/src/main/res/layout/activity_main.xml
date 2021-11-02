@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center_horizontal"
+    android:id="@+id/Bluetooth_Activity"
     android:background="#090909"
     tools:context=".BluetoothActivity"
     tools:layout_editor_absoluteY="81dp">
@@ -40,13 +41,6 @@
         android:layout_height="wrap_content"
         android:text="TURN off"/>
 
-    <!-- discoverable Button -->
-    <Button
-        android:id="@+id/discoverableBtn"
-        android:minWidth="200dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Discoverable"/>
 
     <!-- Get list of paired devices Button -->
     <Button
@@ -68,7 +62,7 @@
 
     <!-- add button after click this we can goto another activity-->
     <Button
-        android:id="@+id/first_activity_button"
+        android:id="@+id/connect_ESP_button"
         android:minWidth="200dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

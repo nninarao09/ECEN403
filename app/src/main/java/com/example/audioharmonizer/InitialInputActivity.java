@@ -3,7 +3,11 @@ package com.example.audioharmonizer;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.annotation.NonNull;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.NavigationUI;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,8 +17,8 @@ import android.widget.Button;
 
 public class InitialInputActivity extends AppCompatActivity {
 
-    public DrawerLayout drawerLayout_InitialInputs;
-    public ActionBarDrawerToggle actionBarDrawerToggle_InitialInputs;
+    public DrawerLayout drawerLayout_InitialInputs, drawerLayout_HomePage;
+    public ActionBarDrawerToggle actionBarDrawerToggle_InitialInputs, actionBarDrawerToggle_HomePage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +39,7 @@ public class InitialInputActivity extends AppCompatActivity {
 
         // to make the Navigation drawer icon always appear on the action bar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         //**********************************************************************
 
 
@@ -56,4 +61,29 @@ public class InitialInputActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+//        @Override
+//        public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+//            NavController navController = Navigation.findNavController(this, R.id.nav_initial_inputs);
+//            return NavigationUI.onNavDestinationSelected(item, navController)
+//                    || super.onOptionsItemSelected(item);
+//        }
+
+//    @Override
+//    public boolean onOptionsItemSelected(@NonNull MenuItem item){
+//        switch(item.getItemId()){
+//
+//            case R.id.nav_home:{
+//                break;
+//            }
+//
+//            case R.id.nav_initial_inputs:{
+//                break;
+//            }
+//        }
+//        item.setChecked(true);
+//        drawerLayout_InitialInputs.closeDrawer(GravityCompat.START);
+//        return true;
+//    }
+
 }
