@@ -8,6 +8,15 @@
     android:background="#121111"
     android:id="@+id/my_drawer_layout_home_page" >
 
+<!--    <androidx.fragment.app.FragmentContainerView-->
+<!--        android:layout_height="0dp"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:id="@+id/nav_host_fragment"-->
+<!--        android:name="androidx.navigation.fragment.NavHostFragment"-->
+<!--        app:defaultNavHost="true"-->
+<!--        app:navGraph="@navigation/nav_graph"-->
+
+<!--        />-->
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -27,14 +36,15 @@
             android:id="@+id/get_started"
             android:layout_width="189dp"
             android:layout_height="wrap_content"
-            android:backgroundTint="#1A74E2"
+            android:backgroundTint="#C673D5"
             android:text="Get Started"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="15sp"
             android:textStyle="bold" />
-
-
+        
     </LinearLayout>
+
+
 
     <com.google.android.material.navigation.NavigationView
         android:layout_width="wrap_content"

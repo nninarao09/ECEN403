@@ -28,27 +28,33 @@
     <!-- ON Button -->
     <Button
         android:id="@+id/onBtn"
-        android:minWidth="200dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TURN ON"/>
+        android:backgroundTint="#C673D5"
+        android:minWidth="200dp"
+        android:text="TURN ON"
+        android:textColor="#000000" />
 
     <!-- off Button -->
     <Button
         android:id="@+id/offBtn"
-        android:minWidth="200dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TURN off"/>
+        android:backgroundTint="#C673D5"
+        android:minWidth="200dp"
+        android:text="TURN off"
+        android:textColor="#020202" />
 
 
     <!-- Get list of paired devices Button -->
     <Button
         android:id="@+id/pairedBtn"
-        android:minWidth="200dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Paired Devices"/>
+        android:backgroundTint="#C673D5"
+        android:minWidth="200dp"
+        android:text="Paired Devices"
+        android:textColor="#050505" />
 
 
     <!-- Show paired devices Button -->
@@ -63,12 +69,12 @@
     <!-- add button after click this we can goto another activity-->
     <Button
         android:id="@+id/connect_ESP_button"
-        android:minWidth="200dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="#1A74E2"
+        android:backgroundTint="#C673D5"
+        android:minWidth="200dp"
         android:text="Connect to a Device"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="15sp"
         android:textStyle="bold" />
 

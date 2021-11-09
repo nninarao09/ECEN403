@@ -2,11 +2,16 @@ package com.example.audioharmonizer;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 
 public class ManualActivity extends AppCompatActivity {
+
+    Button manual_finish_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +32,17 @@ public class ManualActivity extends AppCompatActivity {
         myLengthAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         length_spinner.setAdapter(myLengthAdapter);
 
-    }
 
+        manual_finish_button = (Button)findViewById(R.id.finish_button);
+        manual_finish_button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v)
+            {
+
+                Intent intent = new Intent(ManualActivity.this, StartSingingActivity.class);
+
+                startActivity(intent);
+            }
+        });
+
+    }
 }

@@ -26,6 +26,7 @@ public class BluetoothActivity extends AppCompatActivity {
     TextView mStatusBlueTv, mPairedTv;
     ImageView mBlueIv;
     Button mOnBtn, mOffBtn, mPairedBtn, mConnectESP;
+    Boolean isConnected = false;
 
     BluetoothAdapter mBlueAdapter;
 
@@ -122,10 +123,18 @@ public class BluetoothActivity extends AppCompatActivity {
             public void onClick(View v)
             {
                 //if phone is connected to esp
-                if(true){
-                    Intent intent = new Intent(BluetoothActivity.this, HomePageActivity.class);
-                    startActivity(intent);
-                } else{
+                Set<BluetoothDevice> devices = mBlueAdapter.getBondedDevices();
+                for(BluetoothDevice device: devices){
+                    if(device.getName().equals("Blank2")){ //Change this name to DSP name
+                        Intent intent = new Intent(BluetoothActivity.this, HomePageActivity.class);
+                        startActivity(intent);
+                        isConnected = true;
+                    }
+                }
+//                if(true){
+//                    Intent intent = new Intent(BluetoothActivity.this, HomePageActivity.class);
+//                    startActivity(intent);
+                if(!isConnected){
                     showToast("Not Connected to the Audio Harmonizer, Please go to settings to connect");
                 }
 

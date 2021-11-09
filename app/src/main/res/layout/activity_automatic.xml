@@ -45,13 +45,14 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/automatic_finish_button"
         android:layout_width="150dp"
         android:layout_height="64dp"
         android:layout_marginStart="128dp"
         android:layout_marginBottom="164dp"
-        android:backgroundTint="#1A74E2"
+        android:backgroundTint="#C673D5"
         android:text="Finish"
+        android:textColor="#070707"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 

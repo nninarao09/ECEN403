@@ -3,6 +3,7 @@ package com.example.audioharmonizer;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -25,6 +26,8 @@ public class HomePageActivity extends AppCompatActivity {
     Button next_button;
     public DrawerLayout drawerLayout;
     public ActionBarDrawerToggle actionBarDrawerToggle;
+    //public AppBarConfiguration appBarConfiguration = AppBarConfiguration(setOf(R.id.nav_home, R.id.nav_initial_inputs));
+
 
     
     @Override
@@ -41,6 +44,8 @@ public class HomePageActivity extends AppCompatActivity {
         // to toggle the button
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
+
+
 
         // to make the Navigation drawer icon always appear on the action bar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -77,8 +82,45 @@ public class HomePageActivity extends AppCompatActivity {
     }
 
 //    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        NavController navController = Navigation.findNavController(this, R.id.nav_home);
+//    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+//
+//        switch(item.getItemId()){
+//
+//            case R.id.nav_home: {
+//                Navigation.findNavController(this, R.id.my_drawer_layout_home_page).navigate(R.id.HomePageActivityDestination);
+//                break;
+//            }
+//            case R.id.nav_initial_inputs: {
+//                Navigation.findNavController(this, R.id.my_drawer_layout_home_page).navigate(R.id.InitialInputActivityDestination);
+//                break;
+//            }
+//        }
+//        item.setChecked(true);
+//        drawerLayout.closeDrawer(GravityCompat.START);
+//        return true;
+//    }
+
+
+//    @Override
+//    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+//
+//        switch(item.getItemId()){
+//            case R.id.nav_home: {
+//                return true;
+//            }
+//
+//            case R.id.nav_initial_inputs: {
+//                return true;
+//            }
+//
+//            default:
+//                return super.onOptionsItemSelected(item);
+//        }
+//    }
+
+//    @Override
+//    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+//        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
 //        return NavigationUI.onNavDestinationSelected(item, navController)
 //                || super.onOptionsItemSelected(item);
 //    }
