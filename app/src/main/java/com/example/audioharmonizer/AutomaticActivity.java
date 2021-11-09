@@ -19,6 +19,10 @@ public class AutomaticActivity extends AppCompatActivity {
         setContentView(R.layout.activity_automatic);
 
         Spinner cp_spinner = (Spinner) findViewById(R.id.cp_spinner);
+        Spinner cp_spinner2 = (Spinner) findViewById(R.id.cp_spinner2);
+        Spinner cp_spinner3 = (Spinner) findViewById(R.id.cp_spinner3);
+        Spinner cp_spinner4 = (Spinner) findViewById(R.id.cp_spinner4);
+
         Spinner noh_spinner = (Spinner) findViewById(R.id.noh_spinner);
 
 
@@ -26,6 +30,21 @@ public class AutomaticActivity extends AppCompatActivity {
                 android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.chord_progressions));
         myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         cp_spinner.setAdapter(myAdapter);
+
+        ArrayAdapter<String> myAdapter2 = new ArrayAdapter<String>(AutomaticActivity.this,
+                android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.chord_progressions));
+        myAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        cp_spinner2.setAdapter(myAdapter2);
+
+        ArrayAdapter<String> myAdapter3 = new ArrayAdapter<String>(AutomaticActivity.this,
+                android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.chord_progressions));
+        myAdapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        cp_spinner3.setAdapter(myAdapter3);
+
+        ArrayAdapter<String> myAdapter4 = new ArrayAdapter<String>(AutomaticActivity.this,
+                android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.chord_progressions));
+        myAdapter4.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        cp_spinner4.setAdapter(myAdapter4);
 
         ArrayAdapter<String> myHarmonyAdapter = new ArrayAdapter<String>(AutomaticActivity.this,
                 android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.number_of_harmonies));

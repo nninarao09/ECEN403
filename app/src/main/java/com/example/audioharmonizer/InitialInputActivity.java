@@ -14,18 +14,30 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 public class InitialInputActivity extends AppCompatActivity {
 
     public DrawerLayout drawerLayout_InitialInputs, drawerLayout_HomePage;
     public ActionBarDrawerToggle actionBarDrawerToggle_InitialInputs, actionBarDrawerToggle_HomePage;
+    public String NameOfSong;
+    //public String BeatsPerMeasure;
+    //public String BeatsPerMinute;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_initial_input);
 
+        //accessing global variables
+        final GlobalClass globalVariable = (GlobalClass) getApplicationContext();
+
         Button start_button = (Button) findViewById(R.id.start_button);
+        EditText name_of_song = (EditText) findViewById(R.id.name_of_song);
+        EditText beats_per_measure = (EditText) findViewById(R.id.beats_per_measure);
+        EditText beats_per_minute = (EditText) findViewById(R.id.beats_per_minute);
+
 
 
         //**********************NavBar Functionality**********************************
@@ -47,6 +59,17 @@ public class InitialInputActivity extends AppCompatActivity {
         start_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v)
             {
+                //Save inputs in global variable to access in other files
+                //String test  = setNameOfSong(name_of_song.getText().toString());
+                //BeatsPerMeasure = beats_per_measure.getText().toString();
+                //BeatsPerMinute = beats_per_minute.getText().toString();
+
+                //sets Name of the song to what is in the edit text field
+                globalVariable.setNameOfSong(name_of_song.getText().toString());
+                //globalVariable.setBeatsPerMeasure(beats_per_measure.getText().toString());
+                //showToast(globalVariable.getNameOfSong());
+                //save above values to global array
+
                 Intent intent = new Intent(InitialInputActivity.this, ModeOfOperationActivity.class);
                 startActivity(intent);
             }
@@ -85,5 +108,9 @@ public class InitialInputActivity extends AppCompatActivity {
 //        drawerLayout_InitialInputs.closeDrawer(GravityCompat.START);
 //        return true;
 //    }
+
+    private void showToast(String msg){
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    }
 
 }

@@ -2,17 +2,16 @@ package com.example.audioharmonizer;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.bluetooth.BluetoothDevice;
-import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
-
-import java.util.Set;
+import android.widget.TextView;
 
 public class StartSingingActivity extends AppCompatActivity {
-
+    public int counter;
     Button start_singing_button;
+    TextView countDown_textview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,11 +20,20 @@ public class StartSingingActivity extends AppCompatActivity {
 
 
         start_singing_button = (Button)findViewById(R.id.start_singing_button);
+        countDown_textview= (TextView) findViewById(R.id.countDown_textview);
+
         start_singing_button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v){
-                //Start the countdown
-                //beats per minute - how many counts to show
-                //beats per measure - how fast to count down
+            @Override
+            public void onClick(View v) {
+                new CountDownTimer(10000, 5000){
+                    public void onTick(long millisUntilFinished){
+                        countDown_textview.setText(String.valueOf(counter));
+                        counter++;
+                    }
+                    public  void onFinish(){
+                        countDown_textview.setText("GO!!");
+                    }
+                }.start();
             }
         });
 

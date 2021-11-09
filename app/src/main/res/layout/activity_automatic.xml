@@ -8,10 +8,36 @@
     tools:context=".AutomaticActivity">
 
     <Spinner
+        android:id="@+id/cp_spinner3"
+        android:layout_width="118dp"
+        android:layout_height="69dp"
+        android:layout_marginTop="248dp"
+        android:backgroundTint="#F3EFEF"
+        android:popupBackground="@color/black"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.269"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/cp_spinner4"
+        android:layout_width="118dp"
+        android:layout_height="69dp"
+        android:layout_marginTop="248dp"
+        android:backgroundTint="#F3EFEF"
+        android:popupBackground="@color/black"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.761"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
         android:id="@+id/noh_spinner"
         android:layout_width="118dp"
         android:layout_height="69dp"
-        android:layout_marginTop="312dp"
+        android:layout_marginTop="420dp"
         android:backgroundTint="#F3EFEF"
         android:popupBackground="@color/black"
         android:textColor="@color/white"
@@ -37,7 +63,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
-        android:text="Number of Harmonies"
+        android:text="Number of Additional Harmonies"
         android:textColor="#FFFFFF"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/noh_spinner"
@@ -49,7 +75,7 @@
         android:layout_width="150dp"
         android:layout_height="64dp"
         android:layout_marginStart="128dp"
-        android:layout_marginBottom="164dp"
+        android:layout_marginBottom="120dp"
         android:backgroundTint="#C673D5"
         android:text="Finish"
         android:textColor="#070707"
@@ -60,12 +86,25 @@
         android:id="@+id/cp_spinner"
         android:layout_width="118dp"
         android:layout_height="69dp"
-        android:layout_marginTop="140dp"
+        android:layout_marginTop="148dp"
         android:backgroundTint="#F3EFEF"
         android:popupBackground="@color/black"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintHorizontal_bias="0.269"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/cp_spinner2"
+        android:layout_width="118dp"
+        android:layout_height="69dp"
+        android:layout_marginTop="148dp"
+        android:backgroundTint="#F3EFEF"
+        android:popupBackground="@color/black"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.761"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -39,7 +39,6 @@ public class ManualActivity extends AppCompatActivity {
             {
 
                 Intent intent = new Intent(ManualActivity.this, StartSingingActivity.class);
-
                 startActivity(intent);
             }
         });
