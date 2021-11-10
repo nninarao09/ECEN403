@@ -21,9 +21,7 @@ public class InitialInputActivity extends AppCompatActivity {
 
     public DrawerLayout drawerLayout_InitialInputs, drawerLayout_HomePage;
     public ActionBarDrawerToggle actionBarDrawerToggle_InitialInputs, actionBarDrawerToggle_HomePage;
-    public String NameOfSong;
-    //public String BeatsPerMeasure;
-    //public String BeatsPerMinute;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,16 +57,12 @@ public class InitialInputActivity extends AppCompatActivity {
         start_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v)
             {
-                //Save inputs in global variable to access in other files
-                //String test  = setNameOfSong(name_of_song.getText().toString());
-                //BeatsPerMeasure = beats_per_measure.getText().toString();
-                //BeatsPerMinute = beats_per_minute.getText().toString();
+                //Save inputs in global automatic array to access in other files
+                globalVariable.getAutomaticArray()[0] = name_of_song.getText().toString();
+                globalVariable.getAutomaticArray()[1] = beats_per_measure.getText().toString();
+                globalVariable.getAutomaticArray()[2] = beats_per_minute.getText().toString();
 
-                //sets Name of the song to what is in the edit text field
-                globalVariable.setNameOfSong(name_of_song.getText().toString());
-                //globalVariable.setBeatsPerMeasure(beats_per_measure.getText().toString());
-                //showToast(globalVariable.getNameOfSong());
-                //save above values to global array
+                //here should be an error checker -> if fields are empty then it should not proceed to the next page
 
                 Intent intent = new Intent(InitialInputActivity.this, ModeOfOperationActivity.class);
                 startActivity(intent);

@@ -5,8 +5,9 @@ import android.app.Application;
 public class GlobalClass extends Application{
 
     private String NameOfSong;
-    private int BeatsPerMeasure;
-    private int BeatsPerMinute;
+    private String BeatsPerMeasure;
+    private String BeatsPerMinute;
+    private String[] AutomaticArray = {"Filler", "Filler", "Filler", "Filler", "Filler", "Filler", "Filler", "Filler", "Filler"};
 
 
     public String getNameOfSong() {
@@ -17,20 +18,29 @@ public class GlobalClass extends Application{
         NameOfSong = aName;
     }
 
-    public int getBeatsPerMeasure() {
+    public String getBeatsPerMeasure() {
         return BeatsPerMeasure;
     }
 
-    public void setBeatsPerMeasure(int aBeatsPerMeasure) {
+    public void setBeatsPerMeasure(String aBeatsPerMeasure) {
         BeatsPerMeasure = aBeatsPerMeasure;
     }
 
-    public int getBeatsPerMinute() {
+    public String getBeatsPerMinute() {
         return BeatsPerMinute;
     }
 
-    public void setBeatsPerMinute(int aBeatsPerMinute) {
+    public void setBeatsPerMinute(String aBeatsPerMinute) {
         BeatsPerMinute = aBeatsPerMinute;
+    }
+
+
+    public String[] getAutomaticArray() {
+        return AutomaticArray;
+    }
+
+    public void setAutomaticArray(String[] AutomaticArray) {
+        this.AutomaticArray = AutomaticArray;
     }
 
 }

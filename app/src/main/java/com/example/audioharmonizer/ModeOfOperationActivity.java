@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class ModeOfOperationActivity extends AppCompatActivity {
 
@@ -22,10 +23,10 @@ public class ModeOfOperationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mode_of_operation);
 
+        final GlobalClass globalVariable = (GlobalClass) getApplicationContext();
+
         automatic_button = (Button)findViewById(R.id.automatic_button);
         manual_button = (Button)findViewById(R.id.manual_button);
-
-
 
         //**********************NavBar Functionality**********************************
         drawerLayout_modes_of_operation = findViewById(R.id.my_drawer_layout_modes_of_operation);
@@ -45,6 +46,10 @@ public class ModeOfOperationActivity extends AppCompatActivity {
         automatic_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v)
             {
+
+
+                globalVariable.getAutomaticArray()[3] = "Automatic";
+
                 Intent intent = new Intent(ModeOfOperationActivity.this, AutomaticActivity.class);
                 startActivity(intent);
             }
@@ -53,6 +58,8 @@ public class ModeOfOperationActivity extends AppCompatActivity {
         manual_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v)
             {
+                globalVariable.getAutomaticArray()[3] = "Manual";
+
                 Intent intent = new Intent(ModeOfOperationActivity.this, ManualActivity.class);
                 startActivity(intent);
             }
@@ -66,5 +73,9 @@ public class ModeOfOperationActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void showToast(String msg){
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 }
