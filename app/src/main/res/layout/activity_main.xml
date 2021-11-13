@@ -30,7 +30,6 @@
         android:id="@+id/onBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="#C673D5"
         android:minWidth="200dp"
         android:text="TURN ON"
         android:textColor="#000000" />
@@ -40,7 +39,6 @@
         android:id="@+id/offBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="#C673D5"
         android:minWidth="200dp"
         android:text="TURN off"
         android:textColor="#020202" />
@@ -51,7 +49,6 @@
         android:id="@+id/pairedBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="#C673D5"
         android:minWidth="200dp"
         android:text="Paired Devices"
         android:textColor="#050505" />
@@ -71,7 +68,6 @@
         android:id="@+id/connect_ESP_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="#C673D5"
         android:minWidth="200dp"
         android:text="Connect to a Device"
         android:textColor="@color/black"

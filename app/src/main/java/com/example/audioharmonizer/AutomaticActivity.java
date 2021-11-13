@@ -1,7 +1,10 @@
 package com.example.audioharmonizer;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
@@ -17,6 +20,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -26,13 +30,15 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.material.navigation.NavigationView;
+
 import java.io.File;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class AutomaticActivity extends AppCompatActivity {
+public class AutomaticActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     Button automatic_finish_button;//send button
 
@@ -50,6 +56,10 @@ public class AutomaticActivity extends AppCompatActivity {
 
     public ArrayList<BluetoothDevice> mBTDevices = new ArrayList<>();
 
+    public DrawerLayout drawerLayout_automatic;
+    public ActionBarDrawerToggle actionBarDrawerToggle_automatic;
+    private NavigationView navigationView;
+
 
 
     //*************************************bluetooth stuff below****************************************
@@ -62,7 +72,27 @@ public class AutomaticActivity extends AppCompatActivity {
         setContentView(R.layout.activity_automatic);
 
         final GlobalClass globalVariable = (GlobalClass) getApplicationContext();
-        BluetoothConnectionService mBluetoothConnection = new BluetoothConnectionService(AutomaticActivity.this);
+        //BluetoothConnectionService mBluetoothConnection = new BluetoothConnectionService(AutomaticActivity.this);
+
+        //**********************NavBar Functionality START**********************************
+        drawerLayout_automatic = findViewById(R.id.my_drawer_layout_automatic);
+        actionBarDrawerToggle_automatic = new ActionBarDrawerToggle(this, drawerLayout_automatic, R.string.nav_open, R.string.nav_close);
+
+        // pass the Open and Close toggle for the drawer layout listener
+        // to toggle the button
+        drawerLayout_automatic.addDrawerListener(actionBarDrawerToggle_automatic);
+        actionBarDrawerToggle_automatic.syncState();
+
+        // to make the Navigation drawer icon always appear on the action bar
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        navigationView = findViewById(R.id.navigationview_id_automatic);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        MenuItem menuItem = navigationView.getMenu().getItem(3).setChecked(true);
+        onNavigationItemSelected(menuItem);
+        //**********************NavBar Functionality END**********************************
+
 
         Spinner cp_spinner = (Spinner) findViewById(R.id.cp_spinner);
         Spinner cp_spinner2 = (Spinner) findViewById(R.id.cp_spinner2);
@@ -167,6 +197,43 @@ public class AutomaticActivity extends AppCompatActivity {
 //        mBluetoothConnection = new BluetoothConnectionService(AutomaticActivity.this);
 //
 //    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (actionBarDrawerToggle_automatic.onOptionsItemSelected(item)) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+        if (item.getItemId() == R.id.nav_home) {
+            Intent intent = new Intent(AutomaticActivity.this, HomePageActivity.class);
+            startActivity(intent);
+        } else if (item.getItemId() == R.id.nav_initial_inputs) {
+            Intent intent = new Intent(AutomaticActivity.this, InitialInputActivity.class);
+            startActivity(intent);
+        } else if (item.getItemId() == R.id.nav_modes) {
+            Intent intent = new Intent(AutomaticActivity.this, ModeOfOperationActivity.class);
+            startActivity(intent);
+        }else if (item.getItemId() == R.id.nav_automatic) {
+            return true;
+        } else if (item.getItemId() == R.id.nav_manual) {
+            Intent intent = new Intent(AutomaticActivity.this, ManualActivity.class);
+            startActivity(intent);
+        } else if (item.getItemId() == R.id.nav_recordings) {
+            Intent intent = new Intent(AutomaticActivity.this, RecordingsActivity.class);
+            startActivity(intent);
+        } else if (item.getItemId() == R.id.nav_faq) {
+            Intent intent = new Intent(AutomaticActivity.this, FAQActivity.class);
+            startActivity(intent);
+        } else {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     private void showToast(String msg){
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();

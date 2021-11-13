@@ -13,13 +13,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:gravity="center">
+        android:gravity="center_horizontal">
 
         <TextView
             android:id="@+id/text1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="132dp"
+            android:layout_marginTop="190dp"
             android:text="Please select between the 2 Modes of Operation"
             android:textColor="#EDE7E7"
             app:layout_constraintBottom_toTopOf="@+id/automatic_button"
@@ -32,9 +32,7 @@
             android:id="@+id/manual_button"
             android:layout_width="188dp"
             android:layout_height="83dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
-            android:backgroundTint="#C673D5"
+            android:layout_marginTop="50dp"
             android:text="Manual"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -45,8 +43,7 @@
             android:id="@+id/automatic_button"
             android:layout_width="188dp"
             android:layout_height="83dp"
-            android:layout_marginBottom="96dp"
-            android:backgroundTint="#C673D5"
+            android:layout_marginTop="50dp"
             android:text="Automatic"
             app:layout_constraintBottom_toTopOf="@+id/manual_button"
             app:layout_constraintEnd_toEndOf="parent"
