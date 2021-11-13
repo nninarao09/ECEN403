@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -70,12 +71,25 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <EditText
+        android:id="@+id/etSend"
+        android:layout_width="297dp"
+        android:layout_height="78dp"
+        android:layout_marginBottom="132dp"
+        android:backgroundTint="#E4E1E1"
+        android:hint="Sending Data"
+        android:textColor="#F4F1F1"
+        android:textColorHint="#F4F0F0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <Button
         android:id="@+id/automatic_finish_button"
         android:layout_width="150dp"
         android:layout_height="64dp"
-        android:layout_marginStart="128dp"
-        android:layout_marginBottom="120dp"
+        android:layout_marginStart="136dp"
+        android:layout_marginBottom="32dp"
         android:backgroundTint="#C673D5"
         android:text="Finish"
         android:textColor="#070707"

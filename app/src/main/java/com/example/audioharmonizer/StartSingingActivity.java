@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class StartSingingActivity extends AppCompatActivity {
-    public int counter;
+    public int counter = 10;
     Button start_singing_button;
     TextView countDown_textview;
 
@@ -25,10 +25,11 @@ public class StartSingingActivity extends AppCompatActivity {
         start_singing_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new CountDownTimer(10000, 5000){
+                counter = 10;
+                new CountDownTimer(10000, 1000){
                     public void onTick(long millisUntilFinished){
                         countDown_textview.setText(String.valueOf(counter));
-                        counter++;
+                        counter--;
                     }
                     public  void onFinish(){
                         countDown_textview.setText("GO!!");

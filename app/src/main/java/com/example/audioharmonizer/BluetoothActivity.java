@@ -20,9 +20,6 @@ public class BluetoothActivity extends AppCompatActivity {
     public static final String EXTRA_MESSAGE = "com.example.audioharmonizer.MESSAGE";
     private static final int REQUEST_ENABLE_BT =0;
 
-
-    // define the global variables
-
     TextView mStatusBlueTv, mPairedTv;
     ImageView mBlueIv;
     Button mOnBtn, mOffBtn, mPairedBtn, mConnectESP;
@@ -36,6 +33,7 @@ public class BluetoothActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        final GlobalClass globalVariable = (GlobalClass) getApplicationContext();
 
         //**************bluetooth content below************************************************
 
@@ -126,14 +124,13 @@ public class BluetoothActivity extends AppCompatActivity {
                 Set<BluetoothDevice> devices = mBlueAdapter.getBondedDevices();
                 for(BluetoothDevice device: devices){
                     if(device.getName().equals("Blank2")){ //Change this name to DSP name
+                        globalVariable.setDevice(device);
                         Intent intent = new Intent(BluetoothActivity.this, HomePageActivity.class);
                         startActivity(intent);
                         isConnected = true;
                     }
                 }
-//                if(true){
-//                    Intent intent = new Intent(BluetoothActivity.this, HomePageActivity.class);
-//                    startActivity(intent);
+
                 if(!isConnected){
                     showToast("Not Connected to the Audio Harmonizer, Please go to settings to connect");
                 }

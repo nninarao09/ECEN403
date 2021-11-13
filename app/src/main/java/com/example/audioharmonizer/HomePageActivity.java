@@ -18,14 +18,19 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
-public class HomePageActivity extends AppCompatActivity {
+import com.google.android.material.navigation.NavigationView;
+
+public class HomePageActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     // define the global variable
     TextView question2;
     Button next_button;
     public DrawerLayout drawerLayout;
     public ActionBarDrawerToggle actionBarDrawerToggle;
+    private NavigationView navigationView;
+
     //public AppBarConfiguration appBarConfiguration = AppBarConfiguration(setOf(R.id.nav_home, R.id.nav_initial_inputs));
 
 
@@ -45,10 +50,14 @@ public class HomePageActivity extends AppCompatActivity {
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
 
-
-
         // to make the Navigation drawer icon always appear on the action bar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        navigationView = findViewById(R.id.navigationview_id_home);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        MenuItem menuItem = navigationView.getMenu().getItem(0).setChecked(true);
+        onNavigationItemSelected(menuItem);
         //**********************************************************************
 
 
@@ -59,14 +68,7 @@ public class HomePageActivity extends AppCompatActivity {
 
             public void onClick(View v)
             {
-
-                // Intents are objects of the android.content.Intent type. Your code can send them
-                // to the Android system defining the components you are targeting.
-                // Intent to start an activity called ThirdActivity with the following code:
-
                 Intent intent = new Intent(HomePageActivity.this, InitialInputActivity.class);
-//
-//                // start the activity connect to the specified class
                 startActivity(intent);
             }
         });
@@ -81,17 +83,50 @@ public class HomePageActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+        if (item.getItemId() == R.id.nav_home) {
+            return true;
+        } else if (item.getItemId() == R.id.nav_initial_inputs) {
+            Intent intent = new Intent(HomePageActivity.this, InitialInputActivity.class);
+            startActivity(intent);
+        } else if (item.getItemId() == R.id.nav_modes) {
+            Intent intent = new Intent(HomePageActivity.this, ModeOfOperationActivity.class);
+            startActivity(intent);
+        }else if (item.getItemId() == R.id.nav_automatic) {
+            Intent intent = new Intent(HomePageActivity.this, AutomaticActivity.class);
+            startActivity(intent);
+        } else if (item.getItemId() == R.id.nav_manual) {
+            Intent intent = new Intent(HomePageActivity.this, ManualActivity.class);
+            startActivity(intent);
+        } else if (item.getItemId() == R.id.nav_recordings) {
+            Intent intent = new Intent(HomePageActivity.this, RecordingsActivity.class);
+            startActivity(intent);
+        } else if (item.getItemId() == R.id.nav_faq) {
+            Intent intent = new Intent(HomePageActivity.this, FAQActivity.class);
+            startActivity(intent);
+        } else {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
 //    @Override
 //    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 //
 //        switch(item.getItemId()){
 //
 //            case R.id.nav_home: {
-//                Navigation.findNavController(this, R.id.my_drawer_layout_home_page).navigate(R.id.HomePageActivityDestination);
+//                //Navigation.findNavController(this, R.id.my_drawer_layout_home_page).navigate(R.id.HomePageActivityDestination);
+//                //startActivity();
 //                break;
 //            }
 //            case R.id.nav_initial_inputs: {
-//                Navigation.findNavController(this, R.id.my_drawer_layout_home_page).navigate(R.id.InitialInputActivityDestination);
+//                //Navigation.findNavController(this, R.id.my_drawer_layout_home_page).navigate(R.id.InitialInputActivityDestination);
+//                Intent intent = new Intent(HomePageActivity.this, InitialInputActivity.class);
+//                startActivity(intent);
 //                break;
 //            }
 //        }
@@ -125,5 +160,8 @@ public class HomePageActivity extends AppCompatActivity {
 //                || super.onOptionsItemSelected(item);
 //    }
 
+    private void showToast(String msg){
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    }
 }
 

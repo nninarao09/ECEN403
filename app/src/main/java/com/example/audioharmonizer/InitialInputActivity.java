@@ -17,10 +17,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class InitialInputActivity extends AppCompatActivity {
+import com.google.android.material.navigation.NavigationView;
+
+public class InitialInputActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     public DrawerLayout drawerLayout_InitialInputs, drawerLayout_HomePage;
     public ActionBarDrawerToggle actionBarDrawerToggle_InitialInputs, actionBarDrawerToggle_HomePage;
+    private NavigationView navigationView;
 
 
     @Override
@@ -50,6 +53,13 @@ public class InitialInputActivity extends AppCompatActivity {
         // to make the Navigation drawer icon always appear on the action bar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        navigationView = findViewById(R.id.navigationview_id_initial_inputs);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        //the integer determines which page on the navbar is highlighted
+        MenuItem menuItem = navigationView.getMenu().getItem(1).setChecked(true);
+        onNavigationItemSelected(menuItem);
+
         //**********************************************************************
 
 
@@ -58,9 +68,14 @@ public class InitialInputActivity extends AppCompatActivity {
             public void onClick(View v)
             {
                 //Save inputs in global automatic array to access in other files
-                globalVariable.getAutomaticArray()[0] = name_of_song.getText().toString();
-                globalVariable.getAutomaticArray()[1] = beats_per_measure.getText().toString();
-                globalVariable.getAutomaticArray()[2] = beats_per_minute.getText().toString();
+
+                globalVariable.setNameOfSong(name_of_song.getText().toString());
+                globalVariable.setBeatsPerMeasure(beats_per_measure.getText().toString());
+                globalVariable.setBeatsPerMinute(beats_per_minute.getText().toString());
+
+                globalVariable.getAutomaticArray()[0] =  globalVariable.getNameOfSong();
+                globalVariable.getAutomaticArray()[1] = globalVariable.getBeatsPerMeasure();
+                globalVariable.getAutomaticArray()[2] = globalVariable.getBeatsPerMinute();
 
                 //here should be an error checker -> if fields are empty then it should not proceed to the next page
 
@@ -79,29 +94,34 @@ public class InitialInputActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-//        @Override
-//        public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-//            NavController navController = Navigation.findNavController(this, R.id.nav_initial_inputs);
-//            return NavigationUI.onNavDestinationSelected(item, navController)
-//                    || super.onOptionsItemSelected(item);
-//        }
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-//    @Override
-//    public boolean onOptionsItemSelected(@NonNull MenuItem item){
-//        switch(item.getItemId()){
-//
-//            case R.id.nav_home:{
-//                break;
-//            }
-//
-//            case R.id.nav_initial_inputs:{
-//                break;
-//            }
-//        }
-//        item.setChecked(true);
-//        drawerLayout_InitialInputs.closeDrawer(GravityCompat.START);
-//        return true;
-//    }
+        if (item.getItemId() == R.id.nav_home) {
+            Intent intent = new Intent(InitialInputActivity.this, HomePageActivity.class);
+            startActivity(intent);
+        } else if (item.getItemId() == R.id.nav_initial_inputs) {
+            return true;
+        } else if (item.getItemId() == R.id.nav_modes) {
+            Intent intent = new Intent(InitialInputActivity.this, ModeOfOperationActivity.class);
+            startActivity(intent);
+        } else if (item.getItemId() == R.id.nav_automatic) {
+            Intent intent = new Intent(InitialInputActivity.this, AutomaticActivity.class);
+            startActivity(intent);
+        }else if (item.getItemId() == R.id.nav_manual) {
+            Intent intent = new Intent(InitialInputActivity.this, ManualActivity.class);
+            startActivity(intent);
+        } else if (item.getItemId() == R.id.nav_recordings) {
+            Intent intent = new Intent(InitialInputActivity.this, RecordingsActivity.class);
+            startActivity(intent);
+        } else if (item.getItemId() == R.id.nav_faq) {
+            Intent intent = new Intent(InitialInputActivity.this, FAQActivity.class);
+            startActivity(intent);
+        } else {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     private void showToast(String msg){
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();

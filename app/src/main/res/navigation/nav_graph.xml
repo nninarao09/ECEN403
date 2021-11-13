@@ -4,22 +4,22 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/HomePageActivityDestination">
 
-    <fragment
+    <activity
         android:id="@+id/HomePageActivityDestination"
         android:name="com.example.audioharmonizer.HomePageActivity"
         android:label="@string/nav_home" />
 
-    <fragment
+    <activity
         android:id="@+id/InitialInputActivityDestination"
         android:name="com.example.audioharmonizer.InitialInputActivity"
         android:label="@string/nav_initial_inputs" />
 
-    <fragment
+    <activity
         android:id="@+id/AutomaticActivityDestination"
         android:name="com.example.audioharmonizer.AutomaticActivity"
         android:label="@string/nav_automatic_mode" />
 
-    <fragment
+    <activity
         android:id="@+id/ManualActivityDestination"
         android:name="com.example.audioharmonizer.ManualActivity"
         android:label="@string/nav_manual_mode" />

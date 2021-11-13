@@ -11,6 +11,9 @@
         android:id="@+id/nav_initial_inputs"
         android:title="@string/nav_initial_inputs" />
     <item
+        android:id="@+id/nav_modes"
+        android:title="Mode of Operation" />
+    <item
         android:id="@+id/nav_automatic"
         android:title="Automatic Mode" />
     <item

@@ -1,25 +1,68 @@
 package com.example.audioharmonizer;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.Manifest;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.io.File;
+import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
 public class AutomaticActivity extends AppCompatActivity {
 
-    Button automatic_finish_button;
+    Button automatic_finish_button;//send button
 
+    private static final String TAG = "AutomaticActivity";
+
+    //BluetoothAdapter mBluetoothAdapter  = BluetoothAdapter.getDefaultAdapter();;
+
+    //BluetoothConnectionService mBluetoothConnection = new BluetoothConnectionService(AutomaticActivity.this);
+    EditText etSend;
+
+    private static final UUID MY_UUID_INSECURE =
+            UUID.fromString("F3694693-2D3F-43C1-BD05-1A9497862DC7");
+
+    BluetoothDevice mBTDevice;
+
+    public ArrayList<BluetoothDevice> mBTDevices = new ArrayList<>();
+
+
+
+    //*************************************bluetooth stuff below****************************************
+
+
+    //*************************************bluetooth stuff above****************************************
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_automatic);
 
         final GlobalClass globalVariable = (GlobalClass) getApplicationContext();
+        BluetoothConnectionService mBluetoothConnection = new BluetoothConnectionService(AutomaticActivity.this);
 
         Spinner cp_spinner = (Spinner) findViewById(R.id.cp_spinner);
         Spinner cp_spinner2 = (Spinner) findViewById(R.id.cp_spinner2);
@@ -28,6 +71,7 @@ public class AutomaticActivity extends AppCompatActivity {
 
         Spinner noh_spinner = (Spinner) findViewById(R.id.noh_spinner);
 
+        etSend = (EditText) findViewById(R.id.etSend);
         //***************************Chord Progression Spinners***************************************
 
         ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(AutomaticActivity.this,
@@ -77,16 +121,52 @@ public class AutomaticActivity extends AppCompatActivity {
                 globalVariable.getAutomaticArray()[7] = chord_spinner4;
                 globalVariable.getAutomaticArray()[8] = harmony_spinner;
 
-
+                //for testing purposes
+                //byte[] bytes = {1, 1, 1, 1, 1, 1, 1, 1, 1};
                 for(int i=0; i<9; ++i){
                     showToast(globalVariable.getAutomaticArray()[i]);
+                    //bytes = globalVariable.getAutomaticArray()[i].getBytes(Charset.defaultCharset());
                 }
+
+
+                //Send data to the device
+//                mBluetoothConnection.startClient(globalVariable.getDevice(), MY_UUID_INSECURE);
+//                byte[] bytes = etSend.getText().toString().getBytes(Charset.defaultCharset());
+//                mBluetoothConnection.write(bytes);
+
 
                 Intent intent = new Intent(AutomaticActivity.this, StartSingingActivity.class);
                 startActivity(intent);
             }
         });
+
+
+
+
+
     }
+
+
+//    @Override
+//    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//        //first cancel discovery because its very memory intensive.
+//        mBluetoothAdapter.cancelDiscovery();
+//
+//        Log.d(TAG, "onItemClick: You Clicked on a device.");
+//        String deviceName = mBTDevices.get(i).getName();
+//        String deviceAddress = mBTDevices.get(i).getAddress();
+//
+//        Log.d(TAG, "onItemClick: deviceName = " + deviceName);
+//        Log.d(TAG, "onItemClick: deviceAddress = " + deviceAddress);
+//
+//
+//        Log.d(TAG, "Trying to pair with " + deviceName);
+//        mBTDevices.get(i).createBond();
+//
+//        mBTDevice = mBTDevices.get(i);
+//        mBluetoothConnection = new BluetoothConnectionService(AutomaticActivity.this);
+//
+//    }
 
     private void showToast(String msg){
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();

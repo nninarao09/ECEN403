@@ -12,11 +12,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-public class ModeOfOperationActivity extends AppCompatActivity {
+import com.google.android.material.navigation.NavigationView;
+
+public class ModeOfOperationActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     Button automatic_button, manual_button;
     public DrawerLayout drawerLayout_modes_of_operation;
     public ActionBarDrawerToggle actionBarDrawerToggle_modes_of_operation;
+    private NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +42,12 @@ public class ModeOfOperationActivity extends AppCompatActivity {
 
         // to make the Navigation drawer icon always appear on the action bar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        navigationView = findViewById(R.id.navigationview_id_modes);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        MenuItem menuItem = navigationView.getMenu().getItem(2).setChecked(true);
+        onNavigationItemSelected(menuItem);
         //**********************************************************************
 
 
@@ -46,8 +55,6 @@ public class ModeOfOperationActivity extends AppCompatActivity {
         automatic_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v)
             {
-
-
                 globalVariable.getAutomaticArray()[3] = "Automatic";
 
                 Intent intent = new Intent(ModeOfOperationActivity.this, AutomaticActivity.class);
@@ -70,6 +77,35 @@ public class ModeOfOperationActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (actionBarDrawerToggle_modes_of_operation.onOptionsItemSelected(item)) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+        if (item.getItemId() == R.id.nav_home) {
+            Intent intent = new Intent(ModeOfOperationActivity.this, HomePageActivity.class);
+            startActivity(intent);
+        } else if (item.getItemId() == R.id.nav_initial_inputs) {
+            Intent intent = new Intent(ModeOfOperationActivity.this, InitialInputActivity.class);
+            startActivity(intent);
+        } else if (item.getItemId() == R.id.nav_modes) {
+            return true;
+        }else if (item.getItemId() == R.id.nav_automatic) {
+            Intent intent = new Intent(ModeOfOperationActivity.this, AutomaticActivity.class);
+            startActivity(intent);
+        } else if (item.getItemId() == R.id.nav_manual) {
+            Intent intent = new Intent(ModeOfOperationActivity.this, ManualActivity.class);
+            startActivity(intent);
+        } else if (item.getItemId() == R.id.nav_recordings) {
+            Intent intent = new Intent(ModeOfOperationActivity.this, RecordingsActivity.class);
+            startActivity(intent);
+        } else if (item.getItemId() == R.id.nav_faq) {
+            Intent intent = new Intent(ModeOfOperationActivity.this, FAQActivity.class);
+            startActivity(intent);
+        } else {
             return true;
         }
         return super.onOptionsItemSelected(item);
