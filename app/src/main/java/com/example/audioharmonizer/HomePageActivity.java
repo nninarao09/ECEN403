@@ -113,53 +113,6 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
     }
 
 
-//    @Override
-//    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//
-//        switch(item.getItemId()){
-//
-//            case R.id.nav_home: {
-//                //Navigation.findNavController(this, R.id.my_drawer_layout_home_page).navigate(R.id.HomePageActivityDestination);
-//                //startActivity();
-//                break;
-//            }
-//            case R.id.nav_initial_inputs: {
-//                //Navigation.findNavController(this, R.id.my_drawer_layout_home_page).navigate(R.id.InitialInputActivityDestination);
-//                Intent intent = new Intent(HomePageActivity.this, InitialInputActivity.class);
-//                startActivity(intent);
-//                break;
-//            }
-//        }
-//        item.setChecked(true);
-//        drawerLayout.closeDrawer(GravityCompat.START);
-//        return true;
-//    }
-
-
-//    @Override
-//    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-//
-//        switch(item.getItemId()){
-//            case R.id.nav_home: {
-//                return true;
-//            }
-//
-//            case R.id.nav_initial_inputs: {
-//                return true;
-//            }
-//
-//            default:
-//                return super.onOptionsItemSelected(item);
-//        }
-//    }
-
-//    @Override
-//    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-//        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-//        return NavigationUI.onNavDestinationSelected(item, navController)
-//                || super.onOptionsItemSelected(item);
-//    }
-
     private void showToast(String msg){
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }

@@ -1,13 +1,20 @@
 package com.example.audioharmonizer;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -16,6 +23,10 @@ public class RecordingsActivity extends AppCompatActivity implements NavigationV
     public DrawerLayout drawerLayout_recordings;
     public ActionBarDrawerToggle actionBarDrawerToggle_recordings;
     private NavigationView navigationView;
+    private final int PICK_AUDIO = 1;
+    Uri AudioUri;
+    TextView select_Audio;
+    Button play_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +52,46 @@ public class RecordingsActivity extends AppCompatActivity implements NavigationV
         onNavigationItemSelected(menuItem);
         //**********************NavBar Functionality END**********************************
 
+        select_Audio = findViewById(R.id.select_Audio);
+        select_Audio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent audio = new Intent();
+                audio.setType("audio/*");
+                audio.setAction(Intent.ACTION_OPEN_DOCUMENT);
+                startActivityForResult(Intent.createChooser(audio, "Select Audio"), PICK_AUDIO);
+
+
+            }
+        });
+
+//        final MediaPlayer mp = audio;
+//        try{
+//            //you can change the path, here path is external directory(e.g. sdcard) /Music/maine.mp3
+//            mp.setDataSource(Environment.getExternalStorageDirectory().getPath()+"/Music/maine.mp3");
+//
+//            mp.prepare();
+//        }catch(Exception e){e.printStackTrace();}
+//
+//        play_button = findViewById(R.id.play_button);
+//        play_button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                mp.start();
+//            }
+//        });
+
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == PICK_AUDIO && resultCode == RESULT_OK) {
+            // Audio is Picked in format of URI
+            AudioUri = data.getData();
+            select_Audio.setText("Audio Selected");
+        }
     }
 
     @Override
