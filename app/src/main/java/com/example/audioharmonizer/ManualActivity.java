@@ -28,8 +28,10 @@ public class ManualActivity extends AppCompatActivity implements NavigationView.
     private NavigationView navigationView;
     public DrawerLayout drawerLayout_manual;
     public ActionBarDrawerToggle actionBarDrawerToggle_manual;
-    public int height = 50;
-    public int left = 10;
+    public int height = 80;
+    public int height_of_Titles = 150;
+    public int height_of_Harmony_Number = 120;
+    public int left = 120;
     public int right = 10;
     public int bottom = 50;
 
@@ -65,9 +67,20 @@ public class ManualActivity extends AppCompatActivity implements NavigationView.
             {
                 for (int i=0; i<Integer.parseInt(number_of_harmonies.getText().toString()); i++){
 
-                    TextView tv = new TextView(ManualActivity.this);
-                    tv.setText("Notes");
-                    myLayout.addView(tv);
+//                    TextView tvNote = new TextView(ManualActivity.this);
+//                    tvNote.setText("Notes");
+//                    tvNote.setGravity(Gravity.HORIZONTAL_GRAVITY_MASK);
+//                    DrawerLayout.LayoutParams tvNoteLayout = new DrawerLayout.LayoutParams(DrawerLayout.LayoutParams.WRAP_CONTENT, DrawerLayout.LayoutParams.WRAP_CONTENT);
+//                    tvNoteLayout.setMargins(dpToPx(120), dpToPx(height_of_Titles), 0, 0);
+//                    tvNote.setLayoutParams(tvNoteLayout);
+//                    myLayout.addView(tvNote);
+//
+//                    TextView tvLength = new TextView(ManualActivity.this);
+//                    tvLength.setText("Length");
+//                    DrawerLayout.LayoutParams tvLengthLayout = new DrawerLayout.LayoutParams(DrawerLayout.LayoutParams.WRAP_CONTENT, DrawerLayout.LayoutParams.WRAP_CONTENT);
+//                    tvLengthLayout.setMargins(dpToPx(120)+dpToPx(left), dpToPx(height_of_Titles), 0, 0);
+//                    tvLength.setLayoutParams(tvLengthLayout);
+//                    myLayout.addView(tvLength);
 
                     for(int j=0; j<Integer.parseInt(notes_per_harmony.getText().toString()); j++){
 //                        EditText editText = new EditText(ManualActivity.this);
@@ -84,31 +97,72 @@ public class ManualActivity extends AppCompatActivity implements NavigationView.
 //                        right = right + 10;
 //                        bottom = bottom + 30;
 
+                        String num = Integer.toString(i+1);
+                        TextView HarmonyNumber = new TextView(ManualActivity.this);
+                        HarmonyNumber.setText("Harmony " + num);
+                        HarmonyNumber.setGravity(Gravity.HORIZONTAL_GRAVITY_MASK);
+                        DrawerLayout.LayoutParams tvHarmonyNumber = new DrawerLayout.LayoutParams(DrawerLayout.LayoutParams.WRAP_CONTENT, DrawerLayout.LayoutParams.WRAP_CONTENT);
+                        tvHarmonyNumber.setMargins(dpToPx(160), dpToPx(height_of_Harmony_Number), 0, 0);
+                        HarmonyNumber.setLayoutParams(tvHarmonyNumber);
+                        myLayout.addView(HarmonyNumber);
 
 
-                        Spinner spinner = new Spinner(ManualActivity.this);
+                        TextView tvNote = new TextView(ManualActivity.this);
+                        tvNote.setText("Notes");
+                        tvNote.setGravity(Gravity.HORIZONTAL_GRAVITY_MASK);
+                        DrawerLayout.LayoutParams tvNoteLayout = new DrawerLayout.LayoutParams(DrawerLayout.LayoutParams.WRAP_CONTENT, DrawerLayout.LayoutParams.WRAP_CONTENT);
+                        tvNoteLayout.setMargins(dpToPx(120), dpToPx(height_of_Titles), 0, 0);
+                        tvNote.setLayoutParams(tvNoteLayout);
+                        myLayout.addView(tvNote);
+
+                        TextView tvLength = new TextView(ManualActivity.this);
+                        tvLength.setText("Length");
+                        DrawerLayout.LayoutParams tvLengthLayout = new DrawerLayout.LayoutParams(DrawerLayout.LayoutParams.WRAP_CONTENT, DrawerLayout.LayoutParams.WRAP_CONTENT);
+                        tvLengthLayout.setMargins(dpToPx(110)+dpToPx(left), dpToPx(height_of_Titles), 0, 0);
+                        tvLength.setLayoutParams(tvLengthLayout);
+                        myLayout.addView(tvLength);
+
+                        Spinner spinnerNote = new Spinner(ManualActivity.this);
                         ArrayAdapter<String> myNoteAdapter = new ArrayAdapter<String>(ManualActivity.this,
                                 android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.notes));
                         myNoteAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
                         DrawerLayout.LayoutParams lp = new DrawerLayout.LayoutParams(DrawerLayout.LayoutParams.WRAP_CONTENT, DrawerLayout.LayoutParams.WRAP_CONTENT);
-                        lp.setMargins(dpToPx(left), dpToPx(height), dpToPx(right), dpToPx(bottom));
-                        spinner.setLayoutParams(lp);
-                        spinner.setGravity(Gravity.HORIZONTAL_GRAVITY_MASK);
-                        spinner.setId(j+1);
-                        spinner.setPrompt("works");
-                        spinner.setAdapter(myNoteAdapter);
-                        spinner.setGravity(1);
+                        lp.setMargins(0, dpToPx(height), 0, 0);
+                        spinnerNote.setLayoutParams(lp);
+                        spinnerNote.setGravity(Gravity.RIGHT);
+                        spinnerNote.setPadding(pxToDp(0), pxToDp(0), pxToDp(0), pxToDp(0));
+                        //spinnerNote.setDropDownVerticalOffset(20);
+                        spinnerNote.setId(j+1);
+                        spinnerNote.setAdapter(myNoteAdapter);
 
-                        myLayout.addView(spinner);
+                        myLayout.addView(spinnerNote);
+
+                        height += 30;
 
 
-                        height = height + 30;
-                        left = left + 10;
-                        bottom = bottom + 10;
-                        right = right + 30;
+
+//                        Spinner spinnerLength = new Spinner(ManualActivity.this);
+//                        ArrayAdapter<String> myLengthAdapter = new ArrayAdapter<String>(ManualActivity.this,
+//                                android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.length));
+//                        myLengthAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//
+//                        DrawerLayout.LayoutParams lp2 = new DrawerLayout.LayoutParams(80,80);
+//                        lp2.setMargins(0, dpToPx(height), 0, 0);
+//                        spinnerLength.setLayoutParams(lp2);
+//                        spinnerLength.setGravity(Gravity.HORIZONTAL_GRAVITY_MASK);
+//                        spinnerLength.setId(j+1);
+//                        spinnerLength.setAdapter(myLengthAdapter);
+//                        spinnerLength.setGravity(1);
+//
+//                        myLayout.addView(spinnerLength);
+
+                        height += 30;
 
                     }
+                    height_of_Titles += 50;
+                    height_of_Harmony_Number += 60;
+
                 }
             }
         });
