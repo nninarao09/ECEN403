@@ -9,6 +9,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothSocket;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -33,6 +34,7 @@ import android.widget.Toast;
 import com.google.android.material.navigation.NavigationView;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,35 +46,39 @@ public class AutomaticActivity extends AppCompatActivity implements NavigationVi
 
     private static final String TAG = "AutomaticActivity";
 
-    //BluetoothAdapter mBluetoothAdapter  = BluetoothAdapter.getDefaultAdapter();;
-
-    //BluetoothConnectionService mBluetoothConnection = new BluetoothConnectionService(AutomaticActivity.this);
     EditText etSend;
 
     private static final UUID MY_UUID_INSECURE =
             UUID.fromString("F3694693-2D3F-43C1-BD05-1A9497862DC7");
 
-    BluetoothDevice mBTDevice;
-
-    public ArrayList<BluetoothDevice> mBTDevices = new ArrayList<>();
+    //BluetoothDevice mBTDevice;
+    BluetoothAdapter mBluetoothAdapter;
+    //public ArrayList<BluetoothDevice> mBTDevices = new ArrayList<>();
 
     public DrawerLayout drawerLayout_automatic;
     public ActionBarDrawerToggle actionBarDrawerToggle_automatic;
     private NavigationView navigationView;
 
 
-
-    //*************************************bluetooth stuff below****************************************
-
-
-    //*************************************bluetooth stuff above****************************************
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_automatic);
 
         final GlobalClass globalVariable = (GlobalClass) getApplicationContext();
-        //BluetoothConnectionService mBluetoothConnection = new BluetoothConnectionService(AutomaticActivity.this);
+
+        //**********************************bluetooth***************************************
+        mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        BluetoothConnectionService mBluetoothConnection = new BluetoothConnectionService(AutomaticActivity.this);
+        //showToast(globalVariable.getDevice());
+        mBluetoothConnection.startClient(globalVariable.getDevice(), MY_UUID_INSECURE);
+
+        //possibly socket stuff
+
+
+        //**********************************bluetooth***************************************
+
+
 
         //**********************NavBar Functionality START**********************************
         drawerLayout_automatic = findViewById(R.id.my_drawer_layout_automatic);
@@ -152,7 +158,7 @@ public class AutomaticActivity extends AppCompatActivity implements NavigationVi
                 globalVariable.getAutomaticArray()[8] = harmony_spinner;
 
                 //for testing purposes
-                //byte[] bytes = {1, 1, 1, 1, 1, 1, 1, 1, 1};
+                //byte[] bytes = {1, 2, 3, 4, 5, 6, 7, 8, 9};
                 for(int i=0; i<9; ++i){
                     showToast(globalVariable.getAutomaticArray()[i]);
                     //bytes = globalVariable.getAutomaticArray()[i].getBytes(Charset.defaultCharset());
@@ -160,10 +166,8 @@ public class AutomaticActivity extends AppCompatActivity implements NavigationVi
 
 
                 //Send data to the device
-//                mBluetoothConnection.startClient(globalVariable.getDevice(), MY_UUID_INSECURE);
-//                byte[] bytes = etSend.getText().toString().getBytes(Charset.defaultCharset());
-//                mBluetoothConnection.write(bytes);
-
+                byte[] bytes = etSend.getText().toString().getBytes(/*Charset.defaultCharset()*/);
+                mBluetoothConnection.write(bytes);
 
                 Intent intent = new Intent(AutomaticActivity.this, StartSingingActivity.class);
                 startActivity(intent);

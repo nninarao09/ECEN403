@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -19,10 +20,11 @@ import java.util.Set;
 public class BluetoothActivity extends AppCompatActivity {
     public static final String EXTRA_MESSAGE = "com.example.audioharmonizer.MESSAGE";
     private static final int REQUEST_ENABLE_BT =0;
+    private static final int REQUEST_DISCOVER_BT = 1;
 
     TextView mStatusBlueTv, mPairedTv;
     ImageView mBlueIv;
-    Button mOnBtn, mOffBtn, mPairedBtn, mConnectESP;
+    Button mOnBtn, mOffBtn, mPairedBtn, mDiscoverableBtn, mConnectESP;
     Boolean isConnected = false;
 
     BluetoothAdapter mBlueAdapter;
@@ -44,6 +46,7 @@ public class BluetoothActivity extends AppCompatActivity {
         mOnBtn = findViewById(R.id.onBtn);
         mOffBtn = findViewById(R.id.offBtn);
         mPairedBtn = findViewById(R.id.pairedBtn);
+        mDiscoverableBtn = findViewById(R.id.discoverableBtn);
         mConnectESP = findViewById(R.id.connect_ESP_button);
 
         //adapter
@@ -110,11 +113,25 @@ public class BluetoothActivity extends AppCompatActivity {
 
             }
         });
+
+
+        mDiscoverableBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                //do discoverable things
+                //showToast("hello");
+                if(!mBlueAdapter.isDiscovering()){
+                    showToast("Making Device Discoverable");
+                    Intent intent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
+                    startActivityForResult(intent, REQUEST_DISCOVER_BT);
+                }
+            }
+        });
         //*/
 
 
         //*********************************************************************************
-        //Checking connection to mcu
+        //Checking if phone is connected to MCU
         mConnectESP.setOnClickListener(new View.OnClickListener() {
             // if connected to esp device move to next activity
 
