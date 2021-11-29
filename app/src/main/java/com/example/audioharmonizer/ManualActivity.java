@@ -5,6 +5,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,6 +30,7 @@ public class ManualActivity extends AppCompatActivity implements NavigationView.
     private NavigationView navigationView;
     public DrawerLayout drawerLayout_manual;
     public ActionBarDrawerToggle actionBarDrawerToggle_manual;
+    BluetoothAdapter mBlueAdapter;
     public int height = 120;
     public int height_of_Titles = 150;
     public int height_of_Harmony_Number = 120;
@@ -41,6 +44,14 @@ public class ManualActivity extends AppCompatActivity implements NavigationView.
         setContentView(R.layout.activity_manual);
 
         initializeNavBar();
+
+        //********************************bluetooth***********************************
+        mBlueAdapter = BluetoothAdapter.getDefaultAdapter();
+        if(!mBlueAdapter.isEnabled()){
+            showToast("You must turn bluetooth back on");
+            Intent intent = new Intent(ManualActivity.this, BluetoothActivity.class);
+            startActivity(intent);
+        }
 
 //        Spinner note_spinner = (Spinner) findViewById(R.id.note_spinner);
 //        Spinner length_spinner = (Spinner) findViewById(R.id.length_spinner);
@@ -63,12 +74,13 @@ public class ManualActivity extends AppCompatActivity implements NavigationView.
         DrawerLayout myLayout = (DrawerLayout) findViewById(R.id.my_drawer_layout_manual);
 
         generate_new_button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v)
-            {
-                int NumberOfHarmonies = Integer.parseInt(number_of_harmonies.getText().toString());
-                int count = 1;
+            public void onClick(View v) {
+                //if (number_of_harmonies != null | notes_per_harmony != null) {
 
-                while(NumberOfHarmonies != 0){
+                    int NumberOfHarmonies = Integer.parseInt(number_of_harmonies.getText().toString());
+                    int count = 1;
+
+                    while (NumberOfHarmonies != 0) {
 
                         String num = Integer.toString(count);
                         TextView HarmonyNumber = new TextView(ManualActivity.this);
@@ -86,56 +98,57 @@ public class ManualActivity extends AppCompatActivity implements NavigationView.
                         DrawerLayout.LayoutParams tvNoteLayout = new DrawerLayout.LayoutParams(DrawerLayout.LayoutParams.WRAP_CONTENT, DrawerLayout.LayoutParams.WRAP_CONTENT);
                         tvNoteLayout.setMargins(dpToPx(120), dpToPx(height_of_Titles), 0, 0);
                         tvNote.setLayoutParams(tvNoteLayout);
-                        tvNote.setPadding(0,0,0,0);
+                        tvNote.setPadding(0, 0, 0, 0);
                         myLayout.addView(tvNote);
 
                         TextView tvLength = new TextView(ManualActivity.this);
                         tvLength.setText("Length");
                         DrawerLayout.LayoutParams tvLengthLayout = new DrawerLayout.LayoutParams(DrawerLayout.LayoutParams.WRAP_CONTENT, DrawerLayout.LayoutParams.WRAP_CONTENT);
-                        tvLengthLayout.setMargins(dpToPx(110)+dpToPx(left), dpToPx(height_of_Titles), 0, 0);
+                        tvLengthLayout.setMargins(dpToPx(110) + dpToPx(left), dpToPx(height_of_Titles), 0, 0);
                         tvLength.setLayoutParams(tvLengthLayout);
-                        tvLength.setPadding(0,0,0,0);
+                        tvLength.setPadding(0, 0, 0, 0);
                         myLayout.addView(tvLength);
 
-                    for(int j=0; j<Integer.parseInt(notes_per_harmony.getText().toString()); j++){
-                        Spinner spinnerNote = new Spinner(ManualActivity.this);
-                        ArrayAdapter<String> myNoteAdapter = new ArrayAdapter<String>(ManualActivity.this,
-                                android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.notes));
-                        myNoteAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        for (int j = 0; j < Integer.parseInt(notes_per_harmony.getText().toString()); j++) {
+                            Spinner spinnerNote = new Spinner(ManualActivity.this);
+                            ArrayAdapter<String> myNoteAdapter = new ArrayAdapter<String>(ManualActivity.this,
+                                    android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.notes));
+                            myNoteAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-                        DrawerLayout.LayoutParams lp = new DrawerLayout.LayoutParams(DrawerLayout.LayoutParams.MATCH_PARENT, DrawerLayout.LayoutParams.WRAP_CONTENT);
-                        lp.setMargins(dpToPx(70), dpToPx(height), dpToPx(250), 0);
-                        spinnerNote.setLayoutParams(lp);
-                        spinnerNote.setGravity(Gravity.RIGHT);
-                        spinnerNote.setPadding(dpToPx(0), dpToPx(0), dpToPx(0), dpToPx(0));
-                        spinnerNote.setId(j+1);
-                        spinnerNote.setAdapter(myNoteAdapter);
-                        myLayout.addView(spinnerNote);
+                            DrawerLayout.LayoutParams lp = new DrawerLayout.LayoutParams(DrawerLayout.LayoutParams.MATCH_PARENT, DrawerLayout.LayoutParams.WRAP_CONTENT);
+                            lp.setMargins(dpToPx(70), dpToPx(height), dpToPx(250), 0);
+                            spinnerNote.setLayoutParams(lp);
+                            spinnerNote.setGravity(Gravity.RIGHT);
+                            spinnerNote.setPadding(dpToPx(0), dpToPx(0), dpToPx(0), dpToPx(0));
+                            spinnerNote.setId(j + 1);
+                            spinnerNote.setAdapter(myNoteAdapter);
+                            myLayout.addView(spinnerNote);
 
 
-                        Spinner spinnerLength = new Spinner(ManualActivity.this);
-                        ArrayAdapter<String> myLengthAdapter = new ArrayAdapter<String>(ManualActivity.this,
-                                android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.length));
-                        myLengthAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                            Spinner spinnerLength = new Spinner(ManualActivity.this);
+                            ArrayAdapter<String> myLengthAdapter = new ArrayAdapter<String>(ManualActivity.this,
+                                    android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.length));
+                            myLengthAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-                        DrawerLayout.LayoutParams lp2 = new DrawerLayout.LayoutParams(DrawerLayout.LayoutParams.MATCH_PARENT, DrawerLayout.LayoutParams.WRAP_CONTENT);
-                        lp2.setMargins(dpToPx(220), dpToPx(height), dpToPx(40), 0);
-                        spinnerLength.setLayoutParams(lp2);
-                        spinnerLength.setGravity(Gravity.RIGHT);
-                        spinnerNote.setPadding(dpToPx(0), dpToPx(0), dpToPx(0), dpToPx(0));
-                        spinnerLength.setId(j+1);
-                        spinnerLength.setAdapter(myLengthAdapter);
-                        myLayout.addView(spinnerLength);
+                            DrawerLayout.LayoutParams lp2 = new DrawerLayout.LayoutParams(DrawerLayout.LayoutParams.MATCH_PARENT, DrawerLayout.LayoutParams.WRAP_CONTENT);
+                            lp2.setMargins(dpToPx(220), dpToPx(height), dpToPx(40), 0);
+                            spinnerLength.setLayoutParams(lp2);
+                            spinnerLength.setGravity(Gravity.RIGHT);
+                            spinnerNote.setPadding(dpToPx(0), dpToPx(0), dpToPx(0), dpToPx(0));
+                            spinnerLength.setId(j + 1);
+                            spinnerLength.setAdapter(myLengthAdapter);
+                            myLayout.addView(spinnerLength);
 
-                        height += 60;
+                            height += 60;
+                        }
+                        height += 30;
+                        height_of_Titles += 50;
+                        height_of_Harmony_Number += 60;
+                        NumberOfHarmonies--;
+                        count++;
                     }
-                    height += 30;
-                    height_of_Titles += 50;
-                    height_of_Harmony_Number += 60;
-                    NumberOfHarmonies--;
-                    count++;
                 }
-            }
+
         });
 
 

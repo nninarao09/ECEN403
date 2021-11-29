@@ -12,6 +12,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import android.app.FragmentManager;
+import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -31,6 +32,8 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
     public ActionBarDrawerToggle actionBarDrawerToggle;
     private NavigationView navigationView;
 
+    BluetoothAdapter mBlueAdapter;
+
     //public AppBarConfiguration appBarConfiguration = AppBarConfiguration(setOf(R.id.nav_home, R.id.nav_initial_inputs));
 
 
@@ -40,6 +43,15 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_message);
+
+
+        //********************************bluetooth***********************************
+        mBlueAdapter = BluetoothAdapter.getDefaultAdapter();
+        if(!mBlueAdapter.isEnabled()){
+            showToast("You must turn bluetooth back on");
+            Intent intent = new Intent(HomePageActivity.this, BluetoothActivity.class);
+            startActivity(intent);
+        }
 
         //**********************NavBar Functionality**********************************
         drawerLayout = findViewById(R.id.my_drawer_layout_home_page);

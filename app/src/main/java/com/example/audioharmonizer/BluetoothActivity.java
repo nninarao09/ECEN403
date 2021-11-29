@@ -5,8 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
+import java.io.InputStream;
+import java.io.OutputStream;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -15,12 +18,20 @@ import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Set;
+import java.util.UUID;
 
 public class BluetoothActivity extends AppCompatActivity {
     public static final String EXTRA_MESSAGE = "com.example.audioharmonizer.MESSAGE";
     private static final int REQUEST_ENABLE_BT =0;
     private static final int REQUEST_DISCOVER_BT = 1;
+    private static final UUID MY_UUID_INSECURE =
+            UUID.fromString("F3694693-2D3F-43C1-BD05-1A9497862DC7");
+    private static final UUID MY_UUID_INSECURE2 =
+            UUID.fromString("8ce255c0-200a-11e0-ac64-0800200c9a66");
 
     TextView mStatusBlueTv, mPairedTv;
     ImageView mBlueIv;
@@ -28,6 +39,8 @@ public class BluetoothActivity extends AppCompatActivity {
     Boolean isConnected = false;
 
     BluetoothAdapter mBlueAdapter;
+    private BluetoothSocket mBTSocket;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -142,6 +155,14 @@ public class BluetoothActivity extends AppCompatActivity {
                 for(BluetoothDevice device: devices){
                     if(device.getName().equals("Blank2")){ //Change this name to DSP name
                         globalVariable.setDevice(device);
+                        //MY_UUID_INSECURE = UUID.fromString(device.GetUuids()[0].Uuid.ToString());
+                        //
+                        globalVariable.setmBluetoothConnection(new BluetoothConnectionService(BluetoothActivity.this));
+                        globalVariable.getmBluetoothConnection().startClient(device, MY_UUID_INSECURE);
+//                        String etSend = "TESTING Nina";
+//                        byte[] bytes = etSend.getBytes(Charset.defaultCharset());
+//                        globalVariable.getmBluetoothConnection().write(bytes);
+                        //
                         Intent intent = new Intent(BluetoothActivity.this, HomePageActivity.class);
                         startActivity(intent);
                         isConnected = true;

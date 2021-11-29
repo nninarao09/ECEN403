@@ -9,6 +9,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
+import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -24,6 +25,7 @@ public class InitialInputActivity extends AppCompatActivity implements Navigatio
     public DrawerLayout drawerLayout_InitialInputs, drawerLayout_HomePage;
     public ActionBarDrawerToggle actionBarDrawerToggle_InitialInputs, actionBarDrawerToggle_HomePage;
     private NavigationView navigationView;
+    BluetoothAdapter mBlueAdapter;
 
 
     @Override
@@ -39,6 +41,13 @@ public class InitialInputActivity extends AppCompatActivity implements Navigatio
         EditText beats_per_measure = (EditText) findViewById(R.id.beats_per_measure);
         EditText beats_per_minute = (EditText) findViewById(R.id.beats_per_minute);
 
+
+        mBlueAdapter = BluetoothAdapter.getDefaultAdapter();
+        if(!mBlueAdapter.isEnabled()){
+            showToast("You must turn bluetooth back on");
+            Intent intent = new Intent(InitialInputActivity.this, BluetoothActivity.class);
+            startActivity(intent);
+        }
 
 
         //**********************NavBar Functionality**********************************

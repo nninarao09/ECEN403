@@ -51,8 +51,8 @@ public class AutomaticActivity extends AppCompatActivity implements NavigationVi
     private static final UUID MY_UUID_INSECURE =
             UUID.fromString("F3694693-2D3F-43C1-BD05-1A9497862DC7");
 
-    //BluetoothDevice mBTDevice;
-    BluetoothAdapter mBluetoothAdapter;
+    BluetoothDevice mBTDevice;
+    BluetoothAdapter mBlueAdapter;
     //public ArrayList<BluetoothDevice> mBTDevices = new ArrayList<>();
 
     public DrawerLayout drawerLayout_automatic;
@@ -68,12 +68,14 @@ public class AutomaticActivity extends AppCompatActivity implements NavigationVi
         final GlobalClass globalVariable = (GlobalClass) getApplicationContext();
 
         //**********************************bluetooth***************************************
-        mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-        BluetoothConnectionService mBluetoothConnection = new BluetoothConnectionService(AutomaticActivity.this);
-        //showToast(globalVariable.getDevice());
-        mBluetoothConnection.startClient(globalVariable.getDevice(), MY_UUID_INSECURE);
 
-        //possibly socket stuff
+
+        mBlueAdapter = BluetoothAdapter.getDefaultAdapter();
+        if(!mBlueAdapter.isEnabled()){
+            showToast("You must turn bluetooth back on");
+            Intent intent = new Intent(AutomaticActivity.this, BluetoothActivity.class);
+            startActivity(intent);
+        }
 
 
         //**********************************bluetooth***************************************
@@ -167,7 +169,7 @@ public class AutomaticActivity extends AppCompatActivity implements NavigationVi
 
                 //Send data to the device
                 byte[] bytes = etSend.getText().toString().getBytes(/*Charset.defaultCharset()*/);
-                mBluetoothConnection.write(bytes);
+                //globalVariable.getmBluetoothConnection().write(bytes);
 
                 Intent intent = new Intent(AutomaticActivity.this, StartSingingActivity.class);
                 startActivity(intent);

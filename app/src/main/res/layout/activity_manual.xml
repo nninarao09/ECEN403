@@ -10,6 +10,13 @@
     android:id="@+id/my_drawer_layout_manual"
     tools:context=".ManualActivity">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
+        android:fillViewport="true"
+        >
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -46,7 +53,7 @@
             android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="500dp"
-            android:text="Generate New"
+            android:text="Generate"
             android:gravity="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -65,11 +72,11 @@
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent" />
 
-
-
     </LinearLayout>
+    </ScrollView>
 
-    <com.google.android.material.navigation.NavigationView
+
+<com.google.android.material.navigation.NavigationView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"

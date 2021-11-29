@@ -11,6 +11,7 @@ public class GlobalClass extends Application{
     private BluetoothDevice device;
     private String[] AutomaticArray = {"Filler", "Filler", "Filler", "Filler", "Filler", "Filler", "Filler", "Filler", "Filler"};
     private String[] ListOfRecordings;
+    private BluetoothConnectionService mBluetoothConnection;
 
     public BluetoothDevice getDevice() {
         return device;
@@ -62,4 +63,11 @@ public class GlobalClass extends Application{
         this.ListOfRecordings = ListOfRecordings;
     }
 
+    public BluetoothConnectionService getmBluetoothConnection() {
+        return mBluetoothConnection;
+    }
+
+    public void setmBluetoothConnection(BluetoothConnectionService mBluetoothConnection) {
+        this.mBluetoothConnection = mBluetoothConnection;
+    }
 }

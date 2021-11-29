@@ -5,6 +5,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -20,6 +21,7 @@ public class ModeOfOperationActivity extends AppCompatActivity implements Naviga
     public DrawerLayout drawerLayout_modes_of_operation;
     public ActionBarDrawerToggle actionBarDrawerToggle_modes_of_operation;
     private NavigationView navigationView;
+    BluetoothAdapter mBlueAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +32,14 @@ public class ModeOfOperationActivity extends AppCompatActivity implements Naviga
 
         automatic_button = (Button)findViewById(R.id.automatic_button);
         manual_button = (Button)findViewById(R.id.manual_button);
+
+        //********************************bluetooth***********************************
+        mBlueAdapter = BluetoothAdapter.getDefaultAdapter();
+        if(!mBlueAdapter.isEnabled()){
+            showToast("You must turn bluetooth back on");
+            Intent intent = new Intent(ModeOfOperationActivity.this, BluetoothActivity.class);
+            startActivity(intent);
+        }
 
         //**********************NavBar Functionality**********************************
         drawerLayout_modes_of_operation = findViewById(R.id.my_drawer_layout_modes_of_operation);

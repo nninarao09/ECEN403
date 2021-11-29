@@ -5,6 +5,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -12,18 +13,36 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 
 public class StartSingingActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener  {
     public int counter = 10;
+    public int bpMinute = 0;
+    public int bpMeasure = 0;
     Button start_singing_button;
     TextView countDown_textview;
+    BluetoothAdapter mBlueAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_singing);
+
+        final GlobalClass globalVariable = (GlobalClass) getApplicationContext();
+
+        bpMinute = Integer.parseInt(globalVariable.getBeatsPerMinute());
+        bpMeasure = Integer.parseInt(globalVariable.getBeatsPerMeasure());
+
+
+        //********************************bluetooth***********************************
+        mBlueAdapter = BluetoothAdapter.getDefaultAdapter();
+        if(!mBlueAdapter.isEnabled()){
+            showToast("You must turn bluetooth back on");
+            Intent intent = new Intent(StartSingingActivity.this, BluetoothActivity.class);
+            startActivity(intent);
+        }
 
 
         start_singing_button = (Button)findViewById(R.id.start_singing_button);
@@ -85,6 +104,11 @@ public class StartSingingActivity extends AppCompatActivity implements Navigatio
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+
+    private void showToast(String msg){
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
 }
