@@ -71,7 +71,8 @@ public class ManualActivity extends AppCompatActivity implements NavigationView.
         EditText notes_per_harmony = (EditText) findViewById(R.id.notes_per_harmony);
 
         generate_new_button = (Button)findViewById(R.id.generate_new);
-        DrawerLayout myLayout = (DrawerLayout) findViewById(R.id.my_drawer_layout_manual);
+        LinearLayout myLayout = (LinearLayout) findViewById(R.id.linear_inside_scroll);
+        //ScrollView myScrollview = findViewById(R.id.scrollView_manual);
 
         generate_new_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -86,28 +87,29 @@ public class ManualActivity extends AppCompatActivity implements NavigationView.
                         TextView HarmonyNumber = new TextView(ManualActivity.this);
                         HarmonyNumber.setText("Harmony " + num);
                         HarmonyNumber.setGravity(Gravity.HORIZONTAL_GRAVITY_MASK);
-                        DrawerLayout.LayoutParams tvHarmonyNumber = new DrawerLayout.LayoutParams(DrawerLayout.LayoutParams.WRAP_CONTENT, DrawerLayout.LayoutParams.WRAP_CONTENT);
-                        tvHarmonyNumber.setMargins(dpToPx(160), dpToPx(height_of_Harmony_Number), 0, 0);
+                        LinearLayout.LayoutParams tvHarmonyNumber = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                        tvHarmonyNumber.setMargins(dpToPx(20), dpToPx(0), dpToPx(20), dpToPx(0));
+                        HarmonyNumber.setPadding(dpToPx(0), dpToPx(0), dpToPx(0), dpToPx(0));
                         HarmonyNumber.setLayoutParams(tvHarmonyNumber);
                         myLayout.addView(HarmonyNumber);
 
 
                         TextView tvNote = new TextView(ManualActivity.this);
-                        tvNote.setText("Notes");
+                        tvNote.setText("Note and Length Pairs:");
                         tvNote.setGravity(Gravity.HORIZONTAL_GRAVITY_MASK);
-                        DrawerLayout.LayoutParams tvNoteLayout = new DrawerLayout.LayoutParams(DrawerLayout.LayoutParams.WRAP_CONTENT, DrawerLayout.LayoutParams.WRAP_CONTENT);
-                        tvNoteLayout.setMargins(dpToPx(120), dpToPx(height_of_Titles), 0, 0);
+                        LinearLayout.LayoutParams tvNoteLayout = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                        tvNoteLayout.setMargins(dpToPx(20), dpToPx(10), dpToPx(20), dpToPx(0));
                         tvNote.setLayoutParams(tvNoteLayout);
-                        tvNote.setPadding(0, 0, 0, 0);
+                        //tvNote.setPadding(0, 0, 0, 0);
                         myLayout.addView(tvNote);
 
-                        TextView tvLength = new TextView(ManualActivity.this);
-                        tvLength.setText("Length");
-                        DrawerLayout.LayoutParams tvLengthLayout = new DrawerLayout.LayoutParams(DrawerLayout.LayoutParams.WRAP_CONTENT, DrawerLayout.LayoutParams.WRAP_CONTENT);
-                        tvLengthLayout.setMargins(dpToPx(110) + dpToPx(left), dpToPx(height_of_Titles), 0, 0);
-                        tvLength.setLayoutParams(tvLengthLayout);
-                        tvLength.setPadding(0, 0, 0, 0);
-                        myLayout.addView(tvLength);
+//                        TextView tvLength = new TextView(ManualActivity.this);
+//                        tvLength.setText("Length");
+//                        LinearLayout.LayoutParams tvLengthLayout = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+//                        tvLengthLayout.setMargins(dpToPx(0), dpToPx(0), 0, dpToPx(0));
+//                        tvLength.setLayoutParams(tvLengthLayout);
+//                        //tvLength.setPadding(0, 0, 0, 0);
+//                        myLayout.addView(tvLength);
 
                         for (int j = 0; j < Integer.parseInt(notes_per_harmony.getText().toString()); j++) {
                             Spinner spinnerNote = new Spinner(ManualActivity.this);
@@ -115,8 +117,8 @@ public class ManualActivity extends AppCompatActivity implements NavigationView.
                                     android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.notes));
                             myNoteAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-                            DrawerLayout.LayoutParams lp = new DrawerLayout.LayoutParams(DrawerLayout.LayoutParams.MATCH_PARENT, DrawerLayout.LayoutParams.WRAP_CONTENT);
-                            lp.setMargins(dpToPx(70), dpToPx(height), dpToPx(250), 0);
+                            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                            lp.setMargins(dpToPx(160), dpToPx(0), dpToPx(160), 0);
                             spinnerNote.setLayoutParams(lp);
                             spinnerNote.setGravity(Gravity.RIGHT);
                             spinnerNote.setPadding(dpToPx(0), dpToPx(0), dpToPx(0), dpToPx(0));
@@ -130,8 +132,8 @@ public class ManualActivity extends AppCompatActivity implements NavigationView.
                                     android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.length));
                             myLengthAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-                            DrawerLayout.LayoutParams lp2 = new DrawerLayout.LayoutParams(DrawerLayout.LayoutParams.MATCH_PARENT, DrawerLayout.LayoutParams.WRAP_CONTENT);
-                            lp2.setMargins(dpToPx(220), dpToPx(height), dpToPx(40), 0);
+                            LinearLayout.LayoutParams lp2 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                            lp2.setMargins(dpToPx(160), dpToPx(0), dpToPx(160), dpToPx(10));
                             spinnerLength.setLayoutParams(lp2);
                             spinnerLength.setGravity(Gravity.RIGHT);
                             spinnerNote.setPadding(dpToPx(0), dpToPx(0), dpToPx(0), dpToPx(0));

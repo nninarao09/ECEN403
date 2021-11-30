@@ -10,6 +10,7 @@ public class GlobalClass extends Application{
     private String BeatsPerMinute;
     private BluetoothDevice device;
     private String[] AutomaticArray = {"Filler", "Filler", "Filler", "Filler", "Filler", "Filler", "Filler", "Filler", "Filler"};
+    private String[] ManualArray = {};
     private String[] ListOfRecordings;
     private BluetoothConnectionService mBluetoothConnection;
 
