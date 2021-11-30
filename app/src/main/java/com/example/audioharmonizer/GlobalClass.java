@@ -3,6 +3,8 @@ package com.example.audioharmonizer;
 import android.app.Application;
 import android.bluetooth.BluetoothDevice;
 
+import java.util.ArrayList;
+
 public class GlobalClass extends Application{
 
     private String NameOfSong;
@@ -10,7 +12,7 @@ public class GlobalClass extends Application{
     private String BeatsPerMinute;
     private BluetoothDevice device;
     private String[] AutomaticArray = {"Filler", "Filler", "Filler", "Filler", "Filler", "Filler", "Filler", "Filler", "Filler"};
-    private String[] ManualArray = {};
+    ArrayList<String> ManualArrayList = new ArrayList<String>();
     private String[] ListOfRecordings;
     private BluetoothConnectionService mBluetoothConnection;
 
@@ -54,6 +56,14 @@ public class GlobalClass extends Application{
 
     public void setAutomaticArray(String[] AutomaticArray) {
         this.AutomaticArray = AutomaticArray;
+    }
+
+    public ArrayList<String> getManualArrayList() {
+        return ManualArrayList;
+    }
+
+    public void setManualArrayList(ArrayList<String>  ManualArrayList) {
+        this.ManualArrayList = ManualArrayList;
     }
 
     public String[] getListOfRecordings() {

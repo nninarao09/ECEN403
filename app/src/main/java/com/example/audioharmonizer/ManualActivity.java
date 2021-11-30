@@ -34,14 +34,14 @@ public class ManualActivity extends AppCompatActivity implements NavigationView.
     public int height = 120;
     public int height_of_Titles = 150;
     public int height_of_Harmony_Number = 120;
-    public int left = 120;
-    public int right = 10;
-    public int bottom = 50;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manual);
+
+        final GlobalClass globalVariable = (GlobalClass) getApplicationContext();
 
         initializeNavBar();
 
@@ -80,6 +80,7 @@ public class ManualActivity extends AppCompatActivity implements NavigationView.
 
                     int NumberOfHarmonies = Integer.parseInt(number_of_harmonies.getText().toString());
                     int count = 1;
+                    int k = 0;
 
                     while (NumberOfHarmonies != 0) {
 
@@ -122,7 +123,7 @@ public class ManualActivity extends AppCompatActivity implements NavigationView.
                             spinnerNote.setLayoutParams(lp);
                             spinnerNote.setGravity(Gravity.RIGHT);
                             spinnerNote.setPadding(dpToPx(0), dpToPx(0), dpToPx(0), dpToPx(0));
-                            spinnerNote.setId(j + 1);
+                            spinnerNote.setId(k + j + 1);
                             spinnerNote.setAdapter(myNoteAdapter);
                             myLayout.addView(spinnerNote);
 
@@ -137,17 +138,15 @@ public class ManualActivity extends AppCompatActivity implements NavigationView.
                             spinnerLength.setLayoutParams(lp2);
                             spinnerLength.setGravity(Gravity.RIGHT);
                             spinnerNote.setPadding(dpToPx(0), dpToPx(0), dpToPx(0), dpToPx(0));
-                            spinnerLength.setId(j + 1);
+                            spinnerLength.setId(k + j + 100);
                             spinnerLength.setAdapter(myLengthAdapter);
                             myLayout.addView(spinnerLength);
 
-                            height += 60;
                         }
-                        height += 30;
-                        height_of_Titles += 50;
-                        height_of_Harmony_Number += 60;
+
                         NumberOfHarmonies--;
                         count++;
+                        k+=2;
                     }
                 }
 
@@ -158,6 +157,29 @@ public class ManualActivity extends AppCompatActivity implements NavigationView.
         manual_finish_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v)
             {
+                int NumberOfHarmonies = Integer.parseInt(number_of_harmonies.getText().toString());
+                int count = 1;
+                int k = 0;
+
+                while (NumberOfHarmonies != 0) {
+                    for (int j = 0; j < Integer.parseInt(notes_per_harmony.getText().toString()); j++) {
+                        Spinner note_spinner = (Spinner) findViewById(k + j + 1);
+                        String save = note_spinner.getSelectedItem().toString();
+                        globalVariable.getManualArrayList().add(save);
+
+                        Spinner length_spinner = (Spinner) findViewById(k+j+100);
+                        String saveLength = length_spinner.getSelectedItem().toString();
+                        globalVariable.getManualArrayList().add(saveLength);
+
+                    }
+                    NumberOfHarmonies--;
+                    count++;
+                    k+=2;
+                }
+
+                for(String i : globalVariable.getManualArrayList()){
+                    showToast(i);
+                }
 
                 Intent intent = new Intent(ManualActivity.this, StartSingingActivity.class);
                 startActivity(intent);

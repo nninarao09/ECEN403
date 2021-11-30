@@ -75,7 +75,11 @@ public class ModeOfOperationActivity extends AppCompatActivity implements Naviga
         manual_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v)
             {
-                globalVariable.getAutomaticArray()[3] = "Manual";
+                globalVariable.getManualArrayList().add("Manual");
+
+//                for (String i : globalVariable.getManualArrayList()) {
+//                    showToast(i);
+//                }
 
                 Intent intent = new Intent(ModeOfOperationActivity.this, ManualActivity.class);
                 startActivity(intent);

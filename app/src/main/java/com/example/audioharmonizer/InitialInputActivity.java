@@ -20,6 +20,8 @@ import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 
+import java.util.ArrayList;
+
 public class InitialInputActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     public DrawerLayout drawerLayout_InitialInputs, drawerLayout_HomePage;
@@ -86,7 +88,16 @@ public class InitialInputActivity extends AppCompatActivity implements Navigatio
                 globalVariable.getAutomaticArray()[1] = globalVariable.getBeatsPerMeasure();
                 globalVariable.getAutomaticArray()[2] = globalVariable.getBeatsPerMinute();
 
+                globalVariable.getManualArrayList().add(globalVariable.getNameOfSong());
+                globalVariable.getManualArrayList().add(globalVariable.getBeatsPerMeasure());
+                globalVariable.getManualArrayList().add(globalVariable.getBeatsPerMinute());
                 //here should be an error checker -> if fields are empty then it should not proceed to the next page
+
+
+//                for (String i : globalVariable.getManualArrayList()) {
+//                    showToast(i);
+//                }
+
 
                 Intent intent = new Intent(InitialInputActivity.this, ModeOfOperationActivity.class);
                 startActivity(intent);
