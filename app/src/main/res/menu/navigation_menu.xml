@@ -19,7 +19,9 @@
     <item
         android:id="@+id/nav_manual"
         android:title="Manual Mode" />
-
+    <item
+        android:id="@+id/nav_start_singing"
+        android:title="Start Singing" />
     <item
         android:id="@+id/nav_recordings"
         android:title="Recordings" />

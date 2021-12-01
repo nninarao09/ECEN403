@@ -65,7 +65,7 @@ public class ModeOfOperationActivity extends AppCompatActivity implements Naviga
         automatic_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v)
             {
-                globalVariable.getAutomaticArray()[3] = "Automatic";
+                globalVariable.getInitialInputsArray()[3] = "Automatic";
 
                 Intent intent = new Intent(ModeOfOperationActivity.this, AutomaticActivity.class);
                 startActivity(intent);
@@ -75,7 +75,7 @@ public class ModeOfOperationActivity extends AppCompatActivity implements Naviga
         manual_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v)
             {
-                globalVariable.getManualArrayList().add("Manual");
+                globalVariable.getInitialInputsArray()[3] = "Manual";
 
 //                for (String i : globalVariable.getManualArrayList()) {
 //                    showToast(i);
@@ -112,6 +112,9 @@ public class ModeOfOperationActivity extends AppCompatActivity implements Naviga
             startActivity(intent);
         } else if (item.getItemId() == R.id.nav_manual) {
             Intent intent = new Intent(ModeOfOperationActivity.this, ManualActivity.class);
+            startActivity(intent);
+        } else if (item.getItemId() == R.id.nav_start_singing) {
+            Intent intent = new Intent(ModeOfOperationActivity.this, StartSingingActivity.class);
             startActivity(intent);
         } else if (item.getItemId() == R.id.nav_recordings) {
             Intent intent = new Intent(ModeOfOperationActivity.this, RecordingsActivity.class);

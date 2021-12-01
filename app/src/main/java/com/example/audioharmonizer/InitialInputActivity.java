@@ -24,8 +24,8 @@ import java.util.ArrayList;
 
 public class InitialInputActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
-    public DrawerLayout drawerLayout_InitialInputs, drawerLayout_HomePage;
-    public ActionBarDrawerToggle actionBarDrawerToggle_InitialInputs, actionBarDrawerToggle_HomePage;
+    public DrawerLayout drawerLayout_InitialInputs;
+    public ActionBarDrawerToggle actionBarDrawerToggle_InitialInputs;
     private NavigationView navigationView;
     BluetoothAdapter mBlueAdapter;
 
@@ -84,13 +84,11 @@ public class InitialInputActivity extends AppCompatActivity implements Navigatio
                 globalVariable.setBeatsPerMeasure(beats_per_measure.getText().toString());
                 globalVariable.setBeatsPerMinute(beats_per_minute.getText().toString());
 
-                globalVariable.getAutomaticArray()[0] =  globalVariable.getNameOfSong();
-                globalVariable.getAutomaticArray()[1] = globalVariable.getBeatsPerMeasure();
-                globalVariable.getAutomaticArray()[2] = globalVariable.getBeatsPerMinute();
+                globalVariable.getInitialInputsArray()[0] =  globalVariable.getNameOfSong();
+                globalVariable.getInitialInputsArray()[1] = globalVariable.getBeatsPerMeasure();
+                globalVariable.getInitialInputsArray()[2] = globalVariable.getBeatsPerMinute();
 
-                globalVariable.getManualArrayList().add(globalVariable.getNameOfSong());
-                globalVariable.getManualArrayList().add(globalVariable.getBeatsPerMeasure());
-                globalVariable.getManualArrayList().add(globalVariable.getBeatsPerMinute());
+
                 //here should be an error checker -> if fields are empty then it should not proceed to the next page
 
 
@@ -130,6 +128,9 @@ public class InitialInputActivity extends AppCompatActivity implements Navigatio
             startActivity(intent);
         }else if (item.getItemId() == R.id.nav_manual) {
             Intent intent = new Intent(InitialInputActivity.this, ManualActivity.class);
+            startActivity(intent);
+        } else if (item.getItemId() == R.id.nav_start_singing) {
+            Intent intent = new Intent(InitialInputActivity.this, StartSingingActivity.class);
             startActivity(intent);
         } else if (item.getItemId() == R.id.nav_recordings) {
             Intent intent = new Intent(InitialInputActivity.this, RecordingsActivity.class);

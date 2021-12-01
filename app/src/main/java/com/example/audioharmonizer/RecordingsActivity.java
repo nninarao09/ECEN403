@@ -48,7 +48,7 @@ public class RecordingsActivity extends AppCompatActivity implements NavigationV
         navigationView = findViewById(R.id.navigationview_id_recordings);
         navigationView.setNavigationItemSelectedListener(this);
 
-        MenuItem menuItem = navigationView.getMenu().getItem(5).setChecked(true);
+        MenuItem menuItem = navigationView.getMenu().getItem(6).setChecked(true);
         onNavigationItemSelected(menuItem);
         //**********************NavBar Functionality END**********************************
 
@@ -119,6 +119,9 @@ public class RecordingsActivity extends AppCompatActivity implements NavigationV
             startActivity(intent);
         } else if (item.getItemId() == R.id.nav_manual) {
             Intent intent = new Intent(RecordingsActivity.this, ManualActivity.class);
+            startActivity(intent);
+        } else if (item.getItemId() == R.id.nav_start_singing) {
+            Intent intent = new Intent(RecordingsActivity.this, StartSingingActivity.class);
             startActivity(intent);
         } else if (item.getItemId() == R.id.nav_recordings) {
             return true;

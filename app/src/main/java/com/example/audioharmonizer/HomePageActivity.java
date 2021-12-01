@@ -112,6 +112,9 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
         } else if (item.getItemId() == R.id.nav_manual) {
             Intent intent = new Intent(HomePageActivity.this, ManualActivity.class);
             startActivity(intent);
+        } else if (item.getItemId() == R.id.nav_start_singing) {
+            Intent intent = new Intent(HomePageActivity.this, StartSingingActivity.class);
+            startActivity(intent);
         } else if (item.getItemId() == R.id.nav_recordings) {
             Intent intent = new Intent(HomePageActivity.this, RecordingsActivity.class);
             startActivity(intent);

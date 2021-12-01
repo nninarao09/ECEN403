@@ -110,6 +110,8 @@ public class AutomaticActivity extends AppCompatActivity implements NavigationVi
         Spinner noh_spinner = (Spinner) findViewById(R.id.noh_spinner);
 
         etSend = (EditText) findViewById(R.id.etSend);
+        etSend.setVisibility(View.INVISIBLE);
+
         //***************************Chord Progression Spinners***************************************
 
         ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(AutomaticActivity.this,
@@ -153,22 +155,25 @@ public class AutomaticActivity extends AppCompatActivity implements NavigationVi
 
 
 
-                globalVariable.getAutomaticArray()[4] = chord_spinner;
-                globalVariable.getAutomaticArray()[5] = chord_spinner2;
-                globalVariable.getAutomaticArray()[6] = chord_spinner3;
-                globalVariable.getAutomaticArray()[7] = chord_spinner4;
-                globalVariable.getAutomaticArray()[8] = harmony_spinner;
+                globalVariable.getAutomaticArray()[0] = chord_spinner;
+                globalVariable.getAutomaticArray()[1] = chord_spinner2;
+                globalVariable.getAutomaticArray()[2] = chord_spinner3;
+                globalVariable.getAutomaticArray()[3] = chord_spinner4;
+                globalVariable.getAutomaticArray()[4] = harmony_spinner;
 
                 //for testing purposes
                 //byte[] bytes = {1, 2, 3, 4, 5, 6, 7, 8, 9};
-                for(int i=0; i<9; ++i){
+                for(int i=0; i<4; ++i){
+                    showToast(globalVariable.getInitialInputsArray()[i]);
+                }
+                for(int i=0; i<5; ++i){
                     showToast(globalVariable.getAutomaticArray()[i]);
                     //bytes = globalVariable.getAutomaticArray()[i].getBytes(Charset.defaultCharset());
                 }
-
+                showToast("Done");
 
                 //Send data to the device
-                byte[] bytes = etSend.getText().toString().getBytes(/*Charset.defaultCharset()*/);
+                //byte[] bytes = etSend.getText().toString().getBytes(/*Charset.defaultCharset()*/);
                 //globalVariable.getmBluetoothConnection().write(bytes);
 
                 Intent intent = new Intent(AutomaticActivity.this, StartSingingActivity.class);
@@ -228,6 +233,9 @@ public class AutomaticActivity extends AppCompatActivity implements NavigationVi
             return true;
         } else if (item.getItemId() == R.id.nav_manual) {
             Intent intent = new Intent(AutomaticActivity.this, ManualActivity.class);
+            startActivity(intent);
+        } else if (item.getItemId() == R.id.nav_manual) {
+            Intent intent = new Intent(AutomaticActivity.this, StartSingingActivity.class);
             startActivity(intent);
         } else if (item.getItemId() == R.id.nav_recordings) {
             Intent intent = new Intent(AutomaticActivity.this, RecordingsActivity.class);

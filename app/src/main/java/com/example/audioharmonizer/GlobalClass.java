@@ -11,7 +11,8 @@ public class GlobalClass extends Application{
     private String BeatsPerMeasure;
     private String BeatsPerMinute;
     private BluetoothDevice device;
-    private String[] AutomaticArray = {"Filler", "Filler", "Filler", "Filler", "Filler", "Filler", "Filler", "Filler", "Filler"};
+    private String[] InitialInputsArray = {"Filler", "Filler", "Filler", "Filler"};
+    private String[] AutomaticArray = {"Filler", "Filler", "Filler", "Filler", "Filler"};
     ArrayList<String> ManualArrayList = new ArrayList<String>();
     private String[] ListOfRecordings;
     private BluetoothConnectionService mBluetoothConnection;
@@ -49,6 +50,13 @@ public class GlobalClass extends Application{
         BeatsPerMinute = aBeatsPerMinute;
     }
 
+    public String[] getInitialInputsArray() {
+        return InitialInputsArray;
+    }
+
+    public void setInitialInputsArray(String[] InitialInputsArray) {
+        this.InitialInputsArray = InitialInputsArray;
+    }
 
     public String[] getAutomaticArray() {
         return AutomaticArray;

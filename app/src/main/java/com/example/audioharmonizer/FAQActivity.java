@@ -37,7 +37,7 @@ public class FAQActivity extends AppCompatActivity implements NavigationView.OnN
         navigationView = findViewById(R.id.navigationview_id_faq);
         navigationView.setNavigationItemSelectedListener(this);
 
-        MenuItem menuItem = navigationView.getMenu().getItem(6).setChecked(true);
+        MenuItem menuItem = navigationView.getMenu().getItem(7).setChecked(true);
         onNavigationItemSelected(menuItem);
         //**********************NavBar Functionality END**********************************
     }
@@ -67,6 +67,9 @@ public class FAQActivity extends AppCompatActivity implements NavigationView.OnN
             startActivity(intent);
         } else if (item.getItemId() == R.id.nav_manual) {
             Intent intent = new Intent(FAQActivity.this, ManualActivity.class);
+            startActivity(intent);
+        } else if (item.getItemId() == R.id.nav_start_singing) {
+            Intent intent = new Intent(FAQActivity.this, StartSingingActivity.class);
             startActivity(intent);
         } else if (item.getItemId() == R.id.nav_recordings) {
             Intent intent = new Intent(FAQActivity.this, RecordingsActivity.class);

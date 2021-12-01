@@ -21,19 +21,27 @@ public class StartSingingActivity extends AppCompatActivity implements Navigatio
     public int counter = 10;
     public int bpMinute = 0;
     public int bpMeasure = 0;
+    public long fullLengthTime = 0;
     Button start_singing_button;
     TextView countDown_textview;
     BluetoothAdapter mBlueAdapter;
+
+    public DrawerLayout drawerLayout_StartSinging;
+    public ActionBarDrawerToggle actionBarDrawerToggle_StartSinging;
+    private NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_singing);
 
+        initializeNavBar();
+
         final GlobalClass globalVariable = (GlobalClass) getApplicationContext();
 
         bpMinute = Integer.parseInt(globalVariable.getBeatsPerMinute());
         bpMeasure = Integer.parseInt(globalVariable.getBeatsPerMeasure());
+        fullLengthTime = (bpMeasure* 60L)/bpMinute;
 
 
         //********************************bluetooth***********************************
@@ -51,13 +59,13 @@ public class StartSingingActivity extends AppCompatActivity implements Navigatio
         start_singing_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                counter = 10;
-                new CountDownTimer(10000, 1000){
+                counter = bpMeasure;
+                new CountDownTimer( fullLengthTime*1000, (fullLengthTime*1000/bpMeasure)){
                     public void onTick(long millisUntilFinished){
                         countDown_textview.setText(String.valueOf(counter));
                         counter--;
                     }
-                    public  void onFinish(){
+                    public void onFinish(){
                         countDown_textview.setText("GO!!");
                     }
                 }.start();
@@ -67,12 +75,32 @@ public class StartSingingActivity extends AppCompatActivity implements Navigatio
 
     }
 
+    public void initializeNavBar(){
+        drawerLayout_StartSinging = findViewById(R.id.my_drawer_layout_start_singing);
+        actionBarDrawerToggle_StartSinging = new ActionBarDrawerToggle(this, drawerLayout_StartSinging, R.string.nav_open, R.string.nav_close);
+
+        // pass the Open and Close toggle for the drawer layout listener
+        // to toggle the button
+        drawerLayout_StartSinging.addDrawerListener(actionBarDrawerToggle_StartSinging);
+        actionBarDrawerToggle_StartSinging.syncState();
+
+        // to make the Navigation drawer icon always appear on the action bar
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        navigationView = findViewById(R.id.navigationview_id_start_singing);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        MenuItem menuItem = navigationView.getMenu().getItem(5).setChecked(true);
+        onNavigationItemSelected(menuItem);
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-//        if (actionBarDrawerToggle_automatic.onOptionsItemSelected(item)) {
-//            return true;
-//        }
+
+        if (actionBarDrawerToggle_StartSinging.onOptionsItemSelected(item)) {
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -94,6 +122,8 @@ public class StartSingingActivity extends AppCompatActivity implements Navigatio
         } else if (item.getItemId() == R.id.nav_manual) {
             Intent intent = new Intent(StartSingingActivity.this, ManualActivity.class);
             startActivity(intent);
+        } else if (item.getItemId() == R.id.nav_start_singing) {
+            return true;
         } else if (item.getItemId() == R.id.nav_recordings) {
             Intent intent = new Intent(StartSingingActivity.this, RecordingsActivity.class);
             startActivity(intent);

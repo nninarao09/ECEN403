@@ -24,6 +24,8 @@ import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 
+import java.util.ArrayList;
+
 public class ManualActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     Button manual_finish_button, generate_new_button;
@@ -42,6 +44,7 @@ public class ManualActivity extends AppCompatActivity implements NavigationView.
         setContentView(R.layout.activity_manual);
 
         final GlobalClass globalVariable = (GlobalClass) getApplicationContext();
+        globalVariable.getManualArrayList().clear();
 
         initializeNavBar();
 
@@ -76,7 +79,11 @@ public class ManualActivity extends AppCompatActivity implements NavigationView.
 
         generate_new_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                //if (number_of_harmonies != null | notes_per_harmony != null) {
+                    //creating the length array{
+                    final ArrayList<String> lengthArray = new ArrayList<String>();
+                    for(double i=0.5; i<=Integer.parseInt(globalVariable.getBeatsPerMeasure()); i+=0.5 ){
+                        lengthArray.add(String.valueOf(i));
+                    }
 
                     int NumberOfHarmonies = Integer.parseInt(number_of_harmonies.getText().toString());
                     int count = 1;
@@ -96,7 +103,7 @@ public class ManualActivity extends AppCompatActivity implements NavigationView.
 
 
                         TextView tvNote = new TextView(ManualActivity.this);
-                        tvNote.setText("Note and Length Pairs:");
+                        tvNote.setText("Note, Octave, and Length Blocks:");
                         tvNote.setGravity(Gravity.HORIZONTAL_GRAVITY_MASK);
                         LinearLayout.LayoutParams tvNoteLayout = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                         tvNoteLayout.setMargins(dpToPx(20), dpToPx(10), dpToPx(20), dpToPx(0));
@@ -119,7 +126,7 @@ public class ManualActivity extends AppCompatActivity implements NavigationView.
                             myNoteAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
                             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                            lp.setMargins(dpToPx(160), dpToPx(0), dpToPx(160), 0);
+                            lp.setMargins(dpToPx(150), dpToPx(0), dpToPx(150), 0);
                             spinnerNote.setLayoutParams(lp);
                             spinnerNote.setGravity(Gravity.RIGHT);
                             spinnerNote.setPadding(dpToPx(0), dpToPx(0), dpToPx(0), dpToPx(0));
@@ -127,14 +134,28 @@ public class ManualActivity extends AppCompatActivity implements NavigationView.
                             spinnerNote.setAdapter(myNoteAdapter);
                             myLayout.addView(spinnerNote);
 
+                            Spinner spinnerOctave = new Spinner(ManualActivity.this);
+                            ArrayAdapter<String> myOctaveAdapter = new ArrayAdapter<String>(ManualActivity.this,
+                                    android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.octave));
+                            myOctaveAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+                            LinearLayout.LayoutParams lp3 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                            lp3.setMargins(dpToPx(150), dpToPx(0), dpToPx(150), 0);
+                            spinnerOctave.setLayoutParams(lp3);
+                            spinnerOctave.setGravity(Gravity.RIGHT);
+                            spinnerOctave.setPadding(dpToPx(0), dpToPx(0), dpToPx(0), dpToPx(0));
+                            spinnerOctave.setId(k + j + 200);
+                            spinnerOctave.setAdapter(myOctaveAdapter);
+                            myLayout.addView(spinnerOctave);
+
 
                             Spinner spinnerLength = new Spinner(ManualActivity.this);
                             ArrayAdapter<String> myLengthAdapter = new ArrayAdapter<String>(ManualActivity.this,
-                                    android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.length));
+                                    android.R.layout.simple_list_item_1, lengthArray);
                             myLengthAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
                             LinearLayout.LayoutParams lp2 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                            lp2.setMargins(dpToPx(160), dpToPx(0), dpToPx(160), dpToPx(10));
+                            lp2.setMargins(dpToPx(150), dpToPx(0), dpToPx(150), dpToPx(10));
                             spinnerLength.setLayoutParams(lp2);
                             spinnerLength.setGravity(Gravity.RIGHT);
                             spinnerNote.setPadding(dpToPx(0), dpToPx(0), dpToPx(0), dpToPx(0));
@@ -167,6 +188,11 @@ public class ManualActivity extends AppCompatActivity implements NavigationView.
                         String save = note_spinner.getSelectedItem().toString();
                         globalVariable.getManualArrayList().add(save);
 
+                        Spinner octave_spinner = (Spinner) findViewById(k+j+200);
+                        String saveOctave = octave_spinner.getSelectedItem().toString();
+                        globalVariable.getManualArrayList().add(saveOctave);
+
+
                         Spinner length_spinner = (Spinner) findViewById(k+j+100);
                         String saveLength = length_spinner.getSelectedItem().toString();
                         globalVariable.getManualArrayList().add(saveLength);
@@ -177,9 +203,16 @@ public class ManualActivity extends AppCompatActivity implements NavigationView.
                     k+=2;
                 }
 
+
+                //Show the values being saved for the demo
+                for(int i=0; i<4; ++i){
+                    showToast(globalVariable.getInitialInputsArray()[i]);
+                }
+
                 for(String i : globalVariable.getManualArrayList()){
                     showToast(i);
                 }
+                showToast("Done");
 
                 Intent intent = new Intent(ManualActivity.this, StartSingingActivity.class);
                 startActivity(intent);
@@ -232,6 +265,9 @@ public class ManualActivity extends AppCompatActivity implements NavigationView.
             startActivity(intent);
         } else if (item.getItemId() == R.id.nav_manual) {
             return true;
+        } else if (item.getItemId() == R.id.nav_start_singing) {
+            Intent intent = new Intent(ManualActivity.this, StartSingingActivity.class);
+            startActivity(intent);
         } else if (item.getItemId() == R.id.nav_recordings) {
             Intent intent = new Intent(ManualActivity.this, RecordingsActivity.class);
             startActivity(intent);
