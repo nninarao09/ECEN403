@@ -78,7 +78,7 @@ public class BluetoothConnectionService {
             } catch (IOException e) {Log.e(TAG, "AcceptThread: IOException: " + e.getMessage());}
             //Test if Socket is Null (if yes, move on to the next step)
             if (socket != null) {connected(socket, mmDevice);}
-            Log.i(TAG, "END mAcceptThread.");
+            Log.i(TAG, "mAcceptThread is END");
         }
 
         //End/ Cancel AcceptThread Method

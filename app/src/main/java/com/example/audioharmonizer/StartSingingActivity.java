@@ -9,6 +9,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -16,6 +17,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
+
+import java.io.IOException;
 
 public class StartSingingActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener  {
     public int counter = 10;
@@ -25,6 +28,7 @@ public class StartSingingActivity extends AppCompatActivity implements Navigatio
     Button start_singing_button;
     TextView countDown_textview;
     BluetoothAdapter mBlueAdapter;
+    private static final String TAG = "StartSingingActivity";
 
     public DrawerLayout drawerLayout_StartSinging;
     public ActionBarDrawerToggle actionBarDrawerToggle_StartSinging;
@@ -62,11 +66,19 @@ public class StartSingingActivity extends AppCompatActivity implements Navigatio
                 counter = bpMeasure;
                 new CountDownTimer( fullLengthTime*1000, (fullLengthTime*1000/bpMeasure)){
                     public void onTick(long millisUntilFinished){
+                        System.out.println("Counter Value: " + String.valueOf(counter));
                         countDown_textview.setText(String.valueOf(counter));
                         counter--;
+
                     }
                     public void onFinish(){
-                        countDown_textview.setText("GO!!");
+                        try {
+                            countDown_textview.setText("GO!!");
+                            Log.d(TAG, "CountDown Timer is working and has finished");
+                        }
+                        catch (Exception e) {
+                            Log.d(TAG, "CountDown Timer is not Working");
+                        }
                     }
                 }.start();
             }

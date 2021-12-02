@@ -161,16 +161,18 @@ public class AutomaticActivity extends AppCompatActivity implements NavigationVi
                 globalVariable.getAutomaticArray()[3] = chord_spinner4;
                 globalVariable.getAutomaticArray()[4] = harmony_spinner;
 
-                //for testing purposes
-                //byte[] bytes = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+
+                //Writing data to the other device
                 for(int i=0; i<4; ++i){
                     showToast(globalVariable.getInitialInputsArray()[i]);
+                    globalVariable.getmBluetoothConnection().write(globalVariable.getInitialInputsArray()[i].getBytes(Charset.defaultCharset()));
                 }
                 for(int i=0; i<5; ++i){
                     showToast(globalVariable.getAutomaticArray()[i]);
+                    globalVariable.getmBluetoothConnection().write(globalVariable.getAutomaticArray()[i].getBytes(Charset.defaultCharset()));
                     //bytes = globalVariable.getAutomaticArray()[i].getBytes(Charset.defaultCharset());
                 }
-                showToast("Done");
+
 
                 //Send data to the device
                 //byte[] bytes = etSend.getText().toString().getBytes(/*Charset.defaultCharset()*/);

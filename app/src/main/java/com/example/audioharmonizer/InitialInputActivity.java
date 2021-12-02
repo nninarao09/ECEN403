@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 
 public class InitialInputActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
@@ -95,6 +96,10 @@ public class InitialInputActivity extends AppCompatActivity implements Navigatio
 //                for (String i : globalVariable.getManualArrayList()) {
 //                    showToast(i);
 //                }
+
+                String Nina = "THE APP IS ACTIVELY SENDING DATA";
+                byte[] bytes = Nina.getBytes(Charset.defaultCharset());
+                globalVariable.getmBluetoothConnection().write(bytes);
 
 
                 Intent intent = new Intent(InitialInputActivity.this, ModeOfOperationActivity.class);

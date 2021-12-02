@@ -27,7 +27,7 @@
         android:hardwareAccelerated="false">
 
         <activity
-            android:name=".Bluetooth2Activity"
+            android:name=".BluetoothActivity"
             android:exported="true" />
         <activity
             android:name=".RecordingsActivity"
@@ -52,15 +52,15 @@
             android:exported="true" />
         <activity
             android:name=".HomePageActivity"
-            android:parentActivityName=".BluetoothActivity">
+            android:parentActivityName=".Bluetooth2Activity">
 
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".BluetoothActivity" />
+                android:value=".Bluetooth2Activity" />
         </activity>
         <activity
-            android:name=".BluetoothActivity"
+            android:name=".Bluetooth2Activity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

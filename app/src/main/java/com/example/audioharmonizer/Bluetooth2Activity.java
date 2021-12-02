@@ -176,10 +176,13 @@ public class Bluetooth2Activity extends AppCompatActivity implements AdapterView
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bluetooth2);
 
+        final GlobalClass globalVariable = (GlobalClass) getApplicationContext();
+
         //Declare Variables
         EditText etSend = (EditText) findViewById(R.id.editText);
         Button btnStartConnection = (Button) findViewById(R.id.btnStartConnection);
         Button btnSend = (Button) findViewById(R.id.btnSend);
+
 
 
 
@@ -219,7 +222,14 @@ public class Bluetooth2Activity extends AppCompatActivity implements AdapterView
         btnStartConnection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startConnection();
+                try {
+                    startConnection();
+                    globalVariable.setmBluetoothConnection(mBluetoothConnection);
+                    Intent intent = new Intent(Bluetooth2Activity.this, HomePageActivity.class);
+                    startActivity(intent);
+                } catch (Exception e) {
+                    Log.d(TAG, "ERROR: Starting Connection failed !!!");
+                }
             }
         });
         btnSend.setOnClickListener(new View.OnClickListener() {
@@ -234,8 +244,6 @@ public class Bluetooth2Activity extends AppCompatActivity implements AdapterView
         });
     }
 
-    //Create "startConnection()" Method
-    //*Note: Connection will Fail & App will Crash if Pairing Has Not Occured First
     //Button Pressed When AcceptThread has Already Been Started & We are Ready to Start a Connection & Try to Initiate the ConnectedThread
     public void startConnection() {
         //Start Bluetooth Connection Method
