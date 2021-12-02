@@ -38,6 +38,8 @@ public class BluetoothActivity extends AppCompatActivity {
     Button mOnBtn, mOffBtn, mPairedBtn, mDiscoverableBtn, mConnectESP;
     Boolean isConnected = false;
 
+    Button bluetoothTest;
+
     BluetoothAdapter mBlueAdapter;
     private BluetoothSocket mBTSocket;
 
@@ -61,6 +63,7 @@ public class BluetoothActivity extends AppCompatActivity {
         mPairedBtn = findViewById(R.id.pairedBtn);
         mDiscoverableBtn = findViewById(R.id.discoverableBtn);
         mConnectESP = findViewById(R.id.connect_ESP_button);
+        bluetoothTest = findViewById(R.id.bluetooth_test);
 
         //adapter
         mBlueAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -176,6 +179,17 @@ public class BluetoothActivity extends AppCompatActivity {
             }
 
         });
+
+
+        bluetoothTest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                Intent intent = new Intent(BluetoothActivity.this, Bluetooth2Activity.class);
+                startActivity(intent);
+            }
+        });
+
+
     }
 
     @Override

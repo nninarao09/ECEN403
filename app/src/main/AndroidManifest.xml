@@ -7,10 +7,13 @@
     <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE" />
     <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
     <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
 
     <uses-feature android:name="android.hardware.bluetooth" />
+
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name=" android.permission.BLUETOOTH_PRIVILEGED" />
 
     <application
@@ -20,7 +23,12 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AudioHarmonizer">
+        android:theme="@style/Theme.AudioHarmonizer"
+        android:hardwareAccelerated="false">
+
+        <activity
+            android:name=".Bluetooth2Activity"
+            android:exported="true" />
         <activity
             android:name=".RecordingsActivity"
             android:exported="true" />
