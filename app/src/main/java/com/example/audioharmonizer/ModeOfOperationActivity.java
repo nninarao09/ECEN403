@@ -37,7 +37,7 @@ public class ModeOfOperationActivity extends AppCompatActivity implements Naviga
         mBlueAdapter = BluetoothAdapter.getDefaultAdapter();
         if(!mBlueAdapter.isEnabled()){
             showToast("You must turn bluetooth back on");
-            Intent intent = new Intent(ModeOfOperationActivity.this, BluetoothActivity.class);
+            Intent intent = new Intent(ModeOfOperationActivity.this, Bluetooth2Activity.class);
             startActivity(intent);
         }
 

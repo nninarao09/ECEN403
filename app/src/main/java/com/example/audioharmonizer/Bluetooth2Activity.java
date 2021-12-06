@@ -15,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 
 import androidx.annotation.RequiresApi;
@@ -23,6 +24,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Set;
 import java.util.UUID;
 
 public class Bluetooth2Activity extends AppCompatActivity implements AdapterView.OnItemClickListener{
@@ -50,8 +52,11 @@ public class Bluetooth2Activity extends AppCompatActivity implements AdapterView
 
     //Create BluetoothDevice
     BluetoothDevice mBTDevice;
+    String pairedDevice;
     //Create EditText
     EditText etSend;
+
+    Boolean isConnected = false;
 
 
     //Broadcast Receiver 1
@@ -125,12 +130,15 @@ public class Bluetooth2Activity extends AppCompatActivity implements AdapterView
             final String action = intent.getAction();
             Log.d(TAG, "onReceive: ACTION FOUND.");
             if(action.equals(BluetoothDevice.ACTION_FOUND)) {
+
                 BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
                 mBTDevices.add(device);
                 //Log to Obtain Properties (Name, Address) of the Device
                 Log.d(TAG, "onReceive: " + device.getName() + ": " + device.getAddress() + ".");
+                pairedDevice = device.getName();
                 mDeviceListAdapter = new DeviceListAdapter(context, R.layout.device_adapter_view, mBTDevices);
                 //Set Adapter to the List
+
                 lvNewDevices.setAdapter(mDeviceListAdapter);
             }
         }
@@ -223,10 +231,25 @@ public class Bluetooth2Activity extends AppCompatActivity implements AdapterView
             @Override
             public void onClick(View view) {
                 try {
-                    startConnection();
-                    globalVariable.setmBluetoothConnection(mBluetoothConnection);
-                    Intent intent = new Intent(Bluetooth2Activity.this, HomePageActivity.class);
-                    startActivity(intent);
+                    Set<BluetoothDevice> devices = mBluetoothAdapter.getBondedDevices();
+                    for(BluetoothDevice device: devices) {
+                        globalVariable.setDevice(device);
+                        if (device.getName().equals("NinaDevice1")) {
+                            startConnection();
+                            globalVariable.setmBluetoothConnection(mBluetoothConnection);
+                            Intent intent = new Intent(Bluetooth2Activity.this, HomePageActivity.class);
+                            startActivity(intent);
+                            isConnected = true;
+                            showToast(device.getName() + " is the correct device");
+                            break;
+                        }
+                    }
+
+                    if(!isConnected){
+                        showToast(pairedDevice + "is not the Audio Harmonizer, please connect to the correct device");
+                        //showToast(globalVariable.getDevice().getName());
+                    }
+
                 } catch (Exception e) {
                     Log.d(TAG, "ERROR: Starting Connection failed !!!");
                 }
@@ -235,9 +258,7 @@ public class Bluetooth2Activity extends AppCompatActivity implements AdapterView
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Get Bytes you will Send
-                //Grab "EditText" from Text Field & Send it to the BluetoothConnectionService
-                //Create ByteArray to Send Bytes to Connection Service Using the "write()" method
+
                 byte[] bytes = etSend.getText().toString().getBytes(Charset.defaultCharset());
                 mBluetoothConnection.write(bytes);
             }
@@ -378,4 +399,7 @@ public class Bluetooth2Activity extends AppCompatActivity implements AdapterView
         }
     }
 
+    private void showToast(String msg){
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    }
 }

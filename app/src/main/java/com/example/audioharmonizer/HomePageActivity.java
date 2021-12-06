@@ -49,7 +49,7 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
         mBlueAdapter = BluetoothAdapter.getDefaultAdapter();
         if(!mBlueAdapter.isEnabled()){
             showToast("You must turn bluetooth back on");
-            Intent intent = new Intent(HomePageActivity.this, BluetoothActivity.class);
+            Intent intent = new Intent(HomePageActivity.this, Bluetooth2Activity.class);
             startActivity(intent);
         }
 

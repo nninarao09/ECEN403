@@ -73,7 +73,7 @@ public class AutomaticActivity extends AppCompatActivity implements NavigationVi
         mBlueAdapter = BluetoothAdapter.getDefaultAdapter();
         if(!mBlueAdapter.isEnabled()){
             showToast("You must turn bluetooth back on");
-            Intent intent = new Intent(AutomaticActivity.this, BluetoothActivity.class);
+            Intent intent = new Intent(AutomaticActivity.this, Bluetooth2Activity.class);
             startActivity(intent);
         }
 
@@ -165,10 +165,12 @@ public class AutomaticActivity extends AppCompatActivity implements NavigationVi
                 //Writing data to the other device
                 for(int i=0; i<4; ++i){
                     showToast(globalVariable.getInitialInputsArray()[i]);
+                    System.out.println("Automatic Output: " + globalVariable.getInitialInputsArray()[i]);
                     globalVariable.getmBluetoothConnection().write(globalVariable.getInitialInputsArray()[i].getBytes(Charset.defaultCharset()));
                 }
                 for(int i=0; i<5; ++i){
                     showToast(globalVariable.getAutomaticArray()[i]);
+                    System.out.println("Automatic Output: " + globalVariable.getAutomaticArray()[i]);
                     globalVariable.getmBluetoothConnection().write(globalVariable.getAutomaticArray()[i].getBytes(Charset.defaultCharset()));
                     //bytes = globalVariable.getAutomaticArray()[i].getBytes(Charset.defaultCharset());
                 }

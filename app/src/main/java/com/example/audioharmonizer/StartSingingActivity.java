@@ -52,7 +52,7 @@ public class StartSingingActivity extends AppCompatActivity implements Navigatio
         mBlueAdapter = BluetoothAdapter.getDefaultAdapter();
         if(!mBlueAdapter.isEnabled()){
             showToast("You must turn bluetooth back on");
-            Intent intent = new Intent(StartSingingActivity.this, BluetoothActivity.class);
+            Intent intent = new Intent(StartSingingActivity.this, Bluetooth2Activity.class);
             startActivity(intent);
         }
 

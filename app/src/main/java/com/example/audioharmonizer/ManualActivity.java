@@ -52,7 +52,7 @@ public class ManualActivity extends AppCompatActivity implements NavigationView.
         mBlueAdapter = BluetoothAdapter.getDefaultAdapter();
         if(!mBlueAdapter.isEnabled()){
             showToast("You must turn bluetooth back on");
-            Intent intent = new Intent(ManualActivity.this, BluetoothActivity.class);
+            Intent intent = new Intent(ManualActivity.this, Bluetooth2Activity.class);
             startActivity(intent);
         }
 
@@ -207,10 +207,12 @@ public class ManualActivity extends AppCompatActivity implements NavigationView.
                 //Show the values being saved for the demo
                 for(int i=0; i<4; ++i){
                     showToast(globalVariable.getInitialInputsArray()[i]);
+                    System.out.println("Manual Output: " + globalVariable.getInitialInputsArray()[i]);
                 }
 
                 for(String i : globalVariable.getManualArrayList()){
                     showToast(i);
+                    System.out.println("Manual Output: " + i);
                 }
                 showToast("Done");
 
