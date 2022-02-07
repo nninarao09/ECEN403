@@ -40,7 +40,9 @@ public class Bluetooth2Activity extends AppCompatActivity implements AdapterView
     Button btnStartConnection;
     Button btnSend;
     BluetoothConnectionService mBluetoothConnection;
-    private static final UUID MY_UUID_INSECURE = UUID.fromString("8ce255c0-200a-11e0-ac64-0800200c9a66");
+    private static final UUID MY_UUID_INSECURE = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
+    //8ce255c0-200a-11e0-ac64-0800200c9a66
+
 
     BluetoothDevice mBTDevice;
     String pairedDevice;
@@ -190,7 +192,7 @@ public class Bluetooth2Activity extends AppCompatActivity implements AdapterView
                     Set<BluetoothDevice> devices = mBluetoothAdapter.getBondedDevices();
                     for(BluetoothDevice device: devices) {
                         globalVariable.setDevice(device);
-                        if (device.getName().equals("NinaDevice1")) {
+                        if (device.getName().equals("ESP32Test")) {
                             startConnection();
                             globalVariable.setmBluetoothConnection(mBluetoothConnection);
                             Intent intent = new Intent(Bluetooth2Activity.this, HomePageActivity.class);

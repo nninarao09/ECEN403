@@ -48,8 +48,6 @@ public class AutomaticActivity extends AppCompatActivity implements NavigationVi
 
     EditText etSend;
 
-    private static final UUID MY_UUID_INSECURE =
-            UUID.fromString("F3694693-2D3F-43C1-BD05-1A9497862DC7");
 
     BluetoothDevice mBTDevice;
     BluetoothAdapter mBlueAdapter;

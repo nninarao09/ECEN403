@@ -17,7 +17,8 @@ import java.util.UUID;
 public class BluetoothConnectionService {
     private static final String TAG = "BluetoothConnectionServ";
     private static final String appName = "AudioHarmonizer";
-    private static final UUID MY_UUID_INSECURE = UUID.fromString("8ce255c0-200a-11e0-ac64-0800200c9a66");
+    private static final UUID MY_UUID_INSECURE = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
+    //8ce255c0-200a-11e0-ac64-0800200c9a66
     private final BluetoothAdapter mBluetoothAdapter;
     Context mContext;
     private AcceptThread mInsecureAcceptThread;
