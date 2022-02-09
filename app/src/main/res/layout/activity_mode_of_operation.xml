@@ -12,44 +12,25 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center_horizontal">
-
-        <TextView
-            android:id="@+id/text1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="190dp"
-            android:text="Please select between the 2 Modes of Operation"
-            android:textColor="#EDE7E7"
-            app:layout_constraintBottom_toTopOf="@+id/automatic_button"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.263" />
-
-        <Button
-            android:id="@+id/manual_button"
-            android:layout_width="188dp"
-            android:layout_height="83dp"
-            android:layout_marginTop="50dp"
-            android:text="Manual"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
-            app:layout_constraintStart_toStartOf="parent" />
+        android:orientation="horizontal"
+        android:gravity="center">
 
         <Button
             android:id="@+id/automatic_button"
-            android:layout_width="188dp"
-            android:layout_height="83dp"
-            android:layout_marginTop="50dp"
-            android:text="Automatic"
-            app:layout_constraintBottom_toTopOf="@+id/manual_button"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:layout_width="150dp"
+            android:layout_height="623dp"
+            android:layout_gravity="center"
+            android:layout_marginRight="18dp"
+            android:textSize="45sp"
+            android:text="A\nu\nt\no\nm\na\nt\ni\nc" />
 
+        <Button
+            android:id="@+id/manual_button"
+            android:layout_width="150dp"
+            android:layout_height="623dp"
+            android:layout_gravity="center"
+            android:textSize="45sp"
+            android:text="M\na\nn\nu\na\nl" />
     </LinearLayout>
 
     <com.google.android.material.navigation.NavigationView

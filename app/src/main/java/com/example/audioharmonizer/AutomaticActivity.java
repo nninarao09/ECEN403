@@ -46,9 +46,6 @@ public class AutomaticActivity extends AppCompatActivity implements NavigationVi
 
     private static final String TAG = "AutomaticActivity";
 
-    EditText etSend;
-
-
     BluetoothDevice mBTDevice;
     BluetoothAdapter mBlueAdapter;
     //public ArrayList<BluetoothDevice> mBTDevices = new ArrayList<>();
@@ -107,8 +104,6 @@ public class AutomaticActivity extends AppCompatActivity implements NavigationVi
 
         Spinner noh_spinner = (Spinner) findViewById(R.id.noh_spinner);
 
-        etSend = (EditText) findViewById(R.id.etSend);
-        etSend.setVisibility(View.INVISIBLE);
 
         //***************************Chord Progression Spinners***************************************
 
@@ -162,21 +157,15 @@ public class AutomaticActivity extends AppCompatActivity implements NavigationVi
 
                 //Writing data to the other device
                 for(int i=0; i<4; ++i){
-                    showToast(globalVariable.getInitialInputsArray()[i]);
                     System.out.println("Automatic Output: " + globalVariable.getInitialInputsArray()[i]);
                     globalVariable.getmBluetoothConnection().write(globalVariable.getInitialInputsArray()[i].getBytes(Charset.defaultCharset()));
                 }
                 for(int i=0; i<5; ++i){
-                    showToast(globalVariable.getAutomaticArray()[i]);
                     System.out.println("Automatic Output: " + globalVariable.getAutomaticArray()[i]);
                     globalVariable.getmBluetoothConnection().write(globalVariable.getAutomaticArray()[i].getBytes(Charset.defaultCharset()));
                     //bytes = globalVariable.getAutomaticArray()[i].getBytes(Charset.defaultCharset());
                 }
 
-
-                //Send data to the device
-                //byte[] bytes = etSend.getText().toString().getBytes(/*Charset.defaultCharset()*/);
-                //globalVariable.getmBluetoothConnection().write(bytes);
 
                 Intent intent = new Intent(AutomaticActivity.this, StartSingingActivity.class);
                 startActivity(intent);

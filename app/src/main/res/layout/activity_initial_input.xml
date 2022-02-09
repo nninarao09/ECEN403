@@ -15,50 +15,58 @@
         android:orientation="vertical"
         android:gravity="center_horizontal">
 
+        <ImageView
+            android:layout_width="215dp"
+            android:layout_height="133dp"
+            android:layout_marginTop="40dp"
+            android:src="@drawable/real_logo" />
+
         <TextView
             android:id="@+id/textView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="120dp"
+            android:layout_marginTop="45dp"
             android:text="Please fill out the initial inputs"
+            android:textSize="25sp"
             android:textColor="#F3EFEF" />
 
         <EditText
             android:id="@+id/name_of_song"
-            android:layout_width="200dp"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:backgroundTint="#E4E1E1"
             android:layout_marginTop="50dp"
             android:hint="Name of Song"
             android:gravity="center_horizontal"
             android:textColor="#F4F1F1"
+            android:textSize="22sp"
             android:textColorHint="#F4F0F0"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <EditText
             android:id="@+id/beats_per_measure"
-            android:layout_width="200dp"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:backgroundTint="#E4E1E1"
             android:gravity="center_horizontal"
             android:layout_marginTop="50dp"
             android:hint="Beats Per Measure"
+            android:textSize="22sp"
             android:textColor="#F4F1F1"
             android:textColorHint="#F4F0F0" />
 
         <EditText
             android:id="@+id/beats_per_minute"
-            android:layout_width="200dp"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
             android:layout_marginTop="50dp"
             android:backgroundTint="#D8CFCF"
             android:hint="Beats Per Minute"
             android:textColor="#F4F3F3"
             android:textColorHint="#F4ECEC"
+            android:textSize="22sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -67,7 +75,7 @@
             android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:baselineAligned="false"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="75dp"
             android:text="Start"
             app:layout_constraintBottom_toBottomOf="@id/beats_per_minute"
             app:layout_constraintEnd_toEndOf="parent"

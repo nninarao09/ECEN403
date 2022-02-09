@@ -91,19 +91,20 @@ public class InitialInputActivity extends AppCompatActivity implements Navigatio
 
 
                 //here should be an error checker -> if fields are empty then it should not proceed to the next page
+                //this does not work
+                if (beats_per_measure.getText().toString().trim().length() > 0){
+                    showToast("You must enter in all the fields to continue");
+                } else{
+                    Intent intent = new Intent(InitialInputActivity.this, ModeOfOperationActivity.class);
+                    startActivity(intent);
+                }
+
+//                String Nina = "THE APP IS ACTIVELY SENDING DATA";
+//                byte[] bytes = Nina.getBytes(Charset.defaultCharset());
+//                globalVariable.getmBluetoothConnection().write(bytes);
 
 
-//                for (String i : globalVariable.getManualArrayList()) {
-//                    showToast(i);
-//                }
 
-                String Nina = "THE APP IS ACTIVELY SENDING DATA";
-                byte[] bytes = Nina.getBytes(Charset.defaultCharset());
-                globalVariable.getmBluetoothConnection().write(bytes);
-
-
-                Intent intent = new Intent(InitialInputActivity.this, ModeOfOperationActivity.class);
-                startActivity(intent);
             }
         });
     }

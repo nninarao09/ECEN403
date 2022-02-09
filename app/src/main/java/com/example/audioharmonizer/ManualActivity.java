@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 
 public class ManualActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -204,17 +205,16 @@ public class ManualActivity extends AppCompatActivity implements NavigationView.
                 }
 
 
-                //Show the values being saved for the demo
+                //Write out to esp32
                 for(int i=0; i<4; ++i){
-                    showToast(globalVariable.getInitialInputsArray()[i]);
                     System.out.println("Manual Output: " + globalVariable.getInitialInputsArray()[i]);
+                    globalVariable.getmBluetoothConnection().write(globalVariable.getInitialInputsArray()[i].getBytes(Charset.defaultCharset()));
                 }
 
                 for(String i : globalVariable.getManualArrayList()){
-                    showToast(i);
                     System.out.println("Manual Output: " + i);
+                    globalVariable.getmBluetoothConnection().write(i.getBytes(Charset.defaultCharset()));
                 }
-                showToast("Done");
 
                 Intent intent = new Intent(ManualActivity.this, StartSingingActivity.class);
                 startActivity(intent);

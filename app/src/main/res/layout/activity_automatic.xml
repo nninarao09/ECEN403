@@ -15,12 +15,41 @@
         android:orientation="vertical"
         android:gravity="center_horizontal">
 
+        <ImageView
+            android:layout_width="215dp"
+            android:layout_height="133dp"
+            android:layout_marginTop="40dp"
+            android:src="@drawable/real_logo" />
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="45dp"
+            android:text="Additional Harmonies"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="@+id/noh_spinner"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Spinner
+            android:id="@+id/noh_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="#F3EFEF"
+            android:popupBackground="@color/black"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="40dp"
             android:text="Chord Progression"
             android:textColor="#FFFFFF"
             android:textSize="24sp"
@@ -35,6 +64,7 @@
             android:backgroundTint="#F3EFEF"
             android:popupBackground="@color/black"
             android:textColor="@color/white"
+            android:layout_marginTop="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -46,6 +76,7 @@
             android:backgroundTint="#F3EFEF"
             android:popupBackground="@color/black"
             android:textColor="@color/white"
+            android:layout_marginTop="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -57,6 +88,7 @@
                 android:backgroundTint="#F3EFEF"
                 android:popupBackground="@color/black"
                 android:textColor="@color/white"
+                android:layout_marginTop="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -65,6 +97,7 @@
             android:id="@+id/cp_spinner4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:layout_marginBottom="28dp"
             android:backgroundTint="#F3EFEF"
             android:popupBackground="@color/black"
@@ -74,46 +107,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Additional Harmonies"
-            android:textColor="#FFFFFF"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toTopOf="@+id/noh_spinner"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
 
-        <Spinner
-            android:id="@+id/noh_spinner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#F3EFEF"
-            android:popupBackground="@color/black"
-            android:textColor="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <EditText
-            android:id="@+id/etSend"
-            android:layout_width="297dp"
-            android:layout_height="78dp"
-            android:backgroundTint="#E4E1E1"
-            android:hint="Sending Data"
-            android:textColor="#F4F1F1"
-            android:textColorHint="#F4F0F0"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
 
         <Button
             android:id="@+id/automatic_finish_button"
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="32dp"
+            android:layout_marginTop="35dp"
             android:text="Finish"
             android:textColor="#070707"
             app:layout_constraintBottom_toBottomOf="parent"

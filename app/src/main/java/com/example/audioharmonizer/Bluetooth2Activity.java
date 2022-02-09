@@ -38,7 +38,6 @@ public class Bluetooth2Activity extends AppCompatActivity implements AdapterView
     public DeviceListAdapter mDeviceListAdapter;
     ListView lvNewDevices;
     Button btnStartConnection;
-    Button btnSend;
     BluetoothConnectionService mBluetoothConnection;
     private static final UUID MY_UUID_INSECURE = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
     //8ce255c0-200a-11e0-ac64-0800200c9a66
@@ -46,7 +45,6 @@ public class Bluetooth2Activity extends AppCompatActivity implements AdapterView
 
     BluetoothDevice mBTDevice;
     String pairedDevice;
-    EditText etSend;
 
     Boolean isConnected = false;
 
@@ -157,10 +155,7 @@ public class Bluetooth2Activity extends AppCompatActivity implements AdapterView
 
         final GlobalClass globalVariable = (GlobalClass) getApplicationContext();
 
-        EditText etSend = (EditText) findViewById(R.id.editText);
         Button btnStartConnection = (Button) findViewById(R.id.btnStartConnection);
-        Button btnSend = (Button) findViewById(R.id.btnSend);
-
 
         Button btnONOFF = (Button) findViewById(R.id.btnONOFF);
         Button btnDiscoverable_on_off = (Button) findViewById(R.id.btnDiscoverable_on_off);
@@ -192,7 +187,7 @@ public class Bluetooth2Activity extends AppCompatActivity implements AdapterView
                     Set<BluetoothDevice> devices = mBluetoothAdapter.getBondedDevices();
                     for(BluetoothDevice device: devices) {
                         globalVariable.setDevice(device);
-                        if (device.getName().equals("ESP32Test")) {
+                        if (device.getName().equals("Blank2")) {
                             startConnection();
                             globalVariable.setmBluetoothConnection(mBluetoothConnection);
                             Intent intent = new Intent(Bluetooth2Activity.this, HomePageActivity.class);
@@ -213,14 +208,7 @@ public class Bluetooth2Activity extends AppCompatActivity implements AdapterView
                 }
             }
         });
-        btnSend.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-                byte[] bytes = etSend.getText().toString().getBytes(Charset.defaultCharset());
-                mBluetoothConnection.write(bytes);
-            }
-        });
     }
 
     public void startConnection() {

@@ -17,6 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:id="@+id/btnONOFF"
+        android:orientation="horizontal"
         android:textSize="10sp"
         android:text="ON/OFF"
         android:layout_alignParentRight="true"
@@ -40,34 +41,21 @@
         android:text="Discover"
         android:onClick="btnDiscover"/>
 
+    <Button android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:id="@+id/btnStartConnection"
+        android:text="Start Connection"
+        android:textSize="10sp"
+        android:layout_below="@+id/btnFindUnpairedDevices"/>
+
     <ListView
-        android:layout_height="300dp"
+        android:layout_height="550dp"
         android:layout_width="match_parent"
         android:id="@+id/lvNewDevices"
         android:layout_marginTop="15dp"
         android:layout_below="@+id/btnStartConnection"/>
 
-    <Button android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:id="@+id/btnStartConnection"
-        android:text="Start Connection"
-        android:layout_marginTop="10dp"
-        android:layout_below="@+id/btnFindUnpairedDevices"/>
 
-    <EditText
-        android:layout_height="wrap_content"
-        android:layout_width="250dp"
-        android:id="@+id/editText"
-        android:layout_below="@+id/lvNewDevices"
-        android:hint="Enter Text Here"
-        android:layout_alignParentStart="true"/>
 
-    <Button
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:id="@+id/btnSend"
-        android:text="SEND"
-        android:layout_below="@+id/lvNewDevices"
-        android:layout_toRightOf="@+id/editText"/>
 
 </LinearLayout>
