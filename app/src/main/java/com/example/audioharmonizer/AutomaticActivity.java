@@ -53,6 +53,7 @@ public class AutomaticActivity extends AppCompatActivity implements NavigationVi
     public DrawerLayout drawerLayout_automatic;
     public ActionBarDrawerToggle actionBarDrawerToggle_automatic;
     private NavigationView navigationView;
+    public String delim = ".";
 
 
     @Override
@@ -147,23 +148,25 @@ public class AutomaticActivity extends AppCompatActivity implements NavigationVi
                 String harmony_spinner = noh_spinner.getSelectedItem().toString();
 
 
+                globalVariable.getAutomaticArray()[0] = harmony_spinner;
+                globalVariable.getAutomaticArray()[1] = chord_spinner;
+                globalVariable.getAutomaticArray()[2] = chord_spinner2;
+                globalVariable.getAutomaticArray()[3] = chord_spinner3;
+                globalVariable.getAutomaticArray()[4] = chord_spinner4;
 
-                globalVariable.getAutomaticArray()[0] = chord_spinner;
-                globalVariable.getAutomaticArray()[1] = chord_spinner2;
-                globalVariable.getAutomaticArray()[2] = chord_spinner3;
-                globalVariable.getAutomaticArray()[3] = chord_spinner4;
-                globalVariable.getAutomaticArray()[4] = harmony_spinner;
 
 
                 //Writing data to the other device
                 for(int i=0; i<4; ++i){
                     System.out.println("Automatic Output: " + globalVariable.getInitialInputsArray()[i]);
                     globalVariable.getmBluetoothConnection().write(globalVariable.getInitialInputsArray()[i].getBytes(Charset.defaultCharset()));
+                    globalVariable.getmBluetoothConnection().write(delim.getBytes(Charset.defaultCharset()));
+
                 }
                 for(int i=0; i<5; ++i){
                     System.out.println("Automatic Output: " + globalVariable.getAutomaticArray()[i]);
                     globalVariable.getmBluetoothConnection().write(globalVariable.getAutomaticArray()[i].getBytes(Charset.defaultCharset()));
-                    //bytes = globalVariable.getAutomaticArray()[i].getBytes(Charset.defaultCharset());
+                    globalVariable.getmBluetoothConnection().write(delim.getBytes(Charset.defaultCharset()));
                 }
 
 

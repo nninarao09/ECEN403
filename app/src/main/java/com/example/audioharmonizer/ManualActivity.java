@@ -37,6 +37,11 @@ public class ManualActivity extends AppCompatActivity implements NavigationView.
     public int height = 120;
     public int height_of_Titles = 150;
     public int height_of_Harmony_Number = 120;
+    public int manualArrayLength;
+    public String delim = ".";
+    public int numberHarmonyToSend;
+    public int numberNotesToSend;
+
 
 
     @Override
@@ -86,9 +91,15 @@ public class ManualActivity extends AppCompatActivity implements NavigationView.
                         lengthArray.add(String.valueOf(i));
                     }
 
+                    numberHarmonyToSend = Integer.parseInt(number_of_harmonies.getText().toString());
+                    numberNotesToSend = Integer.parseInt(notes_per_harmony.getText().toString());
+
+
                     int NumberOfHarmonies = Integer.parseInt(number_of_harmonies.getText().toString());
                     int count = 1;
                     int k = 0;
+
+                    manualArrayLength = numberHarmonyToSend * numberNotesToSend * 3;
 
                     while (NumberOfHarmonies != 0) {
 
@@ -209,11 +220,26 @@ public class ManualActivity extends AppCompatActivity implements NavigationView.
                 for(int i=0; i<4; ++i){
                     System.out.println("Manual Output: " + globalVariable.getInitialInputsArray()[i]);
                     globalVariable.getmBluetoothConnection().write(globalVariable.getInitialInputsArray()[i].getBytes(Charset.defaultCharset()));
+                    globalVariable.getmBluetoothConnection().write(delim.getBytes(Charset.defaultCharset()));
+
                 }
+
+                //Here add length of manual array
+                globalVariable.getmBluetoothConnection().write(Integer.toString(manualArrayLength).getBytes(Charset.defaultCharset()));
+                globalVariable.getmBluetoothConnection().write(delim.getBytes(Charset.defaultCharset()));
+
+                globalVariable.getmBluetoothConnection().write(Integer.toString(numberHarmonyToSend).getBytes(Charset.defaultCharset()));
+                globalVariable.getmBluetoothConnection().write(delim.getBytes(Charset.defaultCharset()));
+
+                globalVariable.getmBluetoothConnection().write(Integer.toString(numberNotesToSend).getBytes(Charset.defaultCharset()));
+                globalVariable.getmBluetoothConnection().write(delim.getBytes(Charset.defaultCharset()));
+
 
                 for(String i : globalVariable.getManualArrayList()){
                     System.out.println("Manual Output: " + i);
                     globalVariable.getmBluetoothConnection().write(i.getBytes(Charset.defaultCharset()));
+                    globalVariable.getmBluetoothConnection().write(delim.getBytes(Charset.defaultCharset()));
+
                 }
 
                 Intent intent = new Intent(ManualActivity.this, StartSingingActivity.class);
