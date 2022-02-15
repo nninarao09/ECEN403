@@ -53,7 +53,7 @@ public class AutomaticActivity extends AppCompatActivity implements NavigationVi
     public DrawerLayout drawerLayout_automatic;
     public ActionBarDrawerToggle actionBarDrawerToggle_automatic;
     private NavigationView navigationView;
-    public String delim = ".";
+    public String delim = ";";
 
 
     @Override

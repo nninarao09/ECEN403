@@ -16,6 +16,7 @@ public class GlobalClass extends Application{
     ArrayList<String> ManualArrayList = new ArrayList<String>();
     private String[] ListOfRecordings;
     private BluetoothConnectionService mBluetoothConnection;
+    private String BatteryLevel;
 
     public BluetoothDevice getDevice() {
         return device;
@@ -88,5 +89,13 @@ public class GlobalClass extends Application{
 
     public void setmBluetoothConnection(BluetoothConnectionService mBluetoothConnection) {
         this.mBluetoothConnection = mBluetoothConnection;
+    }
+
+    public String getBatteryLevel() {
+        return BatteryLevel;
+    }
+
+    public void setBatteryLevel(String mBatteryLevel) {
+        this.BatteryLevel = mBatteryLevel;
     }
 }

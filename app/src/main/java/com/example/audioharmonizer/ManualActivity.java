@@ -38,7 +38,7 @@ public class ManualActivity extends AppCompatActivity implements NavigationView.
     public int height_of_Titles = 150;
     public int height_of_Harmony_Number = 120;
     public int manualArrayLength;
-    public String delim = ".";
+    public String delim = ";";
     public int numberHarmonyToSend;
     public int numberNotesToSend;
 

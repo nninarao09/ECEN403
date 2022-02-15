@@ -27,6 +27,7 @@ public class BluetoothConnectionService {
     private UUID deviceUUID;
     ProgressDialog mProgressDialog;
     private ConnectedThread mConnectedThread;
+    private BluetoothSocket mSocketToSend;
 
     public BluetoothConnectionService(Context context) {
         mContext = context;
@@ -89,6 +90,8 @@ public class BluetoothConnectionService {
             mBluetoothAdapter.cancelDiscovery();
             try {
                 mmSocket.connect();
+                //Possibly delete this
+                mSocketToSend = mmSocket;
                 Log.d(TAG, "run: ConnectThread connected.");
             } catch (IOException e) {
                 try {
@@ -163,6 +166,9 @@ public class BluetoothConnectionService {
                 try {
                     bytes = mmInStream.read(buffer);
                     String incomingMessage = new String(buffer, 0, bytes);
+                    //making changes here***************************
+                    //read();
+                    //**********************************************
                     Log.d(TAG, "InputStream: " + incomingMessage);
                 } catch (IOException e) {
                     Log.e(TAG, "write: Error reading InputStream." + e.getMessage());
@@ -200,4 +206,11 @@ public class BluetoothConnectionService {
         Log.d(TAG, "write: Write Called.");
         mConnectedThread.write(out);
     }
+
+    //possibly delete
+    public BluetoothSocket getSocket(){
+        return mSocketToSend;
+    }
+
+
 }

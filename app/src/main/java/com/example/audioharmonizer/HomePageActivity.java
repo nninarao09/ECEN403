@@ -13,8 +13,12 @@ import androidx.navigation.ui.NavigationUI;
 
 import android.app.FragmentManager;
 import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -23,19 +27,25 @@ import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 
+import java.io.IOException;
+import java.io.InputStream;
+
 public class HomePageActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     // define the global variable
-    TextView question2;
+    TextView batteryLevel_tv;
     Button next_button;
     public DrawerLayout drawerLayout;
     public ActionBarDrawerToggle actionBarDrawerToggle;
     private NavigationView navigationView;
+    private ReadInput mReadThread = null;
+    private BluetoothSocket mBTSocket = null;
 
+    String mcu_battery_level;
     BluetoothAdapter mBlueAdapter;
 
-    //public AppBarConfiguration appBarConfiguration = AppBarConfiguration(setOf(R.id.nav_home, R.id.nav_initial_inputs));
-
+    //SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+    //BluetoothSocket mBTSocket = preferences.getBluetoothSocket("mBTSocket", null);
 
     
     @Override
@@ -43,6 +53,7 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_message);
+        final GlobalClass globalVariable = (GlobalClass) getApplicationContext();
 
 
         //********************************bluetooth***********************************
@@ -72,9 +83,13 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
         onNavigationItemSelected(menuItem);
         //**********************************************************************
 
-
         // by ID we can use each component which id is assign in xml file
         // use findViewById() to get the both Button and textview
+
+        mReadThread = new ReadInput(globalVariable.getmBluetoothConnection().getSocket());
+
+
+
         next_button = (Button)findViewById(R.id.get_started);
         next_button.setOnClickListener(new View.OnClickListener() {
 
@@ -85,6 +100,7 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
             }
         });
     }
+
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -130,6 +146,57 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
 
     private void showToast(String msg){
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    }
+
+    private class ReadInput implements Runnable {
+
+        private Thread t;
+        private BluetoothSocket mBTSocket;
+
+        public ReadInput(BluetoothSocket mSocket) {
+            t = new Thread(this, "Input Thread");
+            t.start();
+            mBTSocket = mSocket;
+        }
+
+        public boolean isRunning() {
+            return t.isAlive();
+        }
+
+        @Override
+        public void run() {
+            InputStream inputStream;
+
+            try {
+                //wait(3000);
+                inputStream = mBTSocket.getInputStream();
+                byte[] buffer = new byte[1024];
+                int bytes;
+                int BL[] = {0, 0, 0};
+                //showToast("Hello ia am here");
+                while (true) {
+                    //if (inputStream.available() > 0) {
+
+                        bytes = inputStream.read(buffer);
+                        final String strInput = new String(buffer, 0, bytes);
+                        System.out.println("BATTERY LEVEL!!!: " + strInput);
+                        batteryLevel_tv = (TextView)findViewById(R.id.battery_level);
+                        //batteryLevel_tv.setText(strInput);
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                batteryLevel_tv.setText(strInput);
+                            }
+                        });
+                    //}
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+
     }
 }
 
