@@ -41,8 +41,8 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
     private ReadInput mReadThread = null;
     private BluetoothSocket mBTSocket = null;
 
-    String mcu_battery_level;
     BluetoothAdapter mBlueAdapter;
+    int batteryLevel = 0;
 
     //SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
     //BluetoothSocket mBTSocket = preferences.getBluetoothSocket("mBTSocket", null);
@@ -86,6 +86,7 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
         // by ID we can use each component which id is assign in xml file
         // use findViewById() to get the both Button and textview
 
+        //globalVariable.getmBluetoothConnection().getConnectedThread();
         mReadThread = new ReadInput(globalVariable.getmBluetoothConnection().getSocket());
 
 
@@ -153,6 +154,7 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
         private Thread t;
         private BluetoothSocket mBTSocket;
 
+
         public ReadInput(BluetoothSocket mSocket) {
             t = new Thread(this, "Input Thread");
             t.start();
@@ -173,22 +175,36 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
                 byte[] buffer = new byte[1024];
                 int bytes;
                 int BL[] = {0, 0, 0};
-                //showToast("Hello ia am here");
+
+                int count = 0;
+
                 while (true) {
                     //if (inputStream.available() > 0) {
-
                         bytes = inputStream.read(buffer);
                         final String strInput = new String(buffer, 0, bytes);
                         System.out.println("BATTERY LEVEL!!!: " + strInput);
-                        batteryLevel_tv = (TextView)findViewById(R.id.battery_level);
-                        //batteryLevel_tv.setText(strInput);
 
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                batteryLevel_tv.setText(strInput);
-                            }
-                        });
+                        if(!strInput.equals("d")){
+                            BL[count] = Integer.parseInt(strInput);
+                            count++;
+
+                        } else{
+                            count = 0;
+
+                            batteryLevel = 100*BL[0] + 10*BL[1] + BL[2];
+                            batteryLevel_tv = (TextView)findViewById(R.id.battery_level);
+
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    batteryLevel_tv.setText(String.valueOf(batteryLevel));
+                                }
+                            });
+                        }
+
+
+
+
                     //}
                 }
             } catch (IOException e) {

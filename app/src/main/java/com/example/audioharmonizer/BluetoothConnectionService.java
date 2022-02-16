@@ -159,23 +159,20 @@ public class BluetoothConnectionService {
             mmOutStream = tmpOut;
         }
 
-        public void run() {
-            byte[] buffer = new byte[1024];
-            int bytes;
-            while (true) {
-                try {
-                    bytes = mmInStream.read(buffer);
-                    String incomingMessage = new String(buffer, 0, bytes);
-                    //making changes here***************************
-                    //read();
-                    //**********************************************
-                    Log.d(TAG, "InputStream: " + incomingMessage);
-                } catch (IOException e) {
-                    Log.e(TAG, "write: Error reading InputStream." + e.getMessage());
-                    break;
-                }
-            }
-        }
+//        public void run() {
+//            byte[] buffer = new byte[1024];
+//            int bytes;
+//            while (true) {
+//                try {
+//                    bytes = mmInStream.read(buffer);
+//                    String incomingMessage = new String(buffer, 0, bytes);
+//                    Log.d(TAG, "InputStream: " + incomingMessage);
+//                } catch (IOException e) {
+//                    Log.e(TAG, "write: Error reading InputStream." + e.getMessage());
+//                    break;
+//                }
+//            }
+//        }
 
         public void write(byte[] bytes) {
             String text = new String(bytes, Charset.defaultCharset());
@@ -210,6 +207,10 @@ public class BluetoothConnectionService {
     //possibly delete
     public BluetoothSocket getSocket(){
         return mSocketToSend;
+    }
+
+    public ConnectedThread getConnectedThread(){
+        return mConnectedThread;
     }
 
 
