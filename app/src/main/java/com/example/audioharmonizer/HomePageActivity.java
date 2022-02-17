@@ -39,7 +39,6 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
     public ActionBarDrawerToggle actionBarDrawerToggle;
     private NavigationView navigationView;
     private ReadInput mReadThread = null;
-    private BluetoothSocket mBTSocket = null;
 
     BluetoothAdapter mBlueAdapter;
     int batteryLevel = 0;
@@ -96,6 +95,7 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
 
             public void onClick(View v)
             {
+                mReadThread.stop();
                 Intent intent = new Intent(HomePageActivity.this, InitialInputActivity.class);
                 startActivity(intent);
             }
@@ -118,24 +118,31 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
         if (item.getItemId() == R.id.nav_home) {
             return true;
         } else if (item.getItemId() == R.id.nav_initial_inputs) {
+            mReadThread.stop();
             Intent intent = new Intent(HomePageActivity.this, InitialInputActivity.class);
             startActivity(intent);
         } else if (item.getItemId() == R.id.nav_modes) {
+            mReadThread.stop();
             Intent intent = new Intent(HomePageActivity.this, ModeOfOperationActivity.class);
             startActivity(intent);
         }else if (item.getItemId() == R.id.nav_automatic) {
+            mReadThread.stop();
             Intent intent = new Intent(HomePageActivity.this, AutomaticActivity.class);
             startActivity(intent);
         } else if (item.getItemId() == R.id.nav_manual) {
+            mReadThread.stop();
             Intent intent = new Intent(HomePageActivity.this, ManualActivity.class);
             startActivity(intent);
         } else if (item.getItemId() == R.id.nav_start_singing) {
+            mReadThread.stop();
             Intent intent = new Intent(HomePageActivity.this, StartSingingActivity.class);
             startActivity(intent);
         } else if (item.getItemId() == R.id.nav_recordings) {
+            mReadThread.stop();
             Intent intent = new Intent(HomePageActivity.this, RecordingsActivity.class);
             startActivity(intent);
         } else if (item.getItemId() == R.id.nav_faq) {
+            mReadThread.stop();
             Intent intent = new Intent(HomePageActivity.this, FAQActivity.class);
             startActivity(intent);
         } else {
@@ -153,6 +160,8 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
 
         private Thread t;
         private BluetoothSocket mBTSocket;
+        private Boolean runningThread = true;
+
 
 
         public ReadInput(BluetoothSocket mSocket) {
@@ -170,16 +179,15 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
             InputStream inputStream;
 
             try {
-                //wait(3000);
                 inputStream = mBTSocket.getInputStream();
                 byte[] buffer = new byte[1024];
                 int bytes;
-                int BL[] = {0, 0, 0};
+                int[] BL = {0, 0, 0};
 
                 int count = 0;
 
-                while (true) {
-                    //if (inputStream.available() > 0) {
+                while (runningThread) {
+                    //if (inputStream.available() == 1) {
                         bytes = inputStream.read(buffer);
                         final String strInput = new String(buffer, 0, bytes);
                         System.out.println("BATTERY LEVEL!!!: " + strInput);
@@ -189,7 +197,6 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
                             count++;
 
                         } else{
-                            count = 0;
 
                             batteryLevel = 100*BL[0] + 10*BL[1] + BL[2];
                             batteryLevel_tv = (TextView)findViewById(R.id.battery_level);
@@ -200,10 +207,9 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
                                     batteryLevel_tv.setText(String.valueOf(batteryLevel));
                                 }
                             });
+
+                            count = 0;
                         }
-
-
-
 
                     //}
                 }
@@ -211,6 +217,18 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
                 e.printStackTrace();
             }
 
+        }
+
+        public void stop() {
+            runningThread = false;
+//            try {
+//                //mBTSocket.close();
+//
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//                //System.out.println("ERROR CLOSING THREAD");
+//
+//            }
         }
 
     }

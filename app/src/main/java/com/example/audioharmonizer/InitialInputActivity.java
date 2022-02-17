@@ -10,16 +10,21 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
 import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 
@@ -30,6 +35,9 @@ public class InitialInputActivity extends AppCompatActivity implements Navigatio
     private NavigationView navigationView;
     BluetoothAdapter mBlueAdapter;
 
+    TextView batteryLevel_tv;
+    private ReadInput mReadThread = null;
+    int batteryLevel = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +83,8 @@ public class InitialInputActivity extends AppCompatActivity implements Navigatio
         //**********************************************************************
 
 
+        mReadThread = new ReadInput(globalVariable.getmBluetoothConnection().getSocket());
+
 
         start_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v)
@@ -92,18 +102,13 @@ public class InitialInputActivity extends AppCompatActivity implements Navigatio
 
                 //here should be an error checker -> if fields are empty then it should not proceed to the next page
                 //this does not work
-//                if (beats_per_measure.getText().toString().trim().length() > 0){
-//                    showToast("You must enter in all the fields to continue");
-//                } else{
+                if (TextUtils.isEmpty(beats_per_measure.getText().toString())){
+                    showToast("You must enter in all the fields to continue");
+                } else{
+                    mReadThread.stop();
                     Intent intent = new Intent(InitialInputActivity.this, ModeOfOperationActivity.class);
                     startActivity(intent);
-                //}
-
-//                String Nina = "THE APP IS ACTIVELY SENDING DATA";
-//                byte[] bytes = Nina.getBytes(Charset.defaultCharset());
-//                globalVariable.getmBluetoothConnection().write(bytes);
-
-
+                }
 
             }
         });
@@ -122,26 +127,33 @@ public class InitialInputActivity extends AppCompatActivity implements Navigatio
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
         if (item.getItemId() == R.id.nav_home) {
+            mReadThread.stop();
             Intent intent = new Intent(InitialInputActivity.this, HomePageActivity.class);
             startActivity(intent);
         } else if (item.getItemId() == R.id.nav_initial_inputs) {
             return true;
         } else if (item.getItemId() == R.id.nav_modes) {
+            mReadThread.stop();
             Intent intent = new Intent(InitialInputActivity.this, ModeOfOperationActivity.class);
             startActivity(intent);
         } else if (item.getItemId() == R.id.nav_automatic) {
+            mReadThread.stop();
             Intent intent = new Intent(InitialInputActivity.this, AutomaticActivity.class);
             startActivity(intent);
         }else if (item.getItemId() == R.id.nav_manual) {
+            mReadThread.stop();
             Intent intent = new Intent(InitialInputActivity.this, ManualActivity.class);
             startActivity(intent);
         } else if (item.getItemId() == R.id.nav_start_singing) {
+            mReadThread.stop();
             Intent intent = new Intent(InitialInputActivity.this, StartSingingActivity.class);
             startActivity(intent);
         } else if (item.getItemId() == R.id.nav_recordings) {
+            mReadThread.stop();
             Intent intent = new Intent(InitialInputActivity.this, RecordingsActivity.class);
             startActivity(intent);
         } else if (item.getItemId() == R.id.nav_faq) {
+            mReadThread.stop();
             Intent intent = new Intent(InitialInputActivity.this, FAQActivity.class);
             startActivity(intent);
         } else {
@@ -152,6 +164,76 @@ public class InitialInputActivity extends AppCompatActivity implements Navigatio
 
     private void showToast(String msg){
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    }
+
+    private class ReadInput implements Runnable {
+
+        private Thread t;
+        private BluetoothSocket mBTSocket;
+        private Boolean runningThread = true;
+
+
+
+        public ReadInput(BluetoothSocket mSocket) {
+            t = new Thread(this, "Input Thread");
+            t.start();
+            mBTSocket = mSocket;
+        }
+
+        public boolean isRunning() {
+            return t.isAlive();
+        }
+
+        @Override
+        public void run() {
+            InputStream inputStream;
+
+            try {
+                inputStream = mBTSocket.getInputStream();
+                byte[] buffer = new byte[1024];
+                int bytes;
+                int[] BL = {0, 0, 0};
+
+                int count = 0;
+
+                while (runningThread) {
+                    //if (inputStream.available() == 1) {
+                    bytes = inputStream.read(buffer);
+                    final String strInput = new String(buffer, 0, bytes);
+                    System.out.println("BATTERY LEVEL - Initial Inputs!!!: " + strInput);
+
+                    if(!strInput.equals("d")){
+                        BL[count] = Integer.parseInt(strInput);
+                        count++;
+
+                    } else{
+
+                        batteryLevel = 100*BL[0] + 10*BL[1] + BL[2];
+                        batteryLevel_tv = (TextView)findViewById(R.id.battery_level);
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                batteryLevel_tv.setText(String.valueOf(batteryLevel));
+                            }
+                        });
+
+                        count = 0;
+                    }
+
+                    //}
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+        public void stop() {
+            runningThread = false;
+
+        }
+
     }
 
 }

@@ -209,9 +209,5 @@ public class BluetoothConnectionService {
         return mSocketToSend;
     }
 
-    public ConnectedThread getConnectedThread(){
-        return mConnectedThread;
-    }
-
 
 }
