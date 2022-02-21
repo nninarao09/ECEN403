@@ -15,13 +15,22 @@
         android:orientation="vertical"
         android:gravity="center_horizontal">
 
-
         <TextView
-            android:id="@+id/battery_level"
+            android:id="@+id/battery_level_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#D51F1F"
-            android:textSize="80sp" />
+            android:text="Battery Level: "
+            android:textColorHint="#F4F0F0"
+            android:textSize="20sp" />
+
+        <ProgressBar
+            android:id="@+id/simpleProgressBar"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:max="100"
+            android:progress="@+id/progress"
+            />
 
         <TextView
             android:id="@+id/textView5"

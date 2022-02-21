@@ -12,12 +12,15 @@ import androidx.navigation.ui.NavigationUI;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,9 +38,9 @@ public class InitialInputActivity extends AppCompatActivity implements Navigatio
     private NavigationView navigationView;
     BluetoothAdapter mBlueAdapter;
 
-    TextView batteryLevel_tv;
     private ReadInput mReadThread = null;
     int batteryLevel = 0;
+    ProgressBar progress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -209,14 +212,25 @@ public class InitialInputActivity extends AppCompatActivity implements Navigatio
                     } else{
 
                         batteryLevel = 100*BL[0] + 10*BL[1] + BL[2];
-                        batteryLevel_tv = (TextView)findViewById(R.id.battery_level);
+                        progress = (ProgressBar) findViewById(R.id.simpleProgressBar);
 
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                batteryLevel_tv.setText(String.valueOf(batteryLevel));
-                            }
-                        });
+
+
+                        if(batteryLevel <= 100){
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+
+                                    if(batteryLevel < 21){
+                                        progress.setProgressTintList(ColorStateList.valueOf(Color.RED));
+                                    } else{
+                                        progress.setProgressTintList(ColorStateList.valueOf(Color.GREEN));
+                                    }
+
+                                    progress.setProgress(batteryLevel);
+                                }
+                            });
+                        }
 
                         count = 0;
                     }
