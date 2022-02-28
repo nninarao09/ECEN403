@@ -32,9 +32,6 @@
             android:name=".BluetoothActivity"
             android:exported="true" />
         <activity
-            android:name=".RecordingsActivity"
-            android:exported="true" />
-        <activity
             android:name=".StartSingingActivity"
             android:exported="true" />
         <activity

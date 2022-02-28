@@ -23,10 +23,6 @@
         android:id="@+id/nav_start_singing"
         android:title="Start Singing" />
     <item
-        android:id="@+id/nav_recordings"
-        android:title="Recordings" />
-
-    <item
         android:id="@+id/nav_faq"
         android:title="FAQ's" />
 </menu>

@@ -16,12 +16,15 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,10 +41,12 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
     public DrawerLayout drawerLayout;
     public ActionBarDrawerToggle actionBarDrawerToggle;
     private NavigationView navigationView;
-    private ReadInput mReadThread = null;
 
     BluetoothAdapter mBlueAdapter;
+
+    private ReadInput mReadThread = null;
     int batteryLevel = 0;
+    ProgressBar progress;
 
     //SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
     //BluetoothSocket mBTSocket = preferences.getBluetoothSocket("mBTSocket", null);
@@ -137,10 +142,6 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
             mReadThread.stop();
             Intent intent = new Intent(HomePageActivity.this, StartSingingActivity.class);
             startActivity(intent);
-        } else if (item.getItemId() == R.id.nav_recordings) {
-            mReadThread.stop();
-            Intent intent = new Intent(HomePageActivity.this, RecordingsActivity.class);
-            startActivity(intent);
         } else if (item.getItemId() == R.id.nav_faq) {
             mReadThread.stop();
             Intent intent = new Intent(HomePageActivity.this, FAQActivity.class);
@@ -187,29 +188,40 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
                 int count = 0;
 
                 while (runningThread) {
-                    //if (inputStream.available() == 1) {
-                        bytes = inputStream.read(buffer);
-                        final String strInput = new String(buffer, 0, bytes);
-                        System.out.println("BATTERY LEVEL!!!: " + strInput);
 
-                        if(!strInput.equals("d")){
-                            BL[count] = Integer.parseInt(strInput);
-                            count++;
+                    bytes = inputStream.read(buffer);
+                    final String strInput = new String(buffer, 0, bytes);
+                    System.out.println("BATTERY LEVEL: " + strInput);
 
-                        } else{
+                    if(!strInput.equals("d")){
+                        BL[count] = Integer.parseInt(strInput);
+                        count++;
 
-                            batteryLevel = 100*BL[0] + 10*BL[1] + BL[2];
-                            batteryLevel_tv = (TextView)findViewById(R.id.battery_level);
+                    } else{
 
+                        batteryLevel = 100*BL[0] + 10*BL[1] + BL[2];
+                        progress = (ProgressBar) findViewById(R.id.simpleProgressBar);
+
+
+
+                        if(batteryLevel <= 100){
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    batteryLevel_tv.setText(String.valueOf(batteryLevel));
+
+                                    if(batteryLevel < 21){
+                                        progress.setProgressTintList(ColorStateList.valueOf(Color.RED));
+                                    } else{
+                                        progress.setProgressTintList(ColorStateList.valueOf(Color.GREEN));
+                                    }
+
+                                    progress.setProgress(batteryLevel);
                                 }
                             });
-
-                            count = 0;
                         }
+
+                        count = 0;
+                    }
 
                     //}
                 }

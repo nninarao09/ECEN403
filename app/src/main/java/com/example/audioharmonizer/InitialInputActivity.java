@@ -105,7 +105,9 @@ public class InitialInputActivity extends AppCompatActivity implements Navigatio
 
                 //here should be an error checker -> if fields are empty then it should not proceed to the next page
                 //this does not work
-                if (TextUtils.isEmpty(beats_per_measure.getText().toString())){
+                if (TextUtils.isEmpty(beats_per_measure.getText().toString()) ||
+                        TextUtils.isEmpty(beats_per_minute.getText().toString()) ||
+                            TextUtils.isEmpty(name_of_song.getText().toString()) ){
                     showToast("You must enter in all the fields to continue");
                 } else{
                     mReadThread.stop();
@@ -136,9 +138,18 @@ public class InitialInputActivity extends AppCompatActivity implements Navigatio
         } else if (item.getItemId() == R.id.nav_initial_inputs) {
             return true;
         } else if (item.getItemId() == R.id.nav_modes) {
-            mReadThread.stop();
-            Intent intent = new Intent(InitialInputActivity.this, ModeOfOperationActivity.class);
-            startActivity(intent);
+            EditText name_of_song = (EditText) findViewById(R.id.name_of_song);
+            EditText beats_per_measure = (EditText) findViewById(R.id.beats_per_measure);
+            EditText beats_per_minute = (EditText) findViewById(R.id.beats_per_minute);
+            if (TextUtils.isEmpty(beats_per_measure.getText().toString()) ||
+                    TextUtils.isEmpty(beats_per_minute.getText().toString()) ||
+                    TextUtils.isEmpty(name_of_song.getText().toString()) ){
+                showToast("You must enter in all the fields to continue");
+            } else{
+                mReadThread.stop();
+                Intent intent = new Intent(InitialInputActivity.this, ModeOfOperationActivity.class);
+                startActivity(intent);
+            }
         } else if (item.getItemId() == R.id.nav_automatic) {
             mReadThread.stop();
             Intent intent = new Intent(InitialInputActivity.this, AutomaticActivity.class);
@@ -150,10 +161,6 @@ public class InitialInputActivity extends AppCompatActivity implements Navigatio
         } else if (item.getItemId() == R.id.nav_start_singing) {
             mReadThread.stop();
             Intent intent = new Intent(InitialInputActivity.this, StartSingingActivity.class);
-            startActivity(intent);
-        } else if (item.getItemId() == R.id.nav_recordings) {
-            mReadThread.stop();
-            Intent intent = new Intent(InitialInputActivity.this, RecordingsActivity.class);
             startActivity(intent);
         } else if (item.getItemId() == R.id.nav_faq) {
             mReadThread.stop();

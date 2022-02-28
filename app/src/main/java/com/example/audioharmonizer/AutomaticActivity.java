@@ -16,6 +16,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -28,6 +30,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -35,6 +38,7 @@ import com.google.android.material.navigation.NavigationView;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
@@ -54,6 +58,10 @@ public class AutomaticActivity extends AppCompatActivity implements NavigationVi
     public ActionBarDrawerToggle actionBarDrawerToggle_automatic;
     private NavigationView navigationView;
     public String delim = ";";
+
+    private ReadInput mReadThread = null;
+    int batteryLevel = 0;
+    ProgressBar progress;
 
 
     @Override
@@ -134,6 +142,8 @@ public class AutomaticActivity extends AppCompatActivity implements NavigationVi
         myHarmonyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         noh_spinner.setAdapter(myHarmonyAdapter);
 
+        mReadThread = new ReadInput(globalVariable.getmBluetoothConnection().getSocket());
+
 
         automatic_finish_button = (Button)findViewById(R.id.automatic_finish_button);
         automatic_finish_button.setOnClickListener(new View.OnClickListener() {
@@ -169,7 +179,7 @@ public class AutomaticActivity extends AppCompatActivity implements NavigationVi
                     globalVariable.getmBluetoothConnection().write(delim.getBytes(Charset.defaultCharset()));
                 }
 
-
+                mReadThread.stop();
                 Intent intent = new Intent(AutomaticActivity.this, StartSingingActivity.class);
                 startActivity(intent);
             }
@@ -215,26 +225,29 @@ public class AutomaticActivity extends AppCompatActivity implements NavigationVi
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
         if (item.getItemId() == R.id.nav_home) {
+            mReadThread.stop();
             Intent intent = new Intent(AutomaticActivity.this, HomePageActivity.class);
             startActivity(intent);
         } else if (item.getItemId() == R.id.nav_initial_inputs) {
+            mReadThread.stop();
             Intent intent = new Intent(AutomaticActivity.this, InitialInputActivity.class);
             startActivity(intent);
         } else if (item.getItemId() == R.id.nav_modes) {
+            mReadThread.stop();
             Intent intent = new Intent(AutomaticActivity.this, ModeOfOperationActivity.class);
             startActivity(intent);
         }else if (item.getItemId() == R.id.nav_automatic) {
             return true;
         } else if (item.getItemId() == R.id.nav_manual) {
+            mReadThread.stop();
             Intent intent = new Intent(AutomaticActivity.this, ManualActivity.class);
             startActivity(intent);
         } else if (item.getItemId() == R.id.nav_manual) {
+            mReadThread.stop();
             Intent intent = new Intent(AutomaticActivity.this, StartSingingActivity.class);
             startActivity(intent);
-        } else if (item.getItemId() == R.id.nav_recordings) {
-            Intent intent = new Intent(AutomaticActivity.this, RecordingsActivity.class);
-            startActivity(intent);
         } else if (item.getItemId() == R.id.nav_faq) {
+            mReadThread.stop();
             Intent intent = new Intent(AutomaticActivity.this, FAQActivity.class);
             startActivity(intent);
         } else {
@@ -245,6 +258,86 @@ public class AutomaticActivity extends AppCompatActivity implements NavigationVi
 
     private void showToast(String msg){
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    }
+
+    private class ReadInput implements Runnable {
+
+        private Thread t;
+        private BluetoothSocket mBTSocket;
+        private Boolean runningThread = true;
+
+
+
+        public ReadInput(BluetoothSocket mSocket) {
+            t = new Thread(this, "Input Thread");
+            t.start();
+            mBTSocket = mSocket;
+        }
+
+        public boolean isRunning() {
+            return t.isAlive();
+        }
+
+        @Override
+        public void run() {
+            InputStream inputStream;
+
+            try {
+                inputStream = mBTSocket.getInputStream();
+                byte[] buffer = new byte[1024];
+                int bytes;
+                int[] BL = {0, 0, 0};
+
+                int count = 0;
+
+                while (runningThread) {
+
+                    bytes = inputStream.read(buffer);
+                    final String strInput = new String(buffer, 0, bytes);
+                    System.out.println("BATTERY LEVEL automatic: " + strInput);
+
+                    if(!strInput.equals("d")){
+                        BL[count] = Integer.parseInt(strInput);
+                        count++;
+
+                    } else{
+
+                        batteryLevel = 100*BL[0] + 10*BL[1] + BL[2];
+                        progress = (ProgressBar) findViewById(R.id.simpleProgressBar);
+
+
+
+                        if(batteryLevel <= 100){
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+
+                                    if(batteryLevel < 21){
+                                        progress.setProgressTintList(ColorStateList.valueOf(Color.RED));
+                                    } else{
+                                        progress.setProgressTintList(ColorStateList.valueOf(Color.GREEN));
+                                    }
+
+                                    progress.setProgress(batteryLevel);
+                                }
+                            });
+                        }
+
+                        count = 0;
+                    }
+
+                    //}
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+        public void stop() {
+            runningThread = false;
+        }
+
     }
 }
 

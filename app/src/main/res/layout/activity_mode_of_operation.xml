@@ -12,25 +12,41 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:gravity="center">
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:id="@+id/battery_level_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Battery Level: "
+            android:textColorHint="#F4F0F0"
+            android:textSize="20sp" />
+
+        <ProgressBar
+            android:id="@+id/simpleProgressBar"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:max="100"
+            android:progress="@+id/progress"
+            />
 
         <Button
             android:id="@+id/automatic_button"
-            android:layout_width="150dp"
-            android:layout_height="623dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginRight="18dp"
-            android:textSize="45sp"
-            android:text="A\nu\nt\no\nm\na\nt\ni\nc" />
+            android:textSize="43sp"
+            android:text="Automatic" />
 
         <Button
             android:id="@+id/manual_button"
-            android:layout_width="150dp"
-            android:layout_height="623dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:textSize="45sp"
-            android:text="M\na\nn\nu\na\nl" />
+            android:text="Manual" />
     </LinearLayout>
 
     <com.google.android.material.navigation.NavigationView

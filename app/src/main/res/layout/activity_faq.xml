@@ -9,6 +9,30 @@
     android:id="@+id/my_drawer_layout_faq"
     tools:context=".FAQActivity">
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+    <TextView
+        android:id="@+id/battery_level_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Battery Level: "
+        android:textColorHint="#F4F0F0"
+        android:textSize="20sp" />
+
+    <ProgressBar
+        android:id="@+id/simpleProgressBar"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:max="100"
+        android:progress="@+id/progress"
+        />
+
+
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
@@ -21,6 +45,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.559"
         app:layout_constraintStart_toStartOf="parent" />
+
+    </LinearLayout>
 
     <com.google.android.material.navigation.NavigationView
         android:layout_width="wrap_content"
