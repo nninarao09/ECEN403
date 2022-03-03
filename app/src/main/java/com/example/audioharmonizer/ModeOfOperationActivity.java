@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -33,6 +34,8 @@ public class ModeOfOperationActivity extends AppCompatActivity implements Naviga
     private ReadInput mReadThread = null;
     int batteryLevel = 0;
     ProgressBar progress;
+
+    ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,8 +72,7 @@ public class ModeOfOperationActivity extends AppCompatActivity implements Naviga
 
         MenuItem menuItem = navigationView.getMenu().getItem(2).setChecked(true);
         onNavigationItemSelected(menuItem);
-        //**********************************************************************
-
+        //***********************************background********************************
 
         mReadThread = new ReadInput(globalVariable.getmBluetoothConnection().getSocket());
 

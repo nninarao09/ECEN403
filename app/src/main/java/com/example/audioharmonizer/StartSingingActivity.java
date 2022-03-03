@@ -24,14 +24,16 @@ import com.google.android.material.navigation.NavigationView;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.Charset;
 
 public class StartSingingActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener  {
     public int counter = 10;
     public int bpMinute = 0;
     public int bpMeasure = 0;
     public long fullLengthTime = 0;
-    Button start_singing_button;
+    Button start_singing_button, stop_singing_button;
     TextView countDown_textview;
+    private ProgressBar progressBar;
     BluetoothAdapter mBlueAdapter;
     private static final String TAG = "StartSingingActivity";
 
@@ -69,29 +71,50 @@ public class StartSingingActivity extends AppCompatActivity implements Navigatio
 
 
         start_singing_button = (Button)findViewById(R.id.start_singing_button);
+        stop_singing_button = (Button)findViewById(R.id.stop_singing_button);
         countDown_textview= (TextView) findViewById(R.id.countDown_textview);
+        progressBar = findViewById(R.id.progress_bar);
+        progressBar.setMax(bpMeasure-1);
+        progressBar.setProgress(bpMeasure-1);
 
         start_singing_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                start_singing_button.setEnabled(false);
                 counter = bpMeasure;
                 new CountDownTimer( fullLengthTime*1000, (fullLengthTime*1000/bpMeasure)){
                     public void onTick(long millisUntilFinished){
                         System.out.println("Counter Value: " + String.valueOf(counter));
                         countDown_textview.setText(String.valueOf(counter));
                         counter--;
+                        progressBar.setProgress(counter);
 
                     }
                     public void onFinish(){
                         try {
                             countDown_textview.setText("GO!!");
                             Log.d(TAG, "CountDown Timer is working and has finished");
+
+                            String startSinging = "start";
+                            globalVariable.getmBluetoothConnection().write(startSinging.getBytes(Charset.defaultCharset()));
+                            String delim = ";";
+                            globalVariable.getmBluetoothConnection().write(delim.getBytes(Charset.defaultCharset()));
                         }
                         catch (Exception e) {
                             Log.d(TAG, "CountDown Timer is not Working");
                         }
                     }
                 }.start();
+
+
+            }
+        });
+
+        stop_singing_button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                start_singing_button.setEnabled(true);
+                String stopSinging = "stop";
+                globalVariable.getmBluetoothConnection().write(stopSinging.getBytes(Charset.defaultCharset()));
             }
         });
 
