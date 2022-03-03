@@ -29,6 +29,8 @@ public class BluetoothConnectionService {
     private ConnectedThread mConnectedThread;
     private BluetoothSocket mSocketToSend;
 
+    //final GlobalClass globalVariable = (GlobalClass) getApplicationContext();
+
     public BluetoothConnectionService(Context context) {
         mContext = context;
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();

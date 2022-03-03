@@ -7,9 +7,9 @@ import java.util.ArrayList;
 
 public class GlobalClass extends Application{
 
-    private String NameOfSong;
-    private String BeatsPerMeasure;
-    private String BeatsPerMinute;
+    private String NameOfSong = null;
+    private String BeatsPerMeasure = null;
+    private String BeatsPerMinute = null;
     private BluetoothDevice device;
     private String[] InitialInputsArray = {"Filler", "Filler", "Filler", "Filler"};
     private String[] AutomaticArray = {"Filler", "Filler", "Filler", "Filler", "Filler"};

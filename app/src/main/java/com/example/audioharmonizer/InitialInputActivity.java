@@ -130,6 +130,7 @@ public class InitialInputActivity extends AppCompatActivity implements Navigatio
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        final GlobalClass globalVariable = (GlobalClass) getApplicationContext();
 
         if (item.getItemId() == R.id.nav_home) {
             mReadThread.stop();
@@ -138,12 +139,10 @@ public class InitialInputActivity extends AppCompatActivity implements Navigatio
         } else if (item.getItemId() == R.id.nav_initial_inputs) {
             return true;
         } else if (item.getItemId() == R.id.nav_modes) {
-            EditText name_of_song = (EditText) findViewById(R.id.name_of_song);
-            EditText beats_per_measure = (EditText) findViewById(R.id.beats_per_measure);
-            EditText beats_per_minute = (EditText) findViewById(R.id.beats_per_minute);
-            if (TextUtils.isEmpty(beats_per_measure.getText().toString()) ||
-                    TextUtils.isEmpty(beats_per_minute.getText().toString()) ||
-                    TextUtils.isEmpty(name_of_song.getText().toString()) ){
+            //showToast(globalVariable.getNameOfSong());
+            if (TextUtils.isEmpty(globalVariable.getBeatsPerMeasure()) ||
+                    TextUtils.isEmpty(globalVariable.getBeatsPerMinute()) ||
+                        TextUtils.isEmpty(globalVariable.getNameOfSong())  ){
                 showToast("You must enter in all the fields to continue");
             } else{
                 mReadThread.stop();
