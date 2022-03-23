@@ -109,7 +109,11 @@ public class InitialInputActivity extends AppCompatActivity implements Navigatio
                         TextUtils.isEmpty(beats_per_minute.getText().toString()) ||
                             TextUtils.isEmpty(name_of_song.getText().toString()) ){
                     showToast("You must enter in all the fields to continue");
-                } else{
+                } else if(Integer.parseInt(beats_per_minute.getText().toString()) > 150){
+                    showToast("Beats per Minute must be 130 or less");
+                }else if(Integer.parseInt(beats_per_measure.getText().toString()) > 20){
+                    showToast("Beats per Measure must be 20 or less");
+                }else{
                     mReadThread.stop();
                     Intent intent = new Intent(InitialInputActivity.this, ModeOfOperationActivity.class);
                     startActivity(intent);

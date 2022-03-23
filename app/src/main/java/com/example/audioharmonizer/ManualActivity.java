@@ -40,9 +40,6 @@ public class ManualActivity extends AppCompatActivity implements NavigationView.
     public DrawerLayout drawerLayout_manual;
     public ActionBarDrawerToggle actionBarDrawerToggle_manual;
     BluetoothAdapter mBlueAdapter;
-    public int height = 120;
-    public int height_of_Titles = 150;
-    public int height_of_Harmony_Number = 120;
     public int manualArrayLength;
     public String delim = ";";
     public int numberHarmonyToSend;
@@ -85,101 +82,103 @@ public class ManualActivity extends AppCompatActivity implements NavigationView.
 
         generate_new_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                    //creating the length array{
-                    final ArrayList<String> lengthArray = new ArrayList<String>();
-                    for(double i=0.5; i<=Integer.parseInt(globalVariable.getBeatsPerMeasure()); i+=0.5 ){
-                        lengthArray.add(String.valueOf(i));
-                    }
 
-                    numberHarmonyToSend = Integer.parseInt(number_of_harmonies.getText().toString());
-                    numberNotesToSend = Integer.parseInt(notes_per_harmony.getText().toString());
-
-
-                    int NumberOfHarmonies = Integer.parseInt(number_of_harmonies.getText().toString());
-                    int count = 1;
-                    int k = 0;
-
-                    manualArrayLength = numberHarmonyToSend * numberNotesToSend * 3;
-
-                    while (NumberOfHarmonies != 0) {
-
-                        String num = Integer.toString(count);
-                        TextView HarmonyNumber = new TextView(ManualActivity.this);
-                        HarmonyNumber.setText("Harmony " + num);
-                        HarmonyNumber.setGravity(Gravity.HORIZONTAL_GRAVITY_MASK);
-                        LinearLayout.LayoutParams tvHarmonyNumber = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                        tvHarmonyNumber.setMargins(dpToPx(20), dpToPx(0), dpToPx(20), dpToPx(0));
-                        HarmonyNumber.setPadding(dpToPx(0), dpToPx(0), dpToPx(0), dpToPx(0));
-                        HarmonyNumber.setLayoutParams(tvHarmonyNumber);
-                        myLayout.addView(HarmonyNumber);
+                    if(Integer.parseInt(notes_per_harmony.getText().toString())>30){
+                        showToast("You cannot add more than 30 notes");
+                    }else if(Integer.parseInt(number_of_harmonies.getText().toString())>4){
+                        showToast("You cannot add more than 4 harmonies");
+                    }else {
+                        numberHarmonyToSend = Integer.parseInt(number_of_harmonies.getText().toString());
 
 
-                        TextView tvNote = new TextView(ManualActivity.this);
-                        tvNote.setText("Note, Octave, and Length Blocks:");
-                        tvNote.setGravity(Gravity.HORIZONTAL_GRAVITY_MASK);
-                        LinearLayout.LayoutParams tvNoteLayout = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                        tvNoteLayout.setMargins(dpToPx(20), dpToPx(10), dpToPx(20), dpToPx(0));
-                        tvNote.setLayoutParams(tvNoteLayout);
-                        //tvNote.setPadding(0, 0, 0, 0);
-                        myLayout.addView(tvNote);
-
-//                        TextView tvLength = new TextView(ManualActivity.this);
-//                        tvLength.setText("Length");
-//                        LinearLayout.LayoutParams tvLengthLayout = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-//                        tvLengthLayout.setMargins(dpToPx(0), dpToPx(0), 0, dpToPx(0));
-//                        tvLength.setLayoutParams(tvLengthLayout);
-//                        //tvLength.setPadding(0, 0, 0, 0);
-//                        myLayout.addView(tvLength);
-
-                        for (int j = 0; j < Integer.parseInt(notes_per_harmony.getText().toString()); j++) {
-                            Spinner spinnerNote = new Spinner(ManualActivity.this);
-                            ArrayAdapter<String> myNoteAdapter = new ArrayAdapter<String>(ManualActivity.this,
-                                    android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.notes));
-                            myNoteAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-                            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                            lp.setMargins(dpToPx(150), dpToPx(0), dpToPx(150), 0);
-                            spinnerNote.setLayoutParams(lp);
-                            spinnerNote.setGravity(Gravity.RIGHT);
-                            spinnerNote.setPadding(dpToPx(0), dpToPx(0), dpToPx(0), dpToPx(0));
-                            spinnerNote.setId(k + j + 1);
-                            spinnerNote.setAdapter(myNoteAdapter);
-                            myLayout.addView(spinnerNote);
-
-                            Spinner spinnerOctave = new Spinner(ManualActivity.this);
-                            ArrayAdapter<String> myOctaveAdapter = new ArrayAdapter<String>(ManualActivity.this,
-                                    android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.octave));
-                            myOctaveAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-                            LinearLayout.LayoutParams lp3 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                            lp3.setMargins(dpToPx(150), dpToPx(0), dpToPx(150), 0);
-                            spinnerOctave.setLayoutParams(lp3);
-                            spinnerOctave.setGravity(Gravity.RIGHT);
-                            spinnerOctave.setPadding(dpToPx(0), dpToPx(0), dpToPx(0), dpToPx(0));
-                            spinnerOctave.setId(k + j + 200);
-                            spinnerOctave.setAdapter(myOctaveAdapter);
-                            myLayout.addView(spinnerOctave);
-
-
-                            Spinner spinnerLength = new Spinner(ManualActivity.this);
-                            ArrayAdapter<String> myLengthAdapter = new ArrayAdapter<String>(ManualActivity.this,
-                                    android.R.layout.simple_list_item_1, lengthArray);
-                            myLengthAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-                            LinearLayout.LayoutParams lp2 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                            lp2.setMargins(dpToPx(150), dpToPx(0), dpToPx(150), dpToPx(10));
-                            spinnerLength.setLayoutParams(lp2);
-                            spinnerLength.setGravity(Gravity.RIGHT);
-                            spinnerNote.setPadding(dpToPx(0), dpToPx(0), dpToPx(0), dpToPx(0));
-                            spinnerLength.setId(k + j + 100);
-                            spinnerLength.setAdapter(myLengthAdapter);
-                            myLayout.addView(spinnerLength);
-
+                        //creating the length array{
+                        final ArrayList<String> lengthArray = new ArrayList<String>();
+                        for (double i = 0.5; i <= Integer.parseInt(globalVariable.getBeatsPerMeasure()); i += 0.5) {
+                            lengthArray.add(String.valueOf(i));
                         }
 
-                        NumberOfHarmonies--;
-                        count++;
-                        k+=2;
+                        numberHarmonyToSend = Integer.parseInt(number_of_harmonies.getText().toString());
+                        numberNotesToSend = Integer.parseInt(notes_per_harmony.getText().toString());
+
+
+                        int NumberOfHarmonies = Integer.parseInt(number_of_harmonies.getText().toString());
+                        int count = 1;
+                        int k = 0;
+
+                        manualArrayLength = numberHarmonyToSend * numberNotesToSend * 3;
+
+                        while (NumberOfHarmonies != 0) {
+
+                            String num = Integer.toString(count);
+                            TextView HarmonyNumber = new TextView(ManualActivity.this);
+                            HarmonyNumber.setText("Harmony " + num);
+                            HarmonyNumber.setGravity(Gravity.HORIZONTAL_GRAVITY_MASK);
+                            LinearLayout.LayoutParams tvHarmonyNumber = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                            tvHarmonyNumber.setMargins(dpToPx(20), dpToPx(0), dpToPx(20), dpToPx(0));
+                            HarmonyNumber.setPadding(dpToPx(0), dpToPx(0), dpToPx(0), dpToPx(0));
+                            HarmonyNumber.setLayoutParams(tvHarmonyNumber);
+                            myLayout.addView(HarmonyNumber);
+
+
+                            TextView tvNote = new TextView(ManualActivity.this);
+                            tvNote.setText("Note, Octave, and Length Blocks:");
+                            tvNote.setGravity(Gravity.HORIZONTAL_GRAVITY_MASK);
+                            LinearLayout.LayoutParams tvNoteLayout = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                            tvNoteLayout.setMargins(dpToPx(20), dpToPx(10), dpToPx(20), dpToPx(0));
+                            tvNote.setLayoutParams(tvNoteLayout);
+                            //tvNote.setPadding(0, 0, 0, 0);
+                            myLayout.addView(tvNote);
+
+                            for (int j = 0; j < Integer.parseInt(notes_per_harmony.getText().toString()); j++) {
+                                Spinner spinnerNote = new Spinner(ManualActivity.this);
+                                ArrayAdapter<String> myNoteAdapter = new ArrayAdapter<String>(ManualActivity.this,
+                                        android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.notes));
+                                myNoteAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+                                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                                lp.setMargins(dpToPx(150), dpToPx(0), dpToPx(150), 0);
+                                spinnerNote.setLayoutParams(lp);
+                                spinnerNote.setGravity(Gravity.RIGHT);
+                                spinnerNote.setPadding(dpToPx(0), dpToPx(0), dpToPx(0), dpToPx(0));
+                                spinnerNote.setId(k + j + 1);
+                                spinnerNote.setAdapter(myNoteAdapter);
+                                myLayout.addView(spinnerNote);
+
+                                Spinner spinnerOctave = new Spinner(ManualActivity.this);
+                                ArrayAdapter<String> myOctaveAdapter = new ArrayAdapter<String>(ManualActivity.this,
+                                        android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.octave));
+                                myOctaveAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+                                LinearLayout.LayoutParams lp3 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                                lp3.setMargins(dpToPx(150), dpToPx(0), dpToPx(150), 0);
+                                spinnerOctave.setLayoutParams(lp3);
+                                spinnerOctave.setGravity(Gravity.RIGHT);
+                                spinnerOctave.setPadding(dpToPx(0), dpToPx(0), dpToPx(0), dpToPx(0));
+                                spinnerOctave.setId(k + j + 200);
+                                spinnerOctave.setAdapter(myOctaveAdapter);
+                                myLayout.addView(spinnerOctave);
+
+
+                                Spinner spinnerLength = new Spinner(ManualActivity.this);
+                                ArrayAdapter<String> myLengthAdapter = new ArrayAdapter<String>(ManualActivity.this,
+                                        android.R.layout.simple_list_item_1, lengthArray);
+                                myLengthAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+                                LinearLayout.LayoutParams lp2 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                                lp2.setMargins(dpToPx(150), dpToPx(0), dpToPx(150), dpToPx(10));
+                                spinnerLength.setLayoutParams(lp2);
+                                spinnerLength.setGravity(Gravity.RIGHT);
+                                spinnerNote.setPadding(dpToPx(0), dpToPx(0), dpToPx(0), dpToPx(0));
+                                spinnerLength.setId(k + j + 100);
+                                spinnerLength.setAdapter(myLengthAdapter);
+                                myLayout.addView(spinnerLength);
+
+                            }
+
+                            NumberOfHarmonies--;
+                            count++;
+                            k += 2;
+                        }
                     }
                 }
 
