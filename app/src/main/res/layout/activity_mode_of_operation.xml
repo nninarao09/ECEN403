@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#121111"
+    android:background="@color/black"
     android:id="@+id/my_drawer_layout_modes_of_operation"
     tools:context=".ModeOfOperationActivity">
 
@@ -15,22 +15,12 @@
         android:orientation="vertical"
         android:gravity="center_horizontal">
 
+
         <RelativeLayout
             android:id="@+id/progress_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            >
-
-
-            <pl.droidsonroids.gif.GifImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginEnd="0dp"
-                android:layout_marginBottom="382dp"
-                android:background="@color/black"
-                android:src="@drawable/music_background" />
+            android:backgroundTint="@color/black">
 
 
             <TextView
@@ -57,26 +47,37 @@
                 android:max="100"
                 android:progress="@+id/progress" />
 
+
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="150dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="100dp"
+                android:layout_marginEnd="0dp"
+                android:src="@drawable/music_note" />
+
             <Button
                 android:id="@+id/automatic_button"
                 android:layout_width="246dp"
                 android:layout_height="96dp"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
-                android:layout_marginTop="225dp"
-                android:layout_marginEnd="65dp"
+                android:layout_marginTop="340dp"
+                android:layout_marginEnd="83dp"
+                android:backgroundTint="#3F51B5"
                 android:text="Automatic"
                 android:textSize="25sp" />
 
             <Button
                 android:id="@+id/manual_button"
-                android:layout_width="201dp"
-                android:layout_height="110dp"
+                android:layout_width="246dp"
+                android:layout_height="96dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginEnd="88dp"
-                android:layout_marginBottom="224dp"
+                android:layout_marginEnd="83dp"
+                android:layout_marginBottom="130dp"
                 android:text="Manual"
+                android:backgroundTint="#F80000"
                 android:textSize="25sp" />
         </RelativeLayout>
     </LinearLayout>

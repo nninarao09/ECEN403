@@ -83,11 +83,13 @@ public class ManualActivity extends AppCompatActivity implements NavigationView.
         generate_new_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                    if(Integer.parseInt(notes_per_harmony.getText().toString())>30){
-                        showToast("You cannot add more than 30 notes");
-                    }else if(Integer.parseInt(number_of_harmonies.getText().toString())>4){
-                        showToast("You cannot add more than 4 harmonies");
+
+                    if(Integer.parseInt(notes_per_harmony.getText().toString())>50){
+                        showToast("You cannot add more than 50 notes");
+                    }else if(Integer.parseInt(number_of_harmonies.getText().toString())>3){
+                        showToast("You cannot add more than 3 harmonies");
                     }else {
+                        generate_new_button.setEnabled(false);
                         numberHarmonyToSend = Integer.parseInt(number_of_harmonies.getText().toString());
 
 
@@ -103,7 +105,7 @@ public class ManualActivity extends AppCompatActivity implements NavigationView.
 
                         int NumberOfHarmonies = Integer.parseInt(number_of_harmonies.getText().toString());
                         int count = 1;
-                        int k = 0;
+                        int k = 1;
 
                         manualArrayLength = numberHarmonyToSend * numberNotesToSend * 3;
 
@@ -177,8 +179,20 @@ public class ManualActivity extends AppCompatActivity implements NavigationView.
 
                             NumberOfHarmonies--;
                             count++;
-                            k += 2;
+                            k *= 10;
                         }
+
+                        Button dummyButton = new Button(ManualActivity.this);
+                        dummyButton.setText("dummy");
+                        dummyButton.setGravity(Gravity.HORIZONTAL_GRAVITY_MASK);
+                        dummyButton.setEnabled(false);
+                        LinearLayout.LayoutParams tvDummyButton= new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                        tvDummyButton.setMargins(dpToPx(20), dpToPx(0), dpToPx(20), dpToPx(0));
+                        dummyButton.setLayoutParams(tvDummyButton);
+                        dummyButton.setBackgroundColor(getResources().getColor(R.color.black));
+                        dummyButton.setTextColor(getResources().getColor(R.color.black));
+                        myLayout.addView(dummyButton);
+
                     }
                 }
 
@@ -191,7 +205,7 @@ public class ManualActivity extends AppCompatActivity implements NavigationView.
             {
                 int NumberOfHarmonies = Integer.parseInt(number_of_harmonies.getText().toString());
                 int count = 1;
-                int k = 0;
+                int k = 1;
 
                 while (NumberOfHarmonies != 0) {
                     for (int j = 0; j < Integer.parseInt(notes_per_harmony.getText().toString()); j++) {
@@ -211,7 +225,7 @@ public class ManualActivity extends AppCompatActivity implements NavigationView.
                     }
                     NumberOfHarmonies--;
                     count++;
-                    k+=2;
+                    k*=10;
                 }
 
 

@@ -2,10 +2,13 @@ package com.example.audioharmonizer;
 
 import android.app.Application;
 import android.bluetooth.BluetoothDevice;
+import android.content.Context;
 
 import java.util.ArrayList;
 
 public class GlobalClass extends Application{
+
+    private static GlobalClass instance;
 
     private String NameOfSong = null;
     private String BeatsPerMeasure = null;
@@ -16,11 +19,29 @@ public class GlobalClass extends Application{
     ArrayList<String> ManualArrayList = new ArrayList<String>();
     private String[] ListOfRecordings;
     private BluetoothConnectionService mBluetoothConnection;
-    private String BatteryLevel;
+    private String BatteryLevel = "100";
 
     public BluetoothDevice getDevice() {
         return device;
     }
+
+
+    @Override
+    public void onCreate() {
+        instance = this;
+        super.onCreate();
+    }
+
+
+    public static GlobalClass getInstance() {
+        return instance;
+    }
+
+    public static Context getContext(){
+        return instance;
+        // or return instance.getApplicationContext();
+    }
+
 
     public void setDevice(BluetoothDevice aDevice) {
         device = aDevice;

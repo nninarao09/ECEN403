@@ -163,20 +163,42 @@ public class BluetoothConnectionService{
             mmOutStream = tmpOut;
         }
 
-//        public void run() {
-//            byte[] buffer = new byte[1024];
-//            int bytes;
-//            while (true) {
-//                try {
-//                    bytes = mmInStream.read(buffer);
-//                    String incomingMessage = new String(buffer, 0, bytes);
-//                    Log.d(TAG, "InputStream: " + incomingMessage);
-//                } catch (IOException e) {
-//                    Log.e(TAG, "write: Error reading InputStream." + e.getMessage());
-//                    break;
-//                }
-//            }
-//        }
+        public void run() {
+            byte[] buffer = new byte[1024];
+            int bytes;
+
+            Boolean runningThread = true;
+            int batteryLevel;
+            int count = 0;
+            int[] BL = {0, 0, 0};
+
+            while (true) {
+                try {
+                    bytes = mmInStream.read(buffer);
+                    String incomingMessage = new String(buffer, 0, bytes);
+                    Log.d(TAG, "InputStream - BatteryLevel: " + incomingMessage);
+
+                    Log.d(TAG, "BLEVELLL: " + GlobalClass.getInstance().getBatteryLevel());
+
+
+                    if (incomingMessage.equals("d")) {
+                        batteryLevel = 100 * BL[0] + 10 * BL[1] + BL[2];
+                        GlobalClass.getInstance().setBatteryLevel(Integer.toString(batteryLevel));
+                        count = 0;
+
+                    } else {
+                        BL[count] = Integer.parseInt(incomingMessage);
+                        count++;
+                    }
+
+
+
+                } catch (IOException e) {
+                    Log.e(TAG, "write: Error reading InputStream." + e.getMessage());
+                    break;
+                }
+            }
+        }
 
         public void write(byte[] bytes) {
             String text = new String(bytes, Charset.defaultCharset());

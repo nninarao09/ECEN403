@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#121111"
+    android:background="@color/black"
     android:id="@+id/my_drawer_layout_home_page" >
 
     <LinearLayout
@@ -34,13 +34,14 @@
         <ImageView
             android:layout_width="fill_parent"
             android:layout_height="523dp"
-            android:src="@drawable/real_logo" />
+            android:src="@drawable/music_note" />
 
         <Button
             android:id="@+id/get_started"
             android:layout_width="189dp"
             android:layout_height="wrap_content"
             android:text="Get Started"
+            android:backgroundTint="#3F51B5"
             android:textColor="@color/black"
             android:layout_marginTop="10dp"
             android:textSize="15sp"

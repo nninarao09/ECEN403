@@ -44,8 +44,12 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
 
     BluetoothAdapter mBlueAdapter;
 
-    private ReadInput mReadThread = null;
-    int batteryLevel = 0;
+    //private ReadInput mReadThread = null;
+    private updateBatteryLevel mUpdateBLEVEL = null;
+
+
+
+    int batteryLevel = 100;
     ProgressBar progress;
 
     //SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -91,16 +95,23 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
         // use findViewById() to get the both Button and textview
 
         //globalVariable.getmBluetoothConnection().getConnectedThread();
-        mReadThread = new ReadInput(globalVariable.getmBluetoothConnection().getSocket());
+        //mReadThread = new ReadInput(globalVariable.getmBluetoothConnection().getSocket());
+
+        progress = (ProgressBar) findViewById(R.id.simpleProgressBar);
+        progress.setProgressTintList(ColorStateList.valueOf(Color.GREEN));
+        progress.setProgress(Integer.parseInt(GlobalClass.getInstance().getBatteryLevel()));
 
 
+        mUpdateBLEVEL = new updateBatteryLevel();
+        //mUpdateBLEVEL.run();
 
         next_button = (Button)findViewById(R.id.get_started);
         next_button.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v)
             {
-                mReadThread.stop();
+                //mReadThread.stop();
+                mUpdateBLEVEL.stop();
                 Intent intent = new Intent(HomePageActivity.this, InitialInputActivity.class);
                 startActivity(intent);
             }
@@ -123,27 +134,27 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
         if (item.getItemId() == R.id.nav_home) {
             return true;
         } else if (item.getItemId() == R.id.nav_initial_inputs) {
-            mReadThread.stop();
+            //mReadThread.stop();
             Intent intent = new Intent(HomePageActivity.this, InitialInputActivity.class);
             startActivity(intent);
         } else if (item.getItemId() == R.id.nav_modes) {
-            mReadThread.stop();
+            //mReadThread.stop();
             Intent intent = new Intent(HomePageActivity.this, ModeOfOperationActivity.class);
             startActivity(intent);
         }else if (item.getItemId() == R.id.nav_automatic) {
-            mReadThread.stop();
+            //mReadThread.stop();
             Intent intent = new Intent(HomePageActivity.this, AutomaticActivity.class);
             startActivity(intent);
         } else if (item.getItemId() == R.id.nav_manual) {
-            mReadThread.stop();
+            //mReadThread.stop();
             Intent intent = new Intent(HomePageActivity.this, ManualActivity.class);
             startActivity(intent);
         } else if (item.getItemId() == R.id.nav_start_singing) {
-            mReadThread.stop();
+            //mReadThread.stop();
             Intent intent = new Intent(HomePageActivity.this, StartSingingActivity.class);
             startActivity(intent);
         } else if (item.getItemId() == R.id.nav_faq) {
-            mReadThread.stop();
+            //mReadThread.stop();
             Intent intent = new Intent(HomePageActivity.this, FAQActivity.class);
             startActivity(intent);
         } else {
@@ -157,92 +168,119 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
-    private class ReadInput implements Runnable {
 
-        private Thread t;
-        private BluetoothSocket mBTSocket;
-        private Boolean runningThread = true;
+    private class updateBatteryLevel implements Runnable {
+        //public updateBatteryLevel() {}
 
-
-
-        public ReadInput(BluetoothSocket mSocket) {
-            t = new Thread(this, "Input Thread");
-            t.start();
-            mBTSocket = mSocket;
-        }
-
-        public boolean isRunning() {
-            return t.isAlive();
-        }
+        private Boolean isRunning = true;
 
         @Override
         public void run() {
-            InputStream inputStream;
 
-            try {
-                inputStream = mBTSocket.getInputStream();
-                byte[] buffer = new byte[1024];
-                int bytes;
-                int[] BL = {0, 0, 0};
+            progress = (ProgressBar) findViewById(R.id.simpleProgressBar);
 
-                int count = 0;
+            System.out.println("updating battery in runnable");
 
-                while (runningThread) {
+            while(isRunning){
+                if (Integer.parseInt(GlobalClass.getInstance().getBatteryLevel()) <= 100) {
 
-                    bytes = inputStream.read(buffer);
-                    final String strInput = new String(buffer, 0, bytes);
-                    System.out.println("BATTERY LEVEL: " + strInput);
-
-                    if(!strInput.equals("d")){
-                        BL[count] = Integer.parseInt(strInput);
-                        count++;
-
-                    } else{
-
-                        batteryLevel = 100*BL[0] + 10*BL[1] + BL[2];
-                        progress = (ProgressBar) findViewById(R.id.simpleProgressBar);
-
-
-
-                        if(batteryLevel <= 100){
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-
-                                    if(batteryLevel < 21){
-                                        progress.setProgressTintList(ColorStateList.valueOf(Color.RED));
-                                    } else{
-                                        progress.setProgressTintList(ColorStateList.valueOf(Color.GREEN));
-                                    }
-
-                                    progress.setProgress(batteryLevel);
-                                }
-                            });
-                        }
-
-                        count = 0;
+                    if (Integer.parseInt(GlobalClass.getInstance().getBatteryLevel()) < 21) {
+                        progress.setProgressTintList(ColorStateList.valueOf(Color.RED));
+                    } else {
+                        progress.setProgressTintList(ColorStateList.valueOf(Color.GREEN));
                     }
 
-                    //}
+                    progress.setProgress(Integer.parseInt(GlobalClass.getInstance().getBatteryLevel()));
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
             }
 
         }
 
         public void stop() {
-            runningThread = false;
-//            try {
-//                //mBTSocket.close();
-//
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//                //System.out.println("ERROR CLOSING THREAD");
-//
-//            }
+            isRunning = false;
         }
 
     }
+
+
+//    private class ReadInput implements Runnable {
+//
+//        private Thread t;
+//        private BluetoothSocket mBTSocket;
+//        private Boolean runningThread = true;
+//
+//
+//
+//        public ReadInput(BluetoothSocket mSocket) {
+//            t = new Thread(this, "Input Thread");
+//            t.start();
+//            mBTSocket = mSocket;
+//        }
+//
+//        public boolean isRunning() {
+//            return t.isAlive();
+//        }
+//
+//        @Override
+//        public void run() {
+//            InputStream inputStream;
+//
+//            try {
+//                inputStream = mBTSocket.getInputStream();
+//                byte[] buffer = new byte[1024];
+//                int bytes;
+//                int[] BL = {0, 0, 0};
+//
+//                int count = 0;
+//
+//                while (runningThread) {
+//
+//                    bytes = inputStream.read(buffer);
+//                    final String strInput = new String(buffer, 0, bytes);
+//                    System.out.println("BATTERY LEVEL: " + strInput);
+//
+//                    if(!strInput.equals("d")){
+//                        BL[count] = Integer.parseInt(strInput);
+//                        count++;
+//
+//                    } else{
+//
+//                        batteryLevel = 100*BL[0] + 10*BL[1] + BL[2];
+//                        progress = (ProgressBar) findViewById(R.id.simpleProgressBar);
+//
+//
+//
+//                        if(batteryLevel <= 100){
+//                            runOnUiThread(new Runnable() {
+//                                @Override
+//                                public void run() {
+//
+//                                    if(batteryLevel < 21){
+//                                        progress.setProgressTintList(ColorStateList.valueOf(Color.RED));
+//                                    } else{
+//                                        progress.setProgressTintList(ColorStateList.valueOf(Color.GREEN));
+//                                    }
+//
+//                                    progress.setProgress(batteryLevel);
+//                                }
+//                            });
+//                        }
+//
+//                        count = 0;
+//                    }
+//
+//                    //}
+//                }
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//
+//        }
+//
+//        public void stop() {
+//            runningThread = false;
+//        }
+//
+//    }
 }
 
