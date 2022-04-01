@@ -178,7 +178,7 @@ public class BluetoothConnectionService{
                     String incomingMessage = new String(buffer, 0, bytes);
                     Log.d(TAG, "InputStream - BatteryLevel: " + incomingMessage);
 
-                    Log.d(TAG, "BLEVELLL: " + GlobalClass.getInstance().getBatteryLevel());
+                    //Log.d(TAG, "BLEVELLL: " + GlobalClass.getInstance().getBatteryLevel());
 
 
                     if (incomingMessage.equals("d")) {
