@@ -143,6 +143,7 @@ public class AutomaticActivity extends AppCompatActivity implements NavigationVi
         myHarmonyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         noh_spinner.setAdapter(myHarmonyAdapter);
 
+        //**************************Battery Level Updates**********************************************************
 
         progress = (ProgressBar) findViewById(R.id.simpleProgressBar);
         if(Integer.parseInt(GlobalClass.getInstance().getBatteryLevel())  < 21){

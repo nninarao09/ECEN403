@@ -83,6 +83,8 @@ public class ManualActivity extends AppCompatActivity implements NavigationView.
         EditText number_of_harmonies = (EditText) findViewById(R.id.number_of_harmonies);
         EditText notes_per_harmony = (EditText) findViewById(R.id.notes_per_harmony);
 
+       // manual_finish_button.setEnabled(false);
+
         generate_new_button = (Button)findViewById(R.id.generate_new);
         LinearLayout myLayout = (LinearLayout) findViewById(R.id.linear_inside_scroll);
         //ScrollView myScrollview = findViewById(R.id.scrollView_manual);
@@ -90,13 +92,14 @@ public class ManualActivity extends AppCompatActivity implements NavigationView.
         generate_new_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
+                   // manual_finish_button.setEnabled(true);
 
                     if(Integer.parseInt(notes_per_harmony.getText().toString())>50){
                         showToast("You cannot add more than 50 notes");
                     }else if(Integer.parseInt(number_of_harmonies.getText().toString())>3){
                         showToast("You cannot add more than 3 harmonies");
                     }else {
-                        generate_new_button.setEnabled(false);
+                        //generate_new_button.setEnabled(false);
                         numberHarmonyToSend = Integer.parseInt(number_of_harmonies.getText().toString());
 
 

@@ -187,7 +187,7 @@ public class Bluetooth2Activity extends AppCompatActivity implements AdapterView
                     Set<BluetoothDevice> devices = mBluetoothAdapter.getBondedDevices();
                     for(BluetoothDevice device: devices) {
                         globalVariable.setDevice(device);
-                        if (device.getName().equals("ESP32Test")) {
+                        if (device.getName().equals("AudioHarmonizer")) {
                             startConnection();
                             globalVariable.setmBluetoothConnection(mBluetoothConnection);
                             Intent intent = new Intent(Bluetooth2Activity.this, HomePageActivity.class);

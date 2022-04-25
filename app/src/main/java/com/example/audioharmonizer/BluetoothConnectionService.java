@@ -179,19 +179,20 @@ public class BluetoothConnectionService{
                     Log.d(TAG, "InputStream - BatteryLevel: " + incomingMessage);
 
                     //Log.d(TAG, "BLEVELLL: " + GlobalClass.getInstance().getBatteryLevel());
+                    if(incomingMessage.length() == 1){
+                        if (incomingMessage.equals("d")) {
+                            batteryLevel = 100 * BL[0] + 10 * BL[1] + BL[2];
+                            GlobalClass.getInstance().setBatteryLevel(Integer.toString(batteryLevel));
+                            count = 0;
 
+                        } else {
+                            BL[count] = Integer.parseInt(incomingMessage);
+                            count++;
+                        }
+                    } else{
+                        Log.e(TAG, "Ignore this valye");
 
-                    if (incomingMessage.equals("d")) {
-                        batteryLevel = 100 * BL[0] + 10 * BL[1] + BL[2];
-                        GlobalClass.getInstance().setBatteryLevel(Integer.toString(batteryLevel));
-                        count = 0;
-
-                    } else {
-                        BL[count] = Integer.parseInt(incomingMessage);
-                        count++;
                     }
-
-
 
                 } catch (IOException e) {
                     Log.e(TAG, "write: Error reading InputStream." + e.getMessage());
